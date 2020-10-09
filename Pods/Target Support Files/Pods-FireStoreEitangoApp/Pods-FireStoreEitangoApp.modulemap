@@ -1,0 +1,6 @@
+framework module Pods_FireStoreEitangoApp {
+  umbrella header "Pods-FireStoreEitangoApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
