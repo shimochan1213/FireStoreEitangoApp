@@ -1,4 +1,84 @@
 PODS:
+  - Alamofire (5.2.2)
+  - ChameleonFramework (2.1.0):
+    - ChameleonFramework/Default (= 2.1.0)
+  - ChameleonFramework/Default (2.1.0)
+  - Firebase (6.29.0):
+    - Firebase/Core (= 6.29.0)
+  - Firebase/Analytics (6.29.0):
+    - Firebase/Core
+  - Firebase/Auth (6.29.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 6.7.1)
+  - Firebase/Core (6.29.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.7.0)
+  - Firebase/CoreOnly (6.29.0):
+    - FirebaseCore (= 6.9.2)
+  - Firebase/Database (6.29.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 6.4.0)
+  - FirebaseAnalytics (6.7.0):
+    - FirebaseCore (~> 6.8)
+    - FirebaseInstallations (~> 1.4)
+    - GoogleAppMeasurement (= 6.7.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
+    - GoogleUtilities/MethodSwizzler (~> 6.7)
+    - GoogleUtilities/Network (~> 6.7)
+    - "GoogleUtilities/NSData+zlib (~> 6.7)"
+    - nanopb (~> 1.30905.0)
+  - FirebaseAuth (6.7.1):
+    - FirebaseCore (~> 6.8)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (6.9.2):
+    - FirebaseCoreDiagnostics (~> 1.3)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+  - FirebaseCoreDiagnostics (1.5.0):
+    - GoogleDataTransport (~> 7.0)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+    - nanopb (~> 1.30905.0)
+  - FirebaseDatabase (6.4.0):
+    - FirebaseCore (~> 6.8)
+    - leveldb-library (~> 1.22)
+  - FirebaseInstallations (1.5.0):
+    - FirebaseCore (~> 6.8)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/UserDefaults (~> 6.7)
+    - PromisesObjC (~> 1.2)
+  - GoogleAppMeasurement (6.7.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
+    - GoogleUtilities/MethodSwizzler (~> 6.7)
+    - GoogleUtilities/Network (~> 6.7)
+    - "GoogleUtilities/NSData+zlib (~> 6.7)"
+    - nanopb (~> 1.30905.0)
+  - GoogleDataTransport (7.1.0):
+    - nanopb (~> 1.30905.0)
+  - GoogleUtilities/AppDelegateSwizzler (6.7.1):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.7.1):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.7.1):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.7.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.7.1):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.7.1)"
+  - GoogleUtilities/Reachability (6.7.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.7.1):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (1.4.0)
+  - leveldb-library (1.22)
+  - lottie-ios (3.1.8)
   - MaterialComponents (118.0.0):
     - MaterialComponents/ActionSheet (= 118.0.0)
     - "MaterialComponents/ActionSheet+Theming (= 118.0.0)"
@@ -639,30 +719,88 @@ PODS:
   - MotionAnimator (2.8.1):
     - MotionInterchange (~> 1.6)
   - MotionInterchange (1.6.0)
+  - nanopb (1.30905.0):
+    - nanopb/decode (= 1.30905.0)
+    - nanopb/encode (= 1.30905.0)
+  - nanopb/decode (1.30905.0)
+  - nanopb/encode (1.30905.0)
+  - PromisesObjC (1.2.9)
   - RAMAnimatedTabBarController (5.2.0)
+  - SDWebImage (5.8.4):
+    - SDWebImage/Core (= 5.8.4)
+  - SDWebImage/Core (5.8.4)
+  - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
+  - Alamofire
+  - ChameleonFramework
+  - Firebase
+  - Firebase/Analytics
+  - Firebase/Auth
+  - Firebase/Database
+  - lottie-ios
   - MaterialComponents
+  - MaterialComponents/Dialogs
   - MaterialComponents/TextFields
   - RAMAnimatedTabBarController
+  - SDWebImage
+  - SwiftyJSON
 
 SPEC REPOS:
   trunk:
+    - Alamofire
+    - ChameleonFramework
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseDatabase
+    - FirebaseInstallations
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleUtilities
+    - GTMSessionFetcher
+    - leveldb-library
+    - lottie-ios
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
     - MotionAnimator
     - MotionInterchange
+    - nanopb
+    - PromisesObjC
     - RAMAnimatedTabBarController
+    - SDWebImage
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  Firebase: 57957c8d6eb3d8b80a560b1dc58be24724b89ff2
+  FirebaseAnalytics: aa522dce9fd93002ba1554467d23ce7092323000
+  FirebaseAuth: a818d73466d51db897d3bf3c0f3baa3dae7fd4c0
+  FirebaseCore: 7930a1946517d94256d857f97371ed993b55f7bd
+  FirebaseCoreDiagnostics: 7535fe695737f8c5b350584292a70b7f8ff0357b
+  FirebaseDatabase: 55e69fe802ccb438d9c6ee51eb32fd425d5409d3
+  FirebaseInstallations: 3c520c951305cbf9ca54eb891ff9e6d1fd384881
+  GoogleAppMeasurement: 345d365fd105e6682bf5084783a5352a3db26820
+  GoogleDataTransport: af0c79193dc59acd37630b4833d0dc6912ae6bd5
+  GoogleUtilities: e121a3867449ce16b0e35ddf1797ea7a389ffdf2
+  GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   MaterialComponents: 333a09d55de4bc53e0e2e08f178c6f29cfe8645f
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   MotionAnimator: ee16aa30567c5bae0fb2750c132915829cfaaf8a
   MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
+  nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
+  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 6b95a98fe5acde9d81542dcaf0f28f174b340c35
+PODFILE CHECKSUM: 94ed8f8f41ca565f0a1f97ace1082c53ffc24dc8
 
 COCOAPODS: 1.9.1

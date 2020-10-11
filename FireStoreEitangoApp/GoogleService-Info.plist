@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>170013937155-bmbude4h98la22ebs4emaohkk22vsbq1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.170013937155-bmbude4h98la22ebs4emaohkk22vsbq1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC8lu0PmxitW7ebcIn9js6djejuydW-ius</string>
+	<key>GCM_SENDER_ID</key>
+	<string>170013937155</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.yuchineko.FireStoreEitangoApp</string>
+	<key>PROJECT_ID</key>
+	<string>firestoreeitangoapp</string>
+	<key>STORAGE_BUCKET</key>
+	<string>firestoreeitangoapp.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:170013937155:ios:5bae6853499ab5c75b0836</string>
+	<key>DATABASE_URL</key>
+	<string>https://firestoreeitangoapp.firebaseio.com</string>
+</dict>
+</plist>
