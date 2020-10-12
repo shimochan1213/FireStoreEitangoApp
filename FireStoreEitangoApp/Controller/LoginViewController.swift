@@ -55,6 +55,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 
                 print("ログイン成功しただよ")
                 
+                //自動ログインのため
+                UserDefaults.standard.set(self.textFieldFloatingUserName.text!, forKey: "email")
+                UserDefaults.standard.set(self.textFieldFloatingPW.text!, forKey: "PW")
+                
+                //アラート
                 let alertController = MDCAlertController(title: "ログイン成功", message: "さあ、はじめましょう！")
                 let action = MDCAlertAction(title:"OK"){(alert) in
                     self.navigationController?.dismiss(animated: true, completion: nil)
@@ -63,14 +68,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 alertController.addAction(action)
                 self.present(alertController, animated:true)
                 
-                
-               
-                
-                
             }
         }
-        
-        
     }
     
     

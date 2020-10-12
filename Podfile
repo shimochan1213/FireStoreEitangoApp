@@ -10,6 +10,7 @@ target 'FireStoreEitangoApp' do
 	pod 'MaterialComponents'
 	pod 'MaterialComponents/TextFields'
 	pod 'MaterialComponents/Dialogs'
+	pod 'MaterialComponents/Cards+Theming'
 
 	pod 'SwiftyJSON'
 	pod 'Alamofire'
@@ -18,8 +19,12 @@ target 'FireStoreEitangoApp' do
 	pod 'Firebase'
 	pod 'Firebase/Auth'
 	pod 'Firebase/Database'
+	pod 'Firebase/Firestore'
+	pod 'EMAlertController'
 	pod 'lottie-ios'
 	pod 'ChameleonFramework'
+
+	
 
 	# add the Firebase pod for Google Analytics
 pod 'Firebase/Analytics'

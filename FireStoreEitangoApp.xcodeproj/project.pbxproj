@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1A0517A73EC841BD84554203 /* Pods_FireStoreEitangoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B32305924707350649D7C9 /* Pods_FireStoreEitangoApp.framework */; };
+		B1482F4B253497AF00CC0C6B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1482F4A253497AF00CC0C6B /* HomeViewController.swift */; };
+		B1482F4D2534984000CC0C6B /* PreManabuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */; };
 		B167D0B0252F447300D31AFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B167D0AF252F447300D31AFF /* AppDelegate.swift */; };
 		B167D0B2252F447300D31AFF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B167D0B1252F447300D31AFF /* SceneDelegate.swift */; };
 		B167D0B4252F447300D31AFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B167D0B3252F447300D31AFF /* ViewController.swift */; };
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		083A115E1AE4969DDC252F2B /* Pods-FireStoreEitangoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireStoreEitangoApp.release.xcconfig"; path = "Target Support Files/Pods-FireStoreEitangoApp/Pods-FireStoreEitangoApp.release.xcconfig"; sourceTree = "<group>"; };
 		683AEA730343DB49391D5228 /* Pods-FireStoreEitangoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireStoreEitangoApp.debug.xcconfig"; path = "Target Support Files/Pods-FireStoreEitangoApp/Pods-FireStoreEitangoApp.debug.xcconfig"; sourceTree = "<group>"; };
+		B1482F4A253497AF00CC0C6B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreManabuViewController.swift; sourceTree = "<group>"; };
 		B167D0AC252F447300D31AFF /* FireStoreEitangoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireStoreEitangoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B167D0AF252F447300D31AFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B167D0B1252F447300D31AFF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +117,8 @@
 				B17129442532F4DE003DCDF7 /* ManabuViewController.swift */,
 				B171294625332D5F003DCDF7 /* LoginViewController.swift */,
 				B171294825333B8E003DCDF7 /* RegisterViewController.swift */,
+				B1482F4A253497AF00CC0C6B /* HomeViewController.swift */,
+				B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -237,6 +243,8 @@
 				B167D0B4252F447300D31AFF /* ViewController.swift in Sources */,
 				B171294925333B8E003DCDF7 /* RegisterViewController.swift in Sources */,
 				B171294725332D5F003DCDF7 /* LoginViewController.swift in Sources */,
+				B1482F4D2534984000CC0C6B /* PreManabuViewController.swift in Sources */,
+				B1482F4B253497AF00CC0C6B /* HomeViewController.swift in Sources */,
 				B167D0C6252F65C000D31AFF /* OthersViewController.swift in Sources */,
 				B17129452532F4DE003DCDF7 /* ManabuViewController.swift in Sources */,
 				B167D0B0252F447300D31AFF /* AppDelegate.swift in Sources */,
