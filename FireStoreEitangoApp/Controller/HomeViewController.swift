@@ -58,11 +58,6 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         
         
         
-        
-        
-        
-        
-        
         return cell
     }
     

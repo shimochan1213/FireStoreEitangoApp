@@ -8,52 +8,105 @@
 
 import UIKit
 
-class PreManabuViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-  
+class PreManabuViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
-   
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var reviewCollectinView: UICollectionView!
     
-    let ranges: [String] = ["1-20","21-40","41-60","61-80","81-100","81-100","81-100","81-100","81-100","81-100","81-100"]
-
-
+    
+    
+    
+    
+    
+    let ranges: [String] = ["1-20","21-40","41-60","61-80","81-100"]
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.delegate = self
-        tableView.dataSource = self
         
-       
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
+        reviewCollectinView.dataSource = self
+        reviewCollectinView.delegate = self
+        
+//         //セル同士の間隔調整
+//        let layout = UICollectionViewFlowLayout()
+////        layout.minimumLineSpacing = 30
+//        layout.minimumInteritemSpacing = 30
+//        collectionView.collectionViewLayout = layout
         
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ranges.count
-      }
-      
-      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-        cell.textLabel?.text = ranges[indexPath.row]
-        cell.textLabel?.font = .boldSystemFont(ofSize: 40)
-        
-        
-      
-        
-        return cell
-      }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        ranges.count
+    }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+//                cell.backgroundColor = .blue
+        
+        cell.layer.masksToBounds = false
+        // 影の方向（width=右方向、height=下方向、CGSize.zero=方向指定なし）
+        cell.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        // 影の色
+        cell.layer.shadowColor = UIColor.black.cgColor
+        // 影の濃さ
+        cell.layer.shadowOpacity = 0.05
+        // 影をぼかし
+        cell.layer.shadowRadius = 4
+        
+
+        
+        
+    
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+       
+        let cellSize : CGFloat = self.view.bounds.width * 6/7
+        return CGSize(width: cellSize, height: self.view.bounds.height/4)
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.bounds.height/7
+    
+    
+    //reviewCollectionView
+    
+    func reviewCollectinView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        ranges.count
     }
     
- 
+    func reviewCollectinView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+//                cell.backgroundColor = .blue
+        
+        cell.layer.masksToBounds = false
+        // 影の方向（width=右方向、height=下方向、CGSize.zero=方向指定なし）
+        cell.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        // 影の色
+        cell.layer.shadowColor = UIColor.black.cgColor
+        // 影の濃さ
+        cell.layer.shadowOpacity = 0.05
+        // 影をぼかし
+        cell.layer.shadowRadius = 4
+    
+        return cell
+    }
+    
+    func reviewCollectinView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let horizontalSpace : CGFloat = 20
+        let cellSize : CGFloat = self.view.bounds.width * 6/7
+        return CGSize(width: cellSize, height: self.view.bounds.height/2)
+    }
+    
+   
     
     
     
