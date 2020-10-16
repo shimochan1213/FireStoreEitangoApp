@@ -13,35 +13,39 @@ import Firebase
 
 class LoginViewController: UIViewController,UITextFieldDelegate {
     
-    @IBOutlet weak var textFieldFloatingUserName: MDCTextField!
+
+    @IBOutlet weak var textFieldFloatingEmail: MDCTextField!
     @IBOutlet weak var textFieldFloatingPW: MDCTextField!
     
-    var textControllerUserName: MDCTextInputControllerOutlined!
+    var textControllerEmail: MDCTextInputControllerOutlined!
     var textControllerPW: MDCTextInputControllerOutlined!
+   
     
     @IBOutlet weak var loginBtn: MDCRaisedButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textFieldFloatingUserName.delegate = self
+        textFieldFloatingEmail.delegate = self
         textFieldFloatingPW.delegate = self
-
+        
         loginBtn.layer.cornerRadius = 5
-  
-        textFieldFloatingUserName.placeholder = "メールアドレス"
-               self.textControllerUserName = MDCTextInputControllerOutlined(textInput: textFieldFloatingUserName)
-            self.textControllerUserName.textInsets(UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
-               
-               textFieldFloatingPW.placeholder = "パスワード"
-               self.textControllerPW = MDCTextInputControllerOutlined(textInput: textFieldFloatingPW)
+        
+        textFieldFloatingEmail.placeholder = "メールアドレス"
+        self.textControllerEmail = MDCTextInputControllerOutlined(textInput: textFieldFloatingEmail)
+        self.textControllerEmail.textInsets(UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
+        
+        textFieldFloatingPW.placeholder = "パスワード"
+        self.textControllerPW = MDCTextInputControllerOutlined(textInput: textFieldFloatingPW)
+        
+       
         
     }
     
     
     @IBAction func login(_ sender: Any) {
         
-        Auth.auth().signIn(withEmail: textFieldFloatingUserName.text!, password: textFieldFloatingPW.text!) { (user, error) in
+        Auth.auth().signIn(withEmail: textFieldFloatingEmail.text!, password: textFieldFloatingPW.text!) { (user, error) in
             if error != nil{
                 print(error)
                 
@@ -55,9 +59,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 
                 print("ログイン成功しただよ")
                 
-                //自動ログインのため
-                UserDefaults.standard.set(self.textFieldFloatingUserName.text!, forKey: "email")
-                UserDefaults.standard.set(self.textFieldFloatingPW.text!, forKey: "PW")
+//                //自動ログインのため
+//                UserDefaults.standard.set(self.textFieldFloatingEmail.text!, forKey: "email")
+//                UserDefaults.standard.set(self.textFieldFloatingPW.text!, forKey: "PW")
                 
                 //アラート
                 let alertController = MDCAlertController(title: "ログイン成功", message: "さあ、はじめましょう！")
@@ -85,16 +89,16 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     //タッチでキーボ閉じる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        textFieldFloatingUserName.resignFirstResponder()
+        textFieldFloatingEmail.resignFirstResponder()
         textFieldFloatingPW.resignFirstResponder()
     }
     
     //リターンでキーボ閉じる
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textFieldFloatingUserName.resignFirstResponder()
+        textFieldFloatingEmail.resignFirstResponder()
         textFieldFloatingPW.resignFirstResponder()
         return true
     }
-
-
+    
+    
 }

@@ -20,9 +20,12 @@ target 'FireStoreEitangoApp' do
 	pod 'Firebase/Auth'
 	pod 'Firebase/Database'
 	pod 'Firebase/Firestore'
+	pod 'Firebase/Storage'
 	pod 'EMAlertController'
 	pod 'lottie-ios'
 	pod 'ChameleonFramework'
+
+	pod 'IQKeyboardManagerSwift'
 
 	
 

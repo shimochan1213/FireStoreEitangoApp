@@ -8,32 +8,55 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestore
 import MaterialComponents.MaterialTextFields
+import SDWebImage
 
 class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+   
+    
     
     @IBOutlet weak var iconImageView: UIImageView!
+  
     @IBOutlet weak var textFieldFloatingUserName: MDCTextField!
+    @IBOutlet weak var textFieldFloatingEmail: MDCTextField!
     
     @IBOutlet weak var textFieldFloatingPW: MDCTextField!
   
     @IBOutlet weak var registerBtn: MDCRaisedButton!
     
-    var textControllerUserName: MDCTextInputControllerOutlined!
+    var textControllerEmail: MDCTextInputControllerOutlined!
     var textControllerPW: MDCTextInputControllerOutlined!
+    
+    let toDataBase = ToDataBase()
+    
+    //fireStoreにアクセスするため(firestoreから色々取ってきたり送ったりするため）
+    let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
+    
+   
+    
+    let urlString = String()
+    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textFieldFloatingUserName.delegate = self
+//        SendProfileOKDelegate = self
+        
+        //カメラ、アルバムを使用する旨を表示
+         let checkModel = CheckPermission()
+        checkModel.showCheckPermission()
+        
+        textFieldFloatingEmail.delegate = self
         textFieldFloatingPW.delegate = self
         
         
         
         registerBtn.layer.cornerRadius = 5
     
-        textFieldFloatingUserName.placeholder = "メールアドレス"
-        self.textControllerUserName = MDCTextInputControllerOutlined(textInput: textFieldFloatingUserName)
+        textFieldFloatingEmail.placeholder = "メールアドレス"
+        self.textControllerEmail = MDCTextInputControllerOutlined(textInput: textFieldFloatingEmail)
         
         textFieldFloatingPW.placeholder = "パスワード"
         self.textControllerPW = MDCTextInputControllerOutlined(textInput: textFieldFloatingPW)
@@ -43,16 +66,15 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
         
     }
     
+    
     //      //FIrebaseにユーザーを登録する
     @IBAction func registerNewUser(_ sender: Any) {
-        
-        //ユーザー名とアイコンをfirebaseに送信
         
         
         
         
         //新規登録（Firebaseのドキュメントにあるやり方
-        Auth.auth().createUser(withEmail:textFieldFloatingUserName.text! , password: textFieldFloatingPW.text!) { (user,  error) in
+        Auth.auth().createUser(withEmail:textFieldFloatingEmail.text! , password: textFieldFloatingPW.text!) { [self] (user,  error) in
             if error != nil {
                 print(error)
                 let alertController = MDCAlertController(title: "登録失敗", message: "有効なメールアドレスであること、パスワードは6文字以上であることをご確認ください。")
@@ -71,16 +93,34 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 alertController.addAction(action)
                 self.present(alertController, animated:true)
                 
-               
                 
+                let image = self.iconImageView.image
+                let data = image?.jpegData(compressionQuality: 0.1)
+                //アイコンをfirebaseStorageに送信
+                self.toDataBase.sendProfileImageData(data: data!)
                 
-                //ログイン済みであるという情報を保存。次からログインボタンでないように。
+                //ユーザー名をfireStoreに送信
+                if let userName = self.textFieldFloatingUserName.text{
                 
+                    db1.setData(["userName": userName])
+                    
                 
-                
+                    
+                }
             }
         }
     }
+    
+//    //画像のURLがfirebaseから本当に返ってきているかを確認
+//    func sendProfileOKDelegate(url: String) {
+//        urlString = url
+//        if urlString.isEmpty != true{
+//            //空でないなら登録画面閉じる
+//            self.navigationController?.dismiss(animated: true, completion: true)
+//        }
+//    }
+    
+    
     
 
     @IBAction func back(_ sender: Any) {
@@ -93,18 +133,17 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
        
        //タッチでキーボ閉じる
        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-           textFieldFloatingUserName.resignFirstResponder()
+           textFieldFloatingEmail.resignFirstResponder()
            textFieldFloatingPW.resignFirstResponder()
        }
        
        //リターンでキーボ閉じる
        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-           textFieldFloatingUserName.resignFirstResponder()
+           textFieldFloatingEmail.resignFirstResponder()
            textFieldFloatingPW.resignFirstResponder()
            return true
        }
-    
-    
+
     
        //アラートを出す
         func showAlert(){
