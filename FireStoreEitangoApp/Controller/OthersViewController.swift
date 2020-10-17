@@ -14,12 +14,15 @@ import SDWebImage
 
 
 
-class OthersViewController: UIViewController {
+class OthersViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+
+    
     
     var textController: MDCTextInputControllerOutlined!
     
     var email = String()
     var PW = String()
+    @IBOutlet weak var tableView: UITableView!
     
     //firestoreから取ってきた画像のurlをもとにアイコンを表示してみる
     @IBOutlet weak var iconImageView: UIImageView!
@@ -29,6 +32,7 @@ class OthersViewController: UIViewController {
     let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
     var imageString = String()
     
+    //firestoreから取ってきたデータを入れておく配列。型はProfileModel型
     var profiles:[ProfileModel] = []
     
     
@@ -73,12 +77,28 @@ class OthersViewController: UIViewController {
     
         }
     
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return profiles.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        tableView.rowHeight = 200
+        let iconImageView = cell.contentView.viewWithTag(1)
+        let userNameLabel = cell.contentView.viewWithTag(2)
+        
+        return cell
+    }
    
     
     
-//    //ユーザー名を取ってくる
+//    //ユーザー名とアイコンの画像URLを取ってくる
 //    func loadFromDB(){
 //
+//        //addSnapshotListenerは「変化があったもの」をとってきてる
+//        
 //        db.collection("Profile").addSnapshotListener { (snapShot, error) in
 //
 //
@@ -88,13 +108,18 @@ class OthersViewController: UIViewController {
 //                return
 //            }
 //
+//            //document全てが「snapShot?.documents」で取得できてる。その一つ一つのdocumentをsnapShotDocという定数にいれてる。
 //            if let snapShotDoc = snapShot?.documents{
 //
+//                //snapShotDocの中身を一つ一つ見るためにdocへfor文で入れてる。
 //                for doc in snapShotDoc{
 //
+//                    //docの中にあるdataを定数に入れてる。
 //                    let data = doc.data()
+//                    //空じゃないなら、定数に入れる。
 //                    if let userName = data["userName"] as? String, let imageString = data["imageString"] as? String{
 //
+//                        //配列に入れる準備
 //                        let profile = ProfileModel(userName: userName, imageString: imageString)
 //
 //                            self.profiles.append(profile)

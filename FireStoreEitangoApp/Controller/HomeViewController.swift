@@ -56,7 +56,9 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         samuneImageView.layer.cornerRadius = 3
         //取ってきたサムネを表示
         
-        
+        //タイトル記事
+        let titleLabel = cell.contentView.viewWithTag(2) as! UILabel
+        titleLabel.text = "ドラもん"
         
         return cell
     }
