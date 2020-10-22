@@ -14,8 +14,15 @@ import SDWebImage
 
 
 
-class OthersViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class OthersViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
+    @IBOutlet weak var profileImageView: UIImageView!
+    
+    @IBOutlet weak var profileUserNameLabel: UILabel!
+    var profileImageData = Data()
+    var profileImage = UIImage()
+    
+    
     var textController: MDCTextInputControllerOutlined!
     var email = String()
     var PW = String()
@@ -33,9 +40,10 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     //firestoreから取ってきたデータを入れておく配列。型はProfileModel型
     var profiles:[ProfileModel] = []
     
-    
-    
     @IBOutlet weak var loginButton: UIButton!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +51,22 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         tableView.dataSource = self
         
         loadFromFireStore()
+        
+        
+        //登録時に設定したユーザ名とアイコンを表示
+        if UserDefaults.standard.object(forKey: "profileIconImage") != nil{
+            profileImageData = UserDefaults.standard.object(forKey: "profileIconImage") as! Data
+        }
+        profileImage = UIImage(data: profileImageData)!
+        profileImageView.image = profileImage
+        
+        
+        if UserDefaults.standard.object(forKey: "profileUserName") != nil{
+            profileUserNameLabel.text = UserDefaults.standard.object(forKey: "profileUserName") as! String
+        }
+        
+        
+        
         
         //        let textFieldFloating = MDCTextField(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: 50))
         //        textFieldFloating.placeholder = "Usename"
@@ -99,8 +123,15 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
 //        let userNameLabel = cell.contentView.viewWithTag(2) as! UILabel
         let userNameLabel = cell.viewWithTag(2) as! UILabel
         
-        
+       
+           
+        //新規登録時に画像を設定した人にはアイコン表示、してない人にはデフォルトアイコンを表示。
+    if profiles[indexPath.row].imageString.isEmpty == false{
         iconImageView.sd_setImage(with: URL(string: profiles[indexPath.row].imageString), completed: nil)
+    }else{
+    iconImageView.image = UIImage(named: "icon")
+    }
+    
         
         userNameLabel.text = profiles[indexPath.row].userName
 
@@ -114,6 +145,10 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     
+
+    @IBAction func tapped(_ sender: Any) {
+        showAlert()
+    }
     
     
     
@@ -155,44 +190,6 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
    
     
-    
-//    //ユーザー名とアイコンの画像URLを取ってくる
-//    func loadFromFireStore(){
-//
-//        //addSnapshotListenerは「変化があったもの」をとってきてる
-//
-//        db.collection("Profile").addSnapshotListener { (snapShot, error) in
-//
-//
-//            if error != nil{
-//
-//                print(error.debugDescription)
-//                return
-//            }
-//
-//            //すべてのdocumentが「snapShot?.documents」で取得できてる。その一つ一つのdocumentをsnapShotDocという定数にいれてる。
-//            if let snapShotDoc = snapShot?.documents{
-//
-//                //snapShotDocの中身を一つ一つ見るためにdocへfor文で入れてる。
-//                for doc in snapShotDoc{
-//
-//                    //docの中にあるdataを定数に入れてる。
-//                    let data = doc.data()
-//                    //空じゃないなら、定数に入れる。
-//                    if let userName = data["userName"] as? String, let imageString = data["imageString"] as? String{
-//
-//                        //配列に入れる準備(key-value型)
-//                        let profile = ProfileModel(userName: userName, imageString: imageString)
-//
-//                            self.profiles.append(profile)
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//
-    
     //これはいけるやつ（基本の練習用）
 //    func loadUserName(){
 //
@@ -224,6 +221,88 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             print ("error", signOutError)
         }
     }
+    
+    //以下、アイコン設定関連
+    //アラートを出す
+     func showAlert(){
+         
+         let alertController = UIAlertController(title: "選択", message: "どちらの方法で画像を追加しますか", preferredStyle: .actionSheet)
+  
+         let action1 = UIAlertAction(title: "カメラ", style: .default) { (alert) in
+             
+             self.doCamera()
+             
+         }
+         
+         let action2 = UIAlertAction(title: "アルバム", style: .default) { (alert) in
+             
+             self.doAlubm()
+             
+         }
+         
+         let action3 = UIAlertAction(title: "キャンセル", style: .cancel)
+
+         alertController.addAction(action1)
+         alertController.addAction(action2)
+         alertController.addAction(action3)
+         
+         self.present(alertController, animated: true, completion: nil)
+     }
+ 
+ //カメラ立ち上げメソッド
+    func doCamera(){
+        
+        let sourceType:UIImagePickerController.SourceType = .camera
+        
+        //カメラ利用かチェック
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            
+            let cameraPicker = UIImagePickerController()
+            cameraPicker.allowsEditing = true
+            cameraPicker.sourceType = sourceType
+            cameraPicker.delegate = self
+            self.present(cameraPicker, animated: true, completion: nil)
+        }
+    }
+    
+    //アルバム立ち上げメソッド
+    func doAlubm(){
+        
+        let sourceType:UIImagePickerController.SourceType = .photoLibrary
+        
+        //カメラ利用かチェック
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            
+            let cameraPicker = UIImagePickerController()
+            cameraPicker.allowsEditing = true
+            cameraPicker.sourceType = sourceType
+            cameraPicker.delegate = self
+            self.present(cameraPicker, animated: true, completion: nil)
+        }
+    }
+ 
+ //カメラやアルバムで選択された画像のデータを受けとる
+ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+     
+     if info[.originalImage] as? UIImage != nil{
+         
+         let selectedImage = info[.originalImage] as! UIImage
+         
+         //画像を圧縮
+         UserDefaults.standard.set(selectedImage.jpegData(compressionQuality: 0.1), forKey: "profileIconImage")
+         
+         profileImageView.image = selectedImage
+         //ピッカーを閉じる
+         picker.dismiss(animated: true, completion: nil)
+     }
+     
+ }
+ 
+ //キャンセルが押された時の処理
+ func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+     picker.dismiss(animated: true, completion: nil)
+ }
+ 
     
     
     

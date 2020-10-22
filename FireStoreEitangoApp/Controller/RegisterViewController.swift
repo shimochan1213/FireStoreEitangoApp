@@ -13,6 +13,16 @@ import FirebaseStorage
 import MaterialComponents.MaterialTextFields
 import SDWebImage
 
+//extension UIImage {
+//    //画像のデータサイズを変更するextension
+//    func resized(withPercentage percentage: CGFloat) -> UIImage? {
+//        let canvas = CGSize(width: size.width * percentage, height: size.height * percentage)
+//        return UIGraphicsImageRenderer(size: canvas, format: imageRendererFormat).image {
+//            _ in draw(in: CGRect(origin: .zero, size: canvas))
+//        }
+//    }
+//}
+
 class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
    
     @IBOutlet weak var iconImageView: UIImageView!
@@ -61,6 +71,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     //      //FIrebaseにユーザーを登録する
     @IBAction func registerNewUser(_ sender: Any) {
         
+        
+        
         //新規登録（Firebaseのドキュメントにあるやり方
         Auth.auth().createUser(withEmail:textFieldFloatingEmail.text! , password: textFieldFloatingPW.text!) { [self] (user,  error) in
             if error != nil {
@@ -80,6 +92,15 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 
                 alertController.addAction(action)
                 self.present(alertController, animated:true)
+                
+                
+                //自分のプロフィール作成用にユーザー名とアイコンを保存
+                UserDefaults.standard.setValue(textFieldFloatingUserName.text, forKey: "profileUserName")
+                
+                //userDefaultsはUIImage型は保存できないためdata型で保存
+                let data = iconImageView.image?.jpegData(compressionQuality: 0.1)
+                UserDefaults.standard.setValue(data, forKey: "profileIconImage")
+                
                 
                 
                 //以下データベース関連
