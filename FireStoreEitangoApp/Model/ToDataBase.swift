@@ -29,6 +29,7 @@ class ToDataBase {
     
     func sendProfileImageData(data:Data){
         
+        //入ってきたdata型のもの（引数）をUIimage型にキャストしてる
         let image = UIImage(data: data)
         let profileImageData = image?.jpegData(compressionQuality: 0.1)
         
@@ -56,6 +57,7 @@ class ToDataBase {
                 
             //画像が入っているURLをString型でアプリ内に一旦保存
                 UserDefaults.standard.setValue(url?.absoluteString, forKey: "userImage")
+         
                 
 //                self.sendProfileOKDelegate?.sendProfileOKDelegate(url: url!.absoluteString)
             }

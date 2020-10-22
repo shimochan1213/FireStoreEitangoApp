@@ -9,22 +9,17 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
+import FirebaseStorage
 import MaterialComponents.MaterialTextFields
 import SDWebImage
 
 class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
    
-    
-    
     @IBOutlet weak var iconImageView: UIImageView!
-  
     @IBOutlet weak var textFieldFloatingUserName: MDCTextField!
     @IBOutlet weak var textFieldFloatingEmail: MDCTextField!
-    
     @IBOutlet weak var textFieldFloatingPW: MDCTextField!
-  
     @IBOutlet weak var registerBtn: MDCRaisedButton!
-    
     var textControllerEmail: MDCTextInputControllerOutlined!
     var textControllerPW: MDCTextInputControllerOutlined!
     
@@ -33,12 +28,12 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     //fireStoreにアクセスするため(firestoreから色々取ってきたり送ったりするため）
     let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
     
-   
+    let db = Firestore.firestore()
     
     let urlString = String()
+    var imageString = String()
     
-   
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,18 +55,11 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
         
         textFieldFloatingPW.placeholder = "パスワード"
         self.textControllerPW = MDCTextInputControllerOutlined(textInput: textFieldFloatingPW)
-        
-        
-        
-        
     }
     
     
     //      //FIrebaseにユーザーを登録する
     @IBAction func registerNewUser(_ sender: Any) {
-        
-        
-        
         
         //新規登録（Firebaseのドキュメントにあるやり方
         Auth.auth().createUser(withEmail:textFieldFloatingEmail.text! , password: textFieldFloatingPW.text!) { [self] (user,  error) in
@@ -94,22 +82,64 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 self.present(alertController, animated:true)
                 
                 
-                let image = self.iconImageView.image
-                let data = image?.jpegData(compressionQuality: 0.1)
+                //以下データベース関連
+                
+//                let image = self.iconImageView.image
+//                let data = image?.jpegData(compressionQuality: 0.1)
                 //アイコンをfirebaseStorageに送信
-                self.toDataBase.sendProfileImageData(data: data!)
+//                self.toDataBase.sendProfileImageData(data: data!)
                 
-                //ユーザー名をfireStoreに送信
-                if let userName = self.textFieldFloatingUserName.text{
-                
-                    db1.setData(["userName": userName])
+//                sendProfileImageData()
+          
+                print("ここに\(imageString)を表示します")
+
+                if let userName = textFieldFloatingUserName.text {
                     
-                
-                    
+                    db.collection("Profile").addDocument(data: ["userName":userName,"imageString":imageString]) { (error) in
+                        
+                        if error != nil{
+                            
+                            print(error.debugDescription)
+                            return
+                            
+                        }
+                    }
                 }
             }
         }
     }
+    
+    
+    //firebaseStorageへ画像データを送信。そして画像が保存されているURLをもらう。このURLは他のとこでfirestoreに送信する。このURLをもとに後で画像を表示する。（SDsetImage)
+    func sendProfileImageData(){
+        
+        let image = iconImageView.image
+        let profileImageData = image?.jpegData(compressionQuality: 0.1)
+        //FireStorageの保存先を指定（ストレージサーバーのパスを決めてる。フォルダ名がprofileImage。UUIDはUniqueUserID）
+        let imageRef = Storage.storage().reference().child("profileImage").child("\(UUID().uuidString + String(Date().timeIntervalSince1970)).jpg")
+        
+        //firebaseStorageに画像データを置いてる
+        imageRef.putData(profileImageData!, metadata:nil) { (metaData, error) in
+            
+            if error != nil{
+            
+                print(error.debugDescription)
+                return
+            }
+        //firebaseStorageから、画像が保存されているURLを取ってきてる。（そのURLを後でfirestoreに送信する。）
+            imageRef.downloadURL { (url, error) in
+                if error != nil{
+                    print(error.debugDescription)
+                    return
+                }
+                print("ここにURL：\(url)")
+                self.imageString = url!.absoluteString
+               
+            }
+        }
+    }
+    
+    
     
 //    //画像のURLがfirebaseから本当に返ってきているかを確認
 //    func sendProfileOKDelegate(url: String) {
@@ -218,6 +248,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
             UserDefaults.standard.set(selectedImage.jpegData(compressionQuality: 0.1), forKey: "userImage")
             
             iconImageView.image = selectedImage
+            
+            //storageに画像データを送信してURLを受け取っておく
+            sendProfileImageData()
+            
             //ピッカーを閉じる
             picker.dismiss(animated: true, completion: nil)
         }
