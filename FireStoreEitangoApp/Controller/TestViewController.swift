@@ -13,7 +13,7 @@ import Alamofire
 import Photos
 import AVFoundation
 
-class ManabuViewController: UIViewController {
+class TestViewController: UIViewController {
 
     // AVSpeechSynthesizerをクラス変数で保持しておく、インスタンス変数だと読み上げるまえに破棄されてしまう
     var speechSynthesizer : AVSpeechSynthesizer!
@@ -27,11 +27,11 @@ class ManabuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getImages(keyword: materialList.TOEIC600NounList[0].Words)
-        
+        getImages(keyword: "cat")
         
         wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
         japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
+        
         
         
     }
@@ -46,7 +46,7 @@ class ManabuViewController: UIViewController {
           
           //Alamofireを使ってhttpリクエストを投げる。値が返ってくる。
           
-        AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON{ [self](response) in
+          AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON{(response) in
               
               switch response.result{
                   
@@ -59,17 +59,12 @@ class ManabuViewController: UIViewController {
                   //用意されている画像数を越えないように画像がなくなったらカウントをリセット
                   if imageString == nil {
                       
-//                      imageString = json["hits"][0]["webformatURL"].string
-//
-//                      self.manabuImageView.sd_setImage(with: URL(string:imageString!), completed: nil)
-                    
-                    //画像がないなら「画像ない」画像を表示
-                    manabuImageView.image = UIImage(named: "120reo")
-                    
-                    return
+                      imageString = json["hits"][0]["webformatURL"].string
+                      //odaiImageViewに反映してる
+                      self.manabuImageView.sd_setImage(with: URL(string:imageString!), completed: nil)
                       
                   }else{
-                      //maanbuImageViewに反映してる
+                      //odaiImageViewに反映してる
                       self.manabuImageView.sd_setImage(with: URL(string:imageString!), completed: nil)
                   }
                   
@@ -89,33 +84,15 @@ class ManabuViewController: UIViewController {
         let utterance = AVSpeechUtterance(string:materialList.TOEIC600NounList[wordCount].Words) // 読み上げる文字
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US") // 言語
         utterance.rate = 0.5; // 読み上げ速度
-        utterance.pitchMultiplier = 0.9; // 読み上げる声のピッチ
-        utterance.preUtteranceDelay = 0.05; // 読み上げるまでのため
+        utterance.pitchMultiplier = 0.5; // 読み上げる声のピッチ
+        utterance.preUtteranceDelay = 0.2; // 読み上げるまでのため
         self.speechSynthesizer.speak(utterance)
         
     }
     
     
-    @IBAction func close(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
     
-    @IBAction func nextWord(_ sender: Any) {
-        
-        //範囲のコード後で追加（落ちないように）
-        wordCount += 1
-        getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
-        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
-        japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
-    }
     
-    @IBAction func beforeWord(_ sender: Any) {
-        //範囲のコード後で追加（落ちないように
-        wordCount -= 1
-        getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
-        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
-        japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
-    }
     
     
     

@@ -23,6 +23,7 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //collectionViewプロトコルのメソッドを使えるようにする
         collectionView.dataSource = self
         collectionView.delegate = self
 //
@@ -116,13 +117,17 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         return 1
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView.tag == 1{
+            performSegue(withIdentifier: "manabu", sender: nil)
+        }else if collectionView.tag == 2{
+            performSegue(withIdentifier: "test", sender: nil)
+        }
+    }
+
     
 
-    //reviewCollectionView
-
-
     
-   
    
     
     
