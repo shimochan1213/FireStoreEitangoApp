@@ -12,6 +12,7 @@ struct ProfileModel {
     
     let userName:String
     let imageString:String
+    let learnedNumber:Int
     
     
 }

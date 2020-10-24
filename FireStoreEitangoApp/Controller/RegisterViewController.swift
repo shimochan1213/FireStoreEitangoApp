@@ -42,6 +42,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     
     let urlString = String()
     var imageString = String()
+    //各ユーザのドキュメントidを保持するため
+    var idString = String()
     
 
     override func viewDidLoad() {
@@ -65,14 +67,29 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
         
         textFieldFloatingPW.placeholder = "パスワード"
         self.textControllerPW = MDCTextInputControllerOutlined(textInput: textFieldFloatingPW)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if UserDefaults.standard.object(forKey: "documentID") != nil{
+
+            idString = UserDefaults.standard.object(forKey: "documentID") as! String
+            print("ここ\(idString)")
+
+        }else{
+
+            idString = db.collection("Answers").document().path
+            print("ここ\(idString)")
+            UserDefaults.standard.setValue(idString, forKey: "documentID")
+
+        }
     }
     
     
     //      //FIrebaseにユーザーを登録する
     @IBAction func registerNewUser(_ sender: Any) {
-        
-        
-        
         //新規登録（Firebaseのドキュメントにあるやり方
         Auth.auth().createUser(withEmail:textFieldFloatingEmail.text! , password: textFieldFloatingPW.text!) { [self] (user,  error) in
             if error != nil {
@@ -81,7 +98,6 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 let action = MDCAlertAction(title:"OK")
                 alertController.addAction(action)
                 self.present(alertController, animated:true)
-                
                 
             }else{
                 print("ユーザの作成が成功しただよ！")
@@ -93,15 +109,11 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 alertController.addAction(action)
                 self.present(alertController, animated:true)
                 
-                
                 //自分のプロフィール作成用にユーザー名とアイコンを保存
                 UserDefaults.standard.setValue(textFieldFloatingUserName.text, forKey: "profileUserName")
-                
                 //userDefaultsはUIImage型は保存できないためdata型で保存
                 let data = iconImageView.image?.jpegData(compressionQuality: 0.1)
                 UserDefaults.standard.setValue(data, forKey: "profileIconImage")
-                
-                
                 
                 //以下データベース関連
                 
@@ -115,17 +127,55 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 print("ここに\(imageString)を表示します")
 
                 if let userName = textFieldFloatingUserName.text {
-                    
-                    db.collection("Profile").addDocument(data: ["userName":userName,"imageString":imageString]) { (error) in
-                        
+
+                    db.collection("Profile").addDocument(data: ["userName":userName,"imageString":imageString, "learnedNumber" : 0]) { (error) in
+
                         if error != nil{
-                            
+
                             print(error.debugDescription)
                             return
-                            
                         }
+                        
+//                        let profileRef = db.collection("Profile").document()
+//                        print("ドキュメントIDは\(profileRef)")
+//                        profileRef.setData(["userName":"入れ替わったよ","imageString":imageString])
+                        
+                        var refString = String()
+                        
+                        //ユーザーのドキュメントIDを保存する。（後で学んだ単語数を、自分のドキュメントで更新するため）
+                        refString = Firestore.firestore().collection("Profile").document().documentID
+                        
+                        UserDefaults.standard.setValue(refString, forKey: "refString")
+                        
+                        print("ドキュメントIDや\(refString)")
+//                        db.collection("Profile").document(refString).setData(["userName":userName,"imageString":imageString + "ふふ", "learnedNumber" : 0])
+                        
+                        
+
+//                        idString = db.collection("Answers").document().path
+//                        print("ここに\(idString)を表示します")
+//                        UserDefaults.standard.setValue(idString, forKey: "documentID")
                     }
                 }
+                
+//                if let userName = textFieldFloatingUserName.text {
+//
+//                    db.collection("Profile").document(idString).setData(["userName":userName,"imageString":imageString]) { (error) in
+//                        if error != nil{
+//                            print(error.debugDescription)
+//                            return
+//                        }
+//
+//
+//                        print("ここに登録\(idString)")
+//
+//                    }
+//
+//                }
+                
+//                @yahoo.co.jp
+                
+                
             }
         }
     }

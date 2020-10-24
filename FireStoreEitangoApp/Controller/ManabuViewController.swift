@@ -12,6 +12,8 @@ import SDWebImage
 import Alamofire
 import Photos
 import AVFoundation
+import Firebase
+import FirebaseFirestore
 
 class ManabuViewController: UIViewController {
 
@@ -23,6 +25,10 @@ class ManabuViewController: UIViewController {
     
     var materialList = MaterialList()
     var wordCount = 0
+    var refString = String()
+    
+    let db = Firestore.firestore()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +40,15 @@ class ManabuViewController: UIViewController {
         japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
         
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        //firestoreの、自分のドキュメントIDをロード
+        if UserDefaults.standard.object(forKey: "refString") != nil{
+            refString = UserDefaults.standard.object(forKey: "refString") as! String
+        }
     }
     
 
@@ -118,6 +133,15 @@ class ManabuViewController: UIViewController {
     }
     
     
+    @IBAction func karinoButton(_ sender: Any) {
+        //学んだ単語数をfirestoreに送信する練習
+        
+        //ドキュメントの中身を一部更新する
+        db.collection("Profile").document(refString).updateData(["learnedNumber" : 400]) { (error) in
+            print(error.debugDescription)
+            return
+        }
+    }
     
 
 }

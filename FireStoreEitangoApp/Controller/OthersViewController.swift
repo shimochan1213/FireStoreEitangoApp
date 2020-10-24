@@ -18,6 +18,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
 
     @IBOutlet weak var profileImageView: UIImageView!
     
+    @IBOutlet weak var profileLearnedNumberLabel: UILabel!
     @IBOutlet weak var profileUserNameLabel: UILabel!
     var profileImageData = Data()
     var profileImage = UIImage()
@@ -40,6 +41,9 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     //firestoreから取ってきたデータを入れておく配列。型はProfileModel型
     var profiles:[ProfileModel] = []
     
+    //登録時保存したfirestoreのdocumentIDを入れる
+    var refString = String()
+    
     @IBOutlet weak var loginButton: UIButton!
     
     
@@ -56,14 +60,24 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         //登録時に設定したユーザ名とアイコンを表示
         if UserDefaults.standard.object(forKey: "profileIconImage") != nil{
             profileImageData = UserDefaults.standard.object(forKey: "profileIconImage") as! Data
+            profileImage = UIImage(data: profileImageData)!
+            profileImageView.image = profileImage
         }
-        profileImage = UIImage(data: profileImageData)!
-        profileImageView.image = profileImage
-        
+//        profileImage = UIImage(data: profileImageData)!
+//        profileImageView.image = profileImage
         
         if UserDefaults.standard.object(forKey: "profileUserName") != nil{
-            profileUserNameLabel.text = UserDefaults.standard.object(forKey: "profileUserName") as! String
+            profileUserNameLabel.text = UserDefaults.standard.object(forKey: "profileUserName") as? String
         }
+        
+        
+        
+        
+        
+        
+//        if UserDefaults.standard.object(forKey: "refString") != nil{
+//            refString = UserDefaults.standard.object(forKey: "refString") as! String
+//        }
         
         
         
@@ -95,7 +109,31 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             loadFromFireStore()
 //            print(profiles)
             
-          
+            if UserDefaults.standard.object(forKey: "refString") != nil{
+                refString = UserDefaults.standard.object(forKey: "refString") as! String
+                
+                
+                db.collection("Profile").document(refString).getDocument { (snapShot, error) in
+                    if error != nil{
+                        return
+                    }
+                    //dataメソッドはドキュメントの中のdata全体を取ってきている。
+                    let data = snapShot?.data()
+                    self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
+                    
+                }
+            }
+            
+            
+//            db.collection("Profile").document(refString).getDocument { (snapShot, error) in
+//                if error != nil{
+//                    return
+//                }
+//                //dataメソッドはドキュメントの中のdata全体を取ってきている。
+//                let data = snapShot?.data()
+//                self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
+//
+//            }
             
 //            //firestoreからユーザー名とってきてる
 //            loadUserName()
@@ -118,10 +156,11 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        tableView.rowHeight = 200
+//        tableView.rowHeight = 200
         let iconImageView = cell.contentView.viewWithTag(1) as! UIImageView
 //        let userNameLabel = cell.contentView.viewWithTag(2) as! UILabel
         let userNameLabel = cell.viewWithTag(2) as! UILabel
+        let learnedNumberLabel = cell.viewWithTag(3) as! UILabel
         
        
            
@@ -129,11 +168,11 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     if profiles[indexPath.row].imageString.isEmpty == false{
         iconImageView.sd_setImage(with: URL(string: profiles[indexPath.row].imageString), completed: nil)
     }else{
-    iconImageView.image = UIImage(named: "icon")
+    iconImageView.image = UIImage(named: "120reo")
     }
     
-        
         userNameLabel.text = profiles[indexPath.row].userName
+        learnedNumberLabel.text = "学んだ単語数は\(String(profiles[indexPath.row].learnedNumber))"
 
         
         
@@ -144,6 +183,9 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         return 1
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.bounds.height/6
+    }
     
 
     @IBAction func tapped(_ sender: Any) {
@@ -159,14 +201,16 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
 
         db.collection("Profile").addSnapshotListener{ (snapShot, error) in
 
-
+            //毎回同じデータが増え続けるのを防ぐために一度配列を空にする
+            self.profiles = []
+            
             if error != nil{
 
                 print(error.debugDescription)
                 return
             }
 
-            //すべてのdocumentが「snapShot?.documents」で取得できてる。その一つ一つのdocumentをsnapShotDocという定数にいれてる。
+            //すべてのdocumentが「snapShot?.documents」で取得できてる。その一つ一つのdocumentをまとめて全部snapShotDocという定数にいれてる。
             if let snapShotDoc = snapShot?.documents{
 
                 //snapShotDocの中身を一つ一つ見るためにdocへfor文で入れてる。
@@ -175,11 +219,11 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                     //docの中にあるdataを定数に入れてる。
                     let data = doc.data()
                     //空じゃないなら、定数に入れる。
-                    if let userName = data["userName"] as? String, let imageString = data["imageString"] as? String{
+                    if let userName = data["userName"] as? String, let imageString = data["imageString"] as? String, let learnedNumber = data["learnedNumber"] as? Int{
 
                         //配列に入れる準備(key-value型)
-                        let profile = ProfileModel(userName: userName, imageString: imageString)
-
+                        let profile = ProfileModel(userName: userName, imageString: imageString, learnedNumber: learnedNumber)
+                    
                             self.profiles.append(profile)
                         
                         self.tableView.reloadData()
@@ -209,6 +253,16 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
 //
 //    }
     
+    @IBAction func zikken(_ sender: Any) {
+        print("レフストリング\(refString)")
+//        db.collection("Profile").document(refString).setData(["userName":"おおおおおおおお","imageString":"すき"])
+        
+        //ドキュメントの中身を一部更新する
+        db.collection("Profile").document(refString).updateData(["learnedNumber" : 100]) { (error) in
+            print(error.debugDescription)
+            return
+        }
+    }
     
     
     

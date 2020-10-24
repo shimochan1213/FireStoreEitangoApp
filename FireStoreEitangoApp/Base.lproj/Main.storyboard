@@ -94,8 +94,15 @@
                                                             <outletCollection property="gestureRecognizers" destination="Fm4-jz-MDd" appends="YES" id="Q1N-Z7-vhR"/>
                                                         </connections>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ユーザー名を表示" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SQN-39-d0d">
-                                                        <rect key="frame" x="158" y="29" width="165" height="45"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="学んだ英単語数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lQB-Tj-RHW">
+                                                        <rect key="frame" x="158" y="96" width="193" height="43"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ユーザー名を表示" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="SQN-39-d0d">
+                                                        <rect key="frame" x="158" y="43" width="193" height="45"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -121,7 +128,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="他のユーザたちを表示（ランキング）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fF-OI-Wwf">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="他のユーザたちを表示（ランキング？）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fF-OI-Wwf">
                                                 <rect key="frame" x="30" y="404" width="359" height="52"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -140,7 +147,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="418" height="113"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="wdK-wF-dCJ">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="120reo" translatesAutoresizingMaskIntoConstraints="NO" id="wdK-wF-dCJ">
                                                                     <rect key="frame" x="20" y="11" width="81" height="85"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
@@ -163,6 +170,15 @@
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7o-9E-lck">
+                                                <rect key="frame" x="75" y="337" width="232" height="59"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                                <state key="normal" title="実験用"/>
+                                                <connections>
+                                                    <action selector="zikken:" destination="Pbv-Ir-Vfu" eventType="touchUpInside" id="NCs-c8-h3D"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -198,6 +214,7 @@
                         <outlet property="iconImageView" destination="Zam-Ms-Pro" id="BVk-AO-ffq"/>
                         <outlet property="loginButton" destination="v6V-JV-gqV" id="2rj-dp-O53"/>
                         <outlet property="profileImageView" destination="Zam-Ms-Pro" id="1Gn-gh-NpX"/>
+                        <outlet property="profileLearnedNumberLabel" destination="lQB-Tj-RHW" id="m2h-La-7Qe"/>
                         <outlet property="profileUserNameLabel" destination="SQN-39-d0d" id="rls-wH-gWY"/>
                         <outlet property="tableView" destination="8tv-id-c7T" id="WQI-n5-q0g"/>
                         <outlet property="userNameLabel" destination="SQN-39-d0d" id="ma4-l8-bXw"/>
@@ -449,6 +466,14 @@
                                         <state key="normal" title="前へ"/>
                                         <connections>
                                             <action selector="beforeWord:" destination="zfN-jI-awe" eventType="touchUpInside" id="5EX-nY-9Vu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KGd-eN-dUZ">
+                                        <rect key="frame" x="64" y="540" width="246" height="87"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="仮のボタン（学んだ数送信）"/>
+                                        <connections>
+                                            <action selector="karinoButton:" destination="zfN-jI-awe" eventType="touchUpInside" id="lo7-Lo-FJj"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -760,12 +785,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="120reo" width="120" height="120"/>
         <image name="book.fill" catalog="system" width="128" height="102"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="close" width="144" height="144"/>
         <image name="doc.on.clipboard.fill" catalog="system" width="116" height="128"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
-        <image name="icon" width="128" height="128"/>
         <image name="pencil.tip" catalog="system" width="99" height="128"/>
         <image name="person.crop.circle.fill" catalog="system" width="128" height="121"/>
         <image name="person.crop.square.fill" catalog="system" width="128" height="114"/>
