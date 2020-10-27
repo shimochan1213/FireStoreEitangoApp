@@ -28,6 +28,8 @@
 		B171294725332D5F003DCDF7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B171294625332D5F003DCDF7 /* LoginViewController.swift */; };
 		B171294925333B8E003DCDF7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B171294825333B8E003DCDF7 /* RegisterViewController.swift */; };
 		B171294C253354B9003DCDF7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B171294B253354B9003DCDF7 /* GoogleService-Info.plist */; };
+		B1F726A22547D7DB00A6EFDE /* NewsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F726A12547D7DB00A6EFDE /* NewsItems.swift */; };
+		B1F726A52547FE4300A6EFDE /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F726A42547FE4300A6EFDE /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		B171294625332D5F003DCDF7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B171294825333B8E003DCDF7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		B171294B253354B9003DCDF7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B1F726A12547D7DB00A6EFDE /* NewsItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItems.swift; sourceTree = "<group>"; };
+		B1F726A42547FE4300A6EFDE /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B3B32305924707350649D7C9 /* Pods_FireStoreEitangoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireStoreEitangoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,6 +100,7 @@
 				B140A8AA2539962800099E0D /* ProfileModel.swift */,
 				B1349C9E2542DDE500841AD9 /* MaterialModel.swift */,
 				B1349CA12542DE0100841AD9 /* MaterialList.swift */,
+				B1F726A12547D7DB00A6EFDE /* NewsItems.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -138,13 +143,14 @@
 			isa = PBXGroup;
 			children = (
 				B167D0B3252F447300D31AFF /* ViewController.swift */,
-				B167D0C5252F65C000D31AFF /* OthersViewController.swift */,
+				B1482F4A253497AF00CC0C6B /* HomeViewController.swift */,
+				B1F726A42547FE4300A6EFDE /* WebViewController.swift */,
+				B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */,
 				B17129442532F4DE003DCDF7 /* ManabuViewController.swift */,
 				B1349C9A2542D9BB00841AD9 /* TestViewController.swift */,
-				B171294625332D5F003DCDF7 /* LoginViewController.swift */,
 				B171294825333B8E003DCDF7 /* RegisterViewController.swift */,
-				B1482F4A253497AF00CC0C6B /* HomeViewController.swift */,
-				B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */,
+				B171294625332D5F003DCDF7 /* LoginViewController.swift */,
+				B167D0C5252F65C000D31AFF /* OthersViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -275,8 +281,10 @@
 				B1482F4D2534984000CC0C6B /* PreManabuViewController.swift in Sources */,
 				B1482F4B253497AF00CC0C6B /* HomeViewController.swift in Sources */,
 				B140A8A625396D0000099E0D /* CheckPermission.swift in Sources */,
+				B1F726A22547D7DB00A6EFDE /* NewsItems.swift in Sources */,
 				B167D0C6252F65C000D31AFF /* OthersViewController.swift in Sources */,
 				B1349C9F2542DDE500841AD9 /* MaterialModel.swift in Sources */,
+				B1F726A52547FE4300A6EFDE /* WebViewController.swift in Sources */,
 				B17129452532F4DE003DCDF7 /* ManabuViewController.swift in Sources */,
 				B167D0B0252F447300D31AFF /* AppDelegate.swift in Sources */,
 				B167D0B2252F447300D31AFF /* SceneDelegate.swift in Sources */,
