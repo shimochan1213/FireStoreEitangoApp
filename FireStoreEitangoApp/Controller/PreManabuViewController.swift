@@ -18,6 +18,8 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
     
     let ranges: [String] = ["1-20","21-40","41-60","61-80","81-100"]
     
+    //タップされたセルの番号を入れておく
+    var cellNumber = Int()
     
     
     override func viewDidLoad() {
@@ -119,9 +121,25 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.tag == 1{
+            cellNumber = indexPath.row
             performSegue(withIdentifier: "manabu", sender: nil)
         }else if collectionView.tag == 2{
+            cellNumber = indexPath.row
             performSegue(withIdentifier: "test", sender: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        //単語の範囲を次の画面へ伝える（押されたセルを教えることで伝えてる
+        
+        if collectionView.tag == 1{
+        let ManabuVC = segue.destination as! ManabuViewController
+        ManabuVC.receivedCellNumber  = cellNumber
+        }else if collectionView.tag == 2{
+            let TestVC = segue.destination as! TestViewController
+            TestVC.receivedCellNumber  = cellNumber
+            
         }
     }
 

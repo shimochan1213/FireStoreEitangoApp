@@ -17,6 +17,7 @@ import FirebaseFirestore
 
 class ManabuViewController: UIViewController {
 
+    @IBOutlet weak var numberLabel: UILabel!
     // AVSpeechSynthesizerをクラス変数で保持しておく、インスタンス変数だと読み上げるまえに破棄されてしまう
     var speechSynthesizer : AVSpeechSynthesizer!
     @IBOutlet weak var manabuImageView: UIImageView!
@@ -27,15 +28,58 @@ class ManabuViewController: UIViewController {
     var wordCount = 0
     var refString = String()
     
+    //単語の範囲を受け取る
+    var receivedCellNumber = Int()
+    
+    //累計単語学習数を記録
+    var learnedNumber = Int()
+    
     let db = Firestore.firestore()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        getImages(keyword: materialList.TOEIC600NounList[0].Words)
+        
+        //これまで学んだ単語数をfirestoreから引っ張ってくる
+        if UserDefaults.standard.object(forKey: "refString") != nil{
+            refString = UserDefaults.standard.object(forKey: "refString") as! String
+            
+            //refStringはdocumentを指定するID
+            
+            db.collection("Profile").document(refString).getDocument { (snapShot, error) in
+                if error != nil{
+                    return
+                }
+                //dataメソッドはドキュメントの中のdata全体を取ってきている。
+                let data = snapShot?.data()
+                self.learnedNumber = data!["learnedNumber"] as! Int
+                
+            }
+        }
         
         
+        
+        //単語の範囲を指定
+        switch receivedCellNumber {
+        case 0:
+            wordCount = 0
+        case 1:
+            wordCount = 20
+        case 2:
+            wordCount = 40
+        case 3:
+            wordCount = 60
+        case 4:
+            wordCount = 80
+//        case 5:
+//            wordCount = 100
+        default:
+            return
+        }
+        
+        //単語の番号を表示
+        numberLabel.text = String("No. \(wordCount + 1)")
+        getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
         wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
         japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
         
@@ -48,7 +92,11 @@ class ManabuViewController: UIViewController {
         //firestoreの、自分のドキュメントIDをロード
         if UserDefaults.standard.object(forKey: "refString") != nil{
             refString = UserDefaults.standard.object(forKey: "refString") as! String
+            
         }
+        
+        
+        
     }
     
 
@@ -85,7 +133,8 @@ class ManabuViewController: UIViewController {
                       
                   }else{
                       //maanbuImageViewに反映してる
-                      self.manabuImageView.sd_setImage(with: URL(string:imageString!), completed: nil)
+//                      self.manabuImageView.sd_setImage(with: URL(string:imageString!), completed: nil)
+                    self.manabuImageView.sd_setImage(with: URL(string:imageString!), placeholderImage: UIImage(named: "loading"), completed: nil)
                   }
                   
               case .failure(let error):
@@ -104,8 +153,8 @@ class ManabuViewController: UIViewController {
         let utterance = AVSpeechUtterance(string:materialList.TOEIC600NounList[wordCount].Words) // 読み上げる文字
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US") // 言語
         utterance.rate = 0.5; // 読み上げ速度
-        utterance.pitchMultiplier = 0.9; // 読み上げる声のピッチ
-        utterance.preUtteranceDelay = 0.05; // 読み上げるまでのため
+        utterance.pitchMultiplier = 1.3; // 読み上げる声のピッチ
+        utterance.preUtteranceDelay = 0; // 読み上げるまでのため
         self.speechSynthesizer.speak(utterance)
         
     }
@@ -117,19 +166,62 @@ class ManabuViewController: UIViewController {
     
     @IBAction func nextWord(_ sender: Any) {
         
+        switch receivedCellNumber {
+        case 0:
+            if wordCount == 19{
+                //終了
+                //学んだ単語数をfirestoreに送信する練習
+                //ドキュメントの中身を一部更新する
+//                db.collection("Profile").document(refString).updateData(["learnedNumber" : 400]) { (error) in
+//                    print(error.debugDescription)
+//                    return
+//                }
+//                dismiss(animated: true, completion: nil)
+                endLearning()
+            }
+        case 1:
+            if wordCount == 39{
+                endLearning()
+            }
+        case 2:
+            if wordCount == 59{
+                endLearning()
+            }
+        case 3:
+            if wordCount == 79{
+                endLearning()
+            }
+        case 4:
+            if wordCount == 99{
+                endLearning()
+            }
+        default:
+            break
+        }
+        
+        
         //範囲のコード後で追加（落ちないように）
         wordCount += 1
         getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
         wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
         japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
+        //単語の番号を表示
+        numberLabel.text = String("No. \(wordCount + 1)")
     }
     
     @IBAction func beforeWord(_ sender: Any) {
-        //範囲のコード後で追加（落ちないように
+        
+        //問題のはじめは戻るボタン押せない様にする
+        if wordCount == 0 || wordCount == 20 || wordCount == 40 || wordCount == 60 || wordCount == 80{
+            return
+        }
+        
         wordCount -= 1
         getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
         wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
         japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
+        //単語の番号を表示
+        numberLabel.text = String("No. \(wordCount + 1)")
     }
     
     
@@ -142,6 +234,19 @@ class ManabuViewController: UIViewController {
             return
         }
     }
+    
+    func endLearning(){
+        //学んだ単語数をfirestoreに送信する
+        //ドキュメントの中身を一部更新する
+        db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
+            print(error.debugDescription)
+            return
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     
 
 }

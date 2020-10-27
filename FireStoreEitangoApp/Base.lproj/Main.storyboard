@@ -104,6 +104,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ユーザー名を表示" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="SQN-39-d0d">
                                                         <rect key="frame" x="158" y="43" width="193" height="45"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <gestureRecognizers/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -228,7 +229,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="842.02898550724649" y="1251.5625"/>
+            <point key="canvasLocation" x="813" y="929"/>
         </scene>
         <!--ログイン-->
         <scene sceneID="kWx-aH-Ph5">
@@ -283,7 +284,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ol-wa-KGP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2400" y="1209"/>
+            <point key="canvasLocation" x="2419" y="1587"/>
         </scene>
         <!--まなぶ-->
         <scene sceneID="HsR-O0-NML">
@@ -476,6 +477,13 @@
                                             <action selector="karinoButton:" destination="zfN-jI-awe" eventType="touchUpInside" id="lo7-Lo-FJj"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bi5-Mf-UVW">
+                                        <rect key="frame" x="38" y="25" width="120" height="58"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                             </view>
@@ -487,37 +495,13 @@
                     <connections>
                         <outlet property="japanWordLabel" destination="Ucm-TL-Aiz" id="lAE-qX-tYU"/>
                         <outlet property="manabuImageView" destination="Jqb-lk-X5F" id="Qxi-ok-cMn"/>
+                        <outlet property="numberLabel" destination="Bi5-Mf-UVW" id="9Ho-TA-PZS"/>
                         <outlet property="wordLabel" destination="ihk-Rx-Q3u" id="uGO-JW-Sw4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAd-OE-G8n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1802.8985507246377" y="-165.40178571428569"/>
-        </scene>
-        <!--Web View Controller-->
-        <scene sceneID="scv-L8-DLW">
-            <objects>
-                <viewController id="oym-Dm-QEw" customClass="WebViewController" customModule="FireStoreEitangoApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gAn-tf-12X">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zXX-FY-kb4">
-                                <rect key="frame" x="20" y="160" width="374" height="489"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="mgi-0G-UUv"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <connections>
-                        <outlet property="webView" destination="zXX-FY-kb4" id="Qmz-iD-l7b"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BXz-sD-m06" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="143.47826086956522" y="-1354.0178571428571"/>
         </scene>
         <!--ホーム-->
         <scene sceneID="ylJ-ra-JU9">
@@ -658,7 +642,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sEp-VY-Qfd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1738" y="1209"/>
+            <point key="canvasLocation" x="1628" y="1598"/>
         </scene>
         <!--新規登録-->
         <scene sceneID="r37-Ic-6Jl">
@@ -751,7 +735,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsF-5r-APV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2647.826086956522" y="1851.5625"/>
+            <point key="canvasLocation" x="2332" y="2254"/>
         </scene>
         <!--Test View Controller-->
         <scene sceneID="oUQ-zC-LMY">

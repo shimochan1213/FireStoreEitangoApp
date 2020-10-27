@@ -56,7 +56,7 @@ class ToDataBase {
                 }
                 
             //画像が入っているURLをString型でアプリ内に一旦保存
-                UserDefaults.standard.setValue(url?.absoluteString, forKey: "userImage")
+//                UserDefaults.standard.setValue(url?.absoluteString, forKey: "userImage")
          
                 
 //                self.sendProfileOKDelegate?.sendProfileOKDelegate(url: url!.absoluteString)

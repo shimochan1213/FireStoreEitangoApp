@@ -73,7 +73,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
                 
             case "link":
                 lastItem.url = string
-                print("リンクを出力\(string)")
+//                print("リンクを出力\(string)")
             case "description":
                 lastItem.description = string
             case "pubDate":

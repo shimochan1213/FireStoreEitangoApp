@@ -24,6 +24,8 @@ import SDWebImage
 //}
 
 class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    
+    
    
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var textFieldFloatingUserName: MDCTextField!
@@ -39,6 +41,9 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
     
     let db = Firestore.firestore()
+    
+    //このユーザー専用のfirestore参照先
+    let profileRef = Firestore.firestore().collection("Profile").document()
     
     let urlString = String()
     var imageString = String()
@@ -73,18 +78,19 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if UserDefaults.standard.object(forKey: "documentID") != nil{
 
-            idString = UserDefaults.standard.object(forKey: "documentID") as! String
-            print("ここ\(idString)")
-
-        }else{
-
-            idString = db.collection("Answers").document().path
-            print("ここ\(idString)")
-            UserDefaults.standard.setValue(idString, forKey: "documentID")
-
-        }
+//        if UserDefaults.standard.object(forKey: "documentID") != nil{
+//
+//            idString = UserDefaults.standard.object(forKey: "documentID") as! String
+//            print("ここ\(idString)")
+//
+//        }else{
+//
+//            idString = db.collection("Answers").document().path
+//            print("ここ\(idString)")
+//            UserDefaults.standard.setValue(idString, forKey: "documentID")
+//
+//        }
     }
     
     
@@ -116,66 +122,43 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 UserDefaults.standard.setValue(data, forKey: "profileIconImage")
                 
                 //以下データベース関連
-                
-//                let image = self.iconImageView.image
-//                let data = image?.jpegData(compressionQuality: 0.1)
-                //アイコンをfirebaseStorageに送信
-//                self.toDataBase.sendProfileImageData(data: data!)
-                
-//                sendProfileImageData()
-          
-                print("ここに\(imageString)を表示します")
-
+                sendProfileImageData()
                 if let userName = textFieldFloatingUserName.text {
-
-                    db.collection("Profile").addDocument(data: ["userName":userName,"imageString":imageString, "learnedNumber" : 0]) { (error) in
-
+                    
+//                    db.collection("Profile").addDocument(data: ["userName":userName,"imageString":imageString, "learnedNumber" : 0]) { (error) in
+//
+//                        if error != nil{
+//
+//                            print(error.debugDescription)
+//                            return
+//                        }
+                    
+                    //最初に宣言した、このユーザー専用のfirestore参照先にデータを入れる
+                    profileRef.setData(["userName":userName,"imageString":imageString, "learnedNumber" : 0]) { (error) in
                         if error != nil{
-
                             print(error.debugDescription)
                             return
                         }
-                        
-//                        let profileRef = db.collection("Profile").document()
-//                        print("ドキュメントIDは\(profileRef)")
-//                        profileRef.setData(["userName":"入れ替わったよ","imageString":imageString])
-                        
                         var refString = String()
                         
-                        //ユーザーのドキュメントIDを保存する。（後で学んだ単語数を、自分のドキュメントで更新するため）
-                        refString = Firestore.firestore().collection("Profile").document().documentID
-                        
+                        //指定済みのdocumentにおけるIDを保存しておく（othersViewでデータ読み込むため）
+                        refString = profileRef.documentID
                         UserDefaults.standard.setValue(refString, forKey: "refString")
+                        print("ふふ\(refString)")
                         
-                        print("ドキュメントIDや\(refString)")
-//                        db.collection("Profile").document(refString).setData(["userName":userName,"imageString":imageString + "ふふ", "learnedNumber" : 0])
+                    }
+//                        var refString = String()
+                                    //ユーザーのドキュメントIDを保存する。（後で学んだ単語数を、自分のドキュメントで更新するため）
+//                        refString = Firestore.firestore().collection("Profile").document().documentID
+//                        UserDefaults.standard.setValue(refString, forKey: "refString")
+//                        print("ドキュメントIDや\(refString)")
                         
                         
-
 //                        idString = db.collection("Answers").document().path
 //                        print("ここに\(idString)を表示します")
 //                        UserDefaults.standard.setValue(idString, forKey: "documentID")
                     }
-                }
-                
-//                if let userName = textFieldFloatingUserName.text {
-//
-//                    db.collection("Profile").document(idString).setData(["userName":userName,"imageString":imageString]) { (error) in
-//                        if error != nil{
-//                            print(error.debugDescription)
-//                            return
-//                        }
-//
-//
-//                        print("ここに登録\(idString)")
-//
-//                    }
-//
-//                }
-                
-//                @yahoo.co.jp
-                
-                
+               
             }
         }
     }

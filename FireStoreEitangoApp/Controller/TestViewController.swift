@@ -23,6 +23,7 @@ class TestViewController: UIViewController {
     
     var materialList = MaterialList()
     var wordCount = 0
+    var receivedCellNumber = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()

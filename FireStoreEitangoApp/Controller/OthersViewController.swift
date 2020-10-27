@@ -16,6 +16,8 @@ import SDWebImage
 
 class OthersViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
+    let registerVC = RegisterViewController()
+    
     @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var profileLearnedNumberLabel: UILabel!
@@ -50,6 +52,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -58,17 +61,20 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         
         //登録時に設定したユーザ名とアイコンを表示
-        if UserDefaults.standard.object(forKey: "profileIconImage") != nil{
-            profileImageData = UserDefaults.standard.object(forKey: "profileIconImage") as! Data
-            profileImage = UIImage(data: profileImageData)!
-            profileImageView.image = profileImage
-        }
+//        if UserDefaults.standard.object(forKey: "profileIconImage") != nil{
+//            profileImageData = UserDefaults.standard.object(forKey: "profileIconImage") as! Data
+//            profileImage = UIImage(data: profileImageData)!
+//            profileImageView.image = profileImage
+//        }
+        
+        
 //        profileImage = UIImage(data: profileImageData)!
 //        profileImageView.image = profileImage
         
-        if UserDefaults.standard.object(forKey: "profileUserName") != nil{
-            profileUserNameLabel.text = UserDefaults.standard.object(forKey: "profileUserName") as? String
-        }
+        
+//        if UserDefaults.standard.object(forKey: "profileUserName") != nil{
+//            profileUserNameLabel.text = UserDefaults.standard.object(forKey: "profileUserName") as? String
+//        }
         
         
         
@@ -106,13 +112,13 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(true)
             
+            
             loadFromFireStore()
 //            print(profiles)
             
             if UserDefaults.standard.object(forKey: "refString") != nil{
                 refString = UserDefaults.standard.object(forKey: "refString") as! String
-                
-                
+                print(refString)
                 db.collection("Profile").document(refString).getDocument { (snapShot, error) in
                     if error != nil{
                         return
@@ -120,9 +126,20 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                     //dataメソッドはドキュメントの中のdata全体を取ってきている。
                     let data = snapShot?.data()
                     self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
-                    
+                    self.profileUserNameLabel.text = data!["userName"] as! String
+                    self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "loading"), completed: nil)
+
                 }
             }
+            
+//            registerVC.profileRef.getDocument { (snapShot, error) in
+//                if error != nil{
+//                    return
+//                }
+//
+//                let data = snapShot?.data()
+//                self.profileUserNameLabel.text = data!["userName"] as! String
+//            }
             
             
 //            db.collection("Profile").document(refString).getDocument { (snapShot, error) in
@@ -193,7 +210,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     
-    
+
     //ユーザー名とアイコンの画像URLを取ってくる
     func loadFromFireStore(){
 
@@ -342,10 +359,20 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
          
          let selectedImage = info[.originalImage] as! UIImage
          
-         //画像を圧縮
-         UserDefaults.standard.set(selectedImage.jpegData(compressionQuality: 0.1), forKey: "profileIconImage")
+//         //画像を圧縮
+//         UserDefaults.standard.set(selectedImage.jpegData(compressionQuality: 0.1), forKey: "profileIconImage")
          
          profileImageView.image = selectedImage
+        
+        //dataBaseに画像データを送り、返ってきたURLをfireStoreへ送信する
+        sendProfileImageDataAndToFireStore()
+        
+//        //ドキュメントの中身を一部更新する
+//        db.collection("Profile").document(refString).updateData(["imageString" : imageString]) { (error) in
+//            print(error.debugDescription)
+//            return
+//        }
+        
          //ピッカーを閉じる
          picker.dismiss(animated: true, completion: nil)
      }
@@ -356,6 +383,43 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
      picker.dismiss(animated: true, completion: nil)
  }
+    
+    //firebaseStorageへ画像データを送信。そして画像が保存されているURLをもらう。このURLは他のとこでfirestoreに送信する。このURLをもとに後で画像を表示する。（SDsetImage)
+    func sendProfileImageDataAndToFireStore(){
+        
+        let image = profileImageView.image
+        let profileImageData = image?.jpegData(compressionQuality: 0.1)
+        //FireStorageの保存先を指定（ストレージサーバーのパスを決めてる。フォルダ名がprofileImage。UUIDはUniqueUserID）
+        let imageRef = Storage.storage().reference().child("profileImage").child("\(UUID().uuidString + String(Date().timeIntervalSince1970)).jpg")
+        
+        //firebaseStorageに画像データを置いてる
+        imageRef.putData(profileImageData!, metadata:nil) { (metaData, error) in
+            
+            if error != nil{
+            
+                print(error.debugDescription)
+                return
+            }
+        //firebaseStorageから、画像が保存されているURLを取ってきてる。（そのURLを後でfirestoreに送信する。）
+            imageRef.downloadURL { [self] (url, error) in
+                if error != nil{
+                    print(error.debugDescription)
+                    return
+                }
+                print("ここにURL：\(url)")
+                self.imageString = url!.absoluteString
+                
+                //ドキュメントの中身を一部更新する
+                db.collection("Profile").document(refString).updateData(["imageString" : imageString]) { (error) in
+                    print(error.debugDescription)
+                    return
+                }
+               
+            }
+        }
+    }
+    
+    
  
     
     
