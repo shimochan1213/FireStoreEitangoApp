@@ -133,13 +133,21 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         
         //単語の範囲を次の画面へ伝える（押されたセルを教えることで伝えてる
         
-        if collectionView.tag == 1{
-        let ManabuVC = segue.destination as! ManabuViewController
-        ManabuVC.receivedCellNumber  = cellNumber
-        }else if collectionView.tag == 2{
+//        if collectionView.tag == 1{
+//        let ManabuVC = segue.destination as! ManabuViewController
+//        ManabuVC.receivedCellNumber  = cellNumber
+//        }else if collectionView.tag == 2{
+//            let TestVC = segue.destination as! TestViewController
+//            TestVC.receivedCellNumber  = cellNumber
+//
+//        }
+        
+        if segue.identifier == "manabu"{
+            let ManabuVC = segue.destination as! ManabuViewController
+            ManabuVC.receivedCellNumber  = cellNumber
+        }else if segue.identifier == "test"{
             let TestVC = segue.destination as! TestViewController
             TestVC.receivedCellNumber  = cellNumber
-            
         }
     }
 
