@@ -13,27 +13,58 @@ import Alamofire
 import Photos
 import AVFoundation
 import Lottie
+import FirebaseFirestore
 
 class TestViewController: UIViewController {
 
     // AVSpeechSynthesizerをクラス変数で保持しておく、インスタンス変数だと読み上げるまえに破棄されてしまう
     var speechSynthesizer : AVSpeechSynthesizer!
-    @IBOutlet weak var manabuImageView: UIImageView!
+
     @IBOutlet weak var wordLabel: UILabel!
-    @IBOutlet weak var japanWordLabel: UILabel!
+  
+    @IBOutlet weak var jpnWordLabel: UILabel!
+    
     @IBOutlet weak var selec1: UIButton!
     @IBOutlet weak var selec2: UIButton!
     @IBOutlet weak var selec3: UIButton!
     @IBOutlet weak var selec4: UIButton!
+    @IBOutlet weak var nextQuesBtn: UIButton!
+    
+    @IBOutlet weak var quesNumberLabel: UILabel!
     
     var materialList = MaterialList()
     var wordCount = 0
     var receivedCellNumber = Int()
+    //不正解の単語を記録
+    var incorrectArray: [Int] = []
     
     var whereIsCorrectSelection = Int()
+    var animationView = AnimationView()
+    var soundFile = SoundFile()
+    
+    let db = Firestore.firestore()
+    var learnedNumber = Int()
+    var refString = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //これまで学んだ単語数をfirestoreから引っ張ってくる
+        if UserDefaults.standard.object(forKey: "refString") != nil{
+            refString = UserDefaults.standard.object(forKey: "refString") as! String
+            
+            //refStringはdocumentを指定するID
+            db.collection("Profile").document(refString).getDocument { (snapShot, error) in
+                if error != nil{
+                    return
+                }
+                //dataメソッドはドキュメントの中のdata全体を取ってきている。
+                let data = snapShot?.data()
+                self.learnedNumber = data!["learnedNumber"] as! Int
+            }
+        }
+        
+        
 
         //アニメーション練習
         var animationView = AnimationView()
@@ -66,10 +97,13 @@ class TestViewController: UIViewController {
         
         
        
-        
-        
-        getImages(keyword: "cat")
+    
+        quesNumberLabel.text = "\(wordCount % 20 + 1) /20"
         wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+        soundYomiage()
+        showRandomSelection()
+        
+        nextQuesBtn.isEnabled = false
 
         
         
@@ -77,59 +111,89 @@ class TestViewController: UIViewController {
     }
     
 
-   //検索ワードの値を元に画像を引っ張ってくる
-      //pixabay.com
-      func getImages(keyword:String){
-          //APIKEY 16306601-72effe1bbc4631fe8092700f6
-          
-          let url = "https://pixabay.com/api/?key=16306601-72effe1bbc4631fe8092700f6&q=\(keyword)"
-          
-          //Alamofireを使ってhttpリクエストを投げる。値が返ってくる。
-          
-          AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON{(response) in
-              
-              switch response.result{
-                  
-              case .success:
-                  //データを取得
-                  let json:JSON = JSON(response.data as Any)
-                  //外部サイトの、Lists配列の中にある画像が存在するURLをとってきて定数に入れる
-                  var imageString = json["hits"][0]["webformatURL"].string
-                  
-                  //用意されている画像数を越えないように画像がなくなったらカウントをリセット
-                  if imageString == nil {
-                      
-                      imageString = json["hits"][0]["webformatURL"].string
-                      //odaiImageViewに反映してる
-                      self.manabuImageView.sd_setImage(with: URL(string:imageString!), completed: nil)
-                      
-                  }else{
-                      //odaiImageViewに反映してる
-                      self.manabuImageView.sd_setImage(with: URL(string:imageString!), completed: nil)
-                  }
-                  
-              case .failure(let error):
-                  print(error)
-                  
-              }
-          }
-      }
+
     
+    @IBAction func yomiageBtn(_ sender: Any) {
+        soundYomiage()
+    }
     
-    @IBAction func playSound(_ sender: Any) {
-        
+    func soundYomiage(){
         // AVSpeechSynthesizerのインスタンス作成
         self.speechSynthesizer = AVSpeechSynthesizer()
         // 読み上げる、文字、言語などの設定
         let utterance = AVSpeechUtterance(string:materialList.TOEIC600NounList[wordCount].Words) // 読み上げる文字
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US") // 言語
         utterance.rate = 0.5; // 読み上げ速度
-        utterance.pitchMultiplier = 0.5; // 読み上げる声のピッチ
-        utterance.preUtteranceDelay = 0.2; // 読み上げるまでのため
+        utterance.pitchMultiplier = 0.9; // 読み上げる声のピッチ
+        utterance.preUtteranceDelay = 0; // 読み上げるまでのため
         self.speechSynthesizer.speak(utterance)
-        
     }
     
+    
+    @IBAction func nextQuestion(_ sender: Any) {
+        
+        animationView.removeFromSuperview()
+        wordCount += 1
+//        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+        quesNumberLabel.text = "\(wordCount % 20 + 1) /20"
+//        soundYomiage()
+        jpnWordLabel.text = ""
+//        showRandomSelection()
+        selec1.isEnabled = true
+        selec2.isEnabled = true
+        selec3.isEnabled = true
+        selec4.isEnabled = true
+        nextQuesBtn.isEnabled = false
+        
+        switch receivedCellNumber {
+        case 0:
+            if wordCount == 20{
+                //終了
+                endTest()
+            }else{
+                //問題終了時に次の単語が表示されないようにelse内に書いてる
+                soundYomiage()
+                wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+                showRandomSelection()
+            }
+        case 1:
+            if wordCount == 40{
+                endTest()
+            }else{
+                soundYomiage()
+                wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+                showRandomSelection()
+            }
+        case 2:
+            if wordCount == 60{
+                endTest()
+            }else{
+                soundYomiage()
+                wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+                showRandomSelection()
+            }
+        case 3:
+            if wordCount == 80{
+                endTest()
+            }else{
+                soundYomiage()
+                wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+                showRandomSelection()
+            }
+        case 4:
+            if wordCount == 100{
+                endTest()
+            }else{
+                soundYomiage()
+                wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+                showRandomSelection()
+            }
+        default:
+          break
+        }
+        
+        
+    }
 
     
     @IBAction func answer(_ sender: UIButton) {
@@ -138,42 +202,56 @@ class TestViewController: UIViewController {
             //一番上の選択肢が押された
             if whereIsCorrectSelection == 0{
                 //正解が一番上の選択肢に表示されているから正解
-                print("correct")
+                playCorrectAniSound()
             }else{
-                print("incorrect")
+                playIncorrectAniSound()
+                incorrectArray.append(wordCount)
             }
-            
-            
         case 2:
             //2番目の選択肢が押された
             if whereIsCorrectSelection == 1{
                 //正解が2番目の選択肢に表示されているから正解
-                print("correct")
+                playCorrectAniSound()
             }else{
-                print("incorrect")
+                playIncorrectAniSound()
+                incorrectArray.append(wordCount)
             }
         case 3:
             print(3)
             if whereIsCorrectSelection == 2{
-          
-                print("correct")
+                playCorrectAniSound()
             }else{
-                print("incorrect")
+                playIncorrectAniSound()
+                incorrectArray.append(wordCount)
             }
         case 4:
             print(4)
             if whereIsCorrectSelection == 3{
-        
-                print("correct")
+                playCorrectAniSound()
             }else{
-                print("incorrect")
+                playIncorrectAniSound()
+                incorrectArray.append(wordCount)
             }
         default:
             break
         }
+        
+        //正解表示
+        jpnWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
+        
+        nextQuesBtn.isEnabled = true
+        
+        //ボタン何回も押してアニメバグらないように
+        selec1.isEnabled = false
+        selec2.isEnabled = false
+        selec3.isEnabled = false
+        selec4.isEnabled = false
+     
+        
+        
+        
     }
-    
-    
+
     
     func showRandomSelection(){
         //正解選択肢を4つのうち何処かに配置し、残りの選択肢をランダムに表示（一つランダム数字を呼んで、そこからプラス1ずつしてけば同じ選択肢でないのでは？
@@ -184,34 +262,45 @@ class TestViewController: UIViewController {
         whereIsCorrectSelection = Int(arc4random_uniform(UInt32(4)))
 //        print(whereIsCorrectSelection)
         
+        //ダミー選択肢を表示させるために被りのない数字を生成する
+        var damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+        var damiNumber2 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+        var damiNumber3 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+        
+        if damiNumber1 == wordCount || damiNumber1 == damiNumber2 || damiNumber1 == damiNumber3 || damiNumber2 == damiNumber3{
+           damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+           damiNumber2 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+           damiNumber3 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+        }
+        
         switch whereIsCorrectSelection {
         case 0:
             //正解を一番上に表示
             selec1.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
             //その他選択肢を表示（現在のwordCountを基準として、2で割ったり数を足していくことにする）
-            selec2.setTitle(materialList.TOEIC600NounList[wordCount/2 + 2].japanWords, for: UIControl.State.normal)
-            selec3.setTitle(materialList.TOEIC600NounList[wordCount/2 + 3].japanWords, for: UIControl.State.normal)
-            selec4.setTitle(materialList.TOEIC600NounList[wordCount/2 + 4].japanWords, for: UIControl.State.normal)
+            selec2.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
+            selec3.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
+            selec4.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
            
         case 1:
         //正解を2番目に表示
             selec2.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
             //その他選択肢を表示
-            selec1.setTitle(materialList.TOEIC600NounList[wordCount/2 + 2].japanWords, for: UIControl.State.normal)
-            selec3.setTitle(materialList.TOEIC600NounList[wordCount/2 + 3].japanWords, for: UIControl.State.normal)
-            selec4.setTitle(materialList.TOEIC600NounList[wordCount/2 + 4].japanWords, for: UIControl.State.normal)
+            selec1.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
+            selec3.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
+            selec4.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
         case 2:
             selec3.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
             //その他選択肢を表示
-            selec2.setTitle(materialList.TOEIC600NounList[wordCount/2 + 2].japanWords, for: UIControl.State.normal)
-            selec1.setTitle(materialList.TOEIC600NounList[wordCount/2 + 3].japanWords, for: UIControl.State.normal)
-            selec4.setTitle(materialList.TOEIC600NounList[wordCount/2 + 4].japanWords, for: UIControl.State.normal)
+            selec2.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
+            selec1.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
+            selec4.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
         case 3:
             selec4.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
             //その他選択肢を表示
-            selec2.setTitle(materialList.TOEIC600NounList[wordCount/2 + 2].japanWords, for: UIControl.State.normal)
-            selec3.setTitle(materialList.TOEIC600NounList[wordCount/2 + 3].japanWords, for: UIControl.State.normal)
-            selec1.setTitle(materialList.TOEIC600NounList[wordCount/2 + 4].japanWords, for: UIControl.State.normal)
+            selec2.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
+            selec3.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
+            selec1.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
             
         default:
             break
@@ -220,13 +309,67 @@ class TestViewController: UIViewController {
         
     }
     
+    func endTest(){
+        //学んだ単語数をfirestoreに送信する
+        //ドキュメントの中身を一部更新する
+        db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
+            print(error.debugDescription)
+            return
+        }
+        
+       //結果画面へ
+        performSegue(withIdentifier: "result", sender: nil)
+    }
     
-    @IBAction func test(_ sender: Any) {
-        showRandomSelection()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let resultVC = segue.destination as! ResultViewController
+        
+        //不正解の問題の番号を渡す
+        resultVC.receivedIncorrectNumberArray = incorrectArray
+        //単語の範囲を渡す（復習用保存のため）
+        resultVC.receivedCellNumber = receivedCellNumber
     }
     
     
+    @IBAction func test(_ sender: Any) {
+        showRandomSelection()
+        animationView.removeFromSuperview()
+    }
     
+    func playCorrectAniSound(){
+//        var animationView = AnimationView()
+        animationView = .init(name: "success")
+        //         animationView.frame = view.bounds
+        animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .repeat(1)
+        animationView.animationSpeed = 2
+        view.addSubview(animationView)
+        animationView.play()
+        
+        //音ならす
+        soundFile.playSound(fileName: "seikai", extensionName: "mp3")
+    }
+    
+    func playIncorrectAniSound(){
+//        var animationView = AnimationView()
+        animationView = .init(name: "failure")
+        //         animationView.frame = view.bounds
+        animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .playOnce
+        animationView.animationSpeed = 2
+        view.addSubview(animationView)
+        animationView.play()
+        
+        //音ならす
+        soundFile.playSound(fileName: "fuseikai", extensionName: "mp3")
+    }
+    
+    
+    @IBAction func closeBtn(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     
 

@@ -15,6 +15,7 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
  
     @IBOutlet weak var reviewCollectinView: UICollectionView!
     
+    @IBOutlet weak var ReviewCollectionView: UICollectionView!
     
     let ranges: [String] = ["1-20","21-40","41-60","61-80","81-100"]
     
@@ -32,6 +33,9 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         reviewCollectinView.dataSource = self
         reviewCollectinView.delegate = self
         
+        ReviewCollectionView.dataSource = self
+        ReviewCollectionView.delegate = self
+        
         
         
 //         //セル同士の間隔調整
@@ -46,6 +50,8 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         if collectionView.tag == 1{
             return ranges.count
         }else if collectionView.tag == 2{
+            return ranges.count
+        }else if collectionView.tag == 3{
             return ranges.count
         }
         return 1
@@ -74,23 +80,34 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         return cell
         
         }else if collectionView.tag == 2{
-            //review用のcollectionView
+            //確認テスト用のcollectionView
             let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell2", for: indexPath)
             
             cell2.layer.masksToBounds = false
-            // 影の方向（width=右方向、height=下方向、CGSize.zero=方向指定なし）
             cell2.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-            // 影の色
             cell2.layer.shadowColor = UIColor.black.cgColor
-            // 影の濃さ
             cell2.layer.shadowOpacity = 0.05
-            // 影をぼかし
             cell2.layer.shadowRadius = 4
             
             let reviewRangeLabel = cell2.contentView.viewWithTag(1) as! UILabel
             reviewRangeLabel.text = ranges[indexPath.row]
             
             return cell2
+            
+        }else if collectionView.tag == 3{
+            //review用のcollectionView
+            let cell3 = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell3", for: indexPath)
+            
+            cell3.layer.masksToBounds = false
+            cell3.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+            cell3.layer.shadowColor = UIColor.black.cgColor
+            cell3.layer.shadowOpacity = 0.05
+            cell3.layer.shadowRadius = 4
+            
+            let reviewRangeLabel = cell3.contentView.viewWithTag(1) as! UILabel
+            reviewRangeLabel.text = ranges[indexPath.row]
+            
+            return cell3
             
         }
         return UICollectionViewCell()
@@ -105,6 +122,9 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         }else if collectionView.tag == 2{
             let cellSize : CGFloat = self.view.bounds.width * 6/7
             return CGSize(width: cellSize, height: self.view.bounds.height/4)
+        }else if collectionView.tag == 3{
+            let cellSize : CGFloat = self.view.bounds.width * 6/7
+            return CGSize(width: cellSize, height: self.view.bounds.height/4)
         }
         return CGSize(width: 100, height: 100)
         }
@@ -114,6 +134,8 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         if collectionView.tag == 1{
             return 1
         }else if collectionView.tag == 2{
+            return 1
+        }else if collectionView.tag == 3{
             return 1
         }
         return 1
@@ -126,28 +148,25 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         }else if collectionView.tag == 2{
             cellNumber = indexPath.row
             performSegue(withIdentifier: "test", sender: nil)
+        }else if collectionView.tag == 3{
+            cellNumber = indexPath.row
+            performSegue(withIdentifier: "review", sender: nil)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         //単語の範囲を次の画面へ伝える（押されたセルを教えることで伝えてる
-        
-//        if collectionView.tag == 1{
-//        let ManabuVC = segue.destination as! ManabuViewController
-//        ManabuVC.receivedCellNumber  = cellNumber
-//        }else if collectionView.tag == 2{
-//            let TestVC = segue.destination as! TestViewController
-//            TestVC.receivedCellNumber  = cellNumber
-//
-//        }
-        
+    
         if segue.identifier == "manabu"{
             let ManabuVC = segue.destination as! ManabuViewController
             ManabuVC.receivedCellNumber  = cellNumber
         }else if segue.identifier == "test"{
             let TestVC = segue.destination as! TestViewController
             TestVC.receivedCellNumber  = cellNumber
+        }else if segue.identifier == "review"{
+            let ReviewVC = segue.destination as! ReviewViewController
+            ReviewVC.receivedCellNumber = cellNumber
         }
     }
 

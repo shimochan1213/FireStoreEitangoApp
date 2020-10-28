@@ -29,21 +29,17 @@ class MaterialList{
         TOEIC600NounList.append(MaterialModel(wordsName: "equipment", japanWordsName: "設備", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "advertisement", japanWordsName: "広告", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "deadline", japanWordsName: "締切", correctOrNot: true))
-        TOEIC600NounList.append(MaterialModel(wordsName: "resident", japanWordsName: "住人", correctOrNot: true))
-        
+        TOEIC600NounList.append(MaterialModel(wordsName: "resident", japanWordsName: "住人", correctOrNot: true))        
         TOEIC600NounList.append(MaterialModel(wordsName: "departure", japanWordsName: "出発", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "preparation", japanWordsName: "(プレゼンなどの)準備", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "option", japanWordsName: "選択肢", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "vehicle", japanWordsName: "乗り物", correctOrNot: true))
-        
         TOEIC600NounList.append(MaterialModel(wordsName: "detail", japanWordsName: "詳細", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "council", japanWordsName: "会議、議会", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "organization", japanWordsName: "組織", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "fee", japanWordsName: "料金", correctOrNot: true))
-        
         TOEIC600NounList.append(MaterialModel(wordsName: "survey", japanWordsName: "調査", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "packaging", japanWordsName: "梱包", correctOrNot: true))
-        
         TOEIC600NounList.append(MaterialModel(wordsName: "delivery", japanWordsName: "配達", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "branch", japanWordsName: "枝、支店", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "brochure", japanWordsName: "パンフレット冊子", correctOrNot: true))
@@ -52,9 +48,7 @@ class MaterialList{
         TOEIC600NounList.append(MaterialModel(wordsName: "fuel", japanWordsName: "燃料", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "landscaping", japanWordsName: "造園", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "component", japanWordsName: "部品", correctOrNot: true))
-        
         TOEIC600NounList.append(MaterialModel(wordsName: "income", japanWordsName: "収入", correctOrNot: true))
-        
         TOEIC600NounList.append(MaterialModel(wordsName: "regulation", japanWordsName: "ルール、制約", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "exhibition", japanWordsName: "展示", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "warehouse", japanWordsName: "倉庫", correctOrNot: true))
@@ -118,7 +112,6 @@ class MaterialList{
         TOEIC600NounList.append(MaterialModel(wordsName: "transportation", japanWordsName: "交通手段", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "shuttle", japanWordsName: "（バスなど）送迎便", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "arrival", japanWordsName: "到着", correctOrNot: true))
-        
         TOEIC600NounList.append(MaterialModel(wordsName: "result", japanWordsName: "結果", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "agreement", japanWordsName: "同意", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "tips", japanWordsName: "コツ", correctOrNot: true))
@@ -141,7 +134,6 @@ class MaterialList{
         TOEIC600NounList.append(MaterialModel(wordsName: "profit", japanWordsName: "利益", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "automobile", japanWordsName: "自動車", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "merchandise", japanWordsName: "商品", correctOrNot: true))
-        
         TOEIC600NounList.append(MaterialModel(wordsName: "facility", japanWordsName: "施設", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "construction", japanWordsName: "建設", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "clothing", japanWordsName: "衣服", correctOrNot: true))
@@ -179,7 +171,6 @@ class MaterialList{
         TOEIC600NounList.append(MaterialModel(wordsName: "import", japanWordsName: "輸入", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "resource", japanWordsName: "資源", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "discount", japanWordsName: "割引", correctOrNot: true))
-        
         TOEIC600NounList.append(MaterialModel(wordsName: "admission", japanWordsName: "入場", correctOrNot: true))
         
         
