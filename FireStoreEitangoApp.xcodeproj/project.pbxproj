@@ -18,6 +18,9 @@
 		B1079F7825496D5900C72B57 /* seikai.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1079F7725496D5900C72B57 /* seikai.mp3 */; };
 		B1079F7B254974A000C72B57 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1079F7A254974A000C72B57 /* ResultViewController.swift */; };
 		B1079F7F2549929000C72B57 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1079F7E2549929000C72B57 /* ReviewViewController.swift */; };
+		B1079F9B25499B2A00C72B57 /* well done.json in Resources */ = {isa = PBXBuildFile; fileRef = B1079F9A25499B2900C72B57 /* well done.json */; };
+		B1079F9E2549A7E200C72B57 /* congrats.json in Resources */ = {isa = PBXBuildFile; fileRef = B1079F9D2549A7E200C72B57 /* congrats.json */; };
+		B1079FA12549A87900C72B57 /* kanseiVoice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1079FA02549A87900C72B57 /* kanseiVoice.mp3 */; };
 		B1349C9B2542D9BB00841AD9 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1349C9A2542D9BB00841AD9 /* TestViewController.swift */; };
 		B1349C9F2542DDE500841AD9 /* MaterialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1349C9E2542DDE500841AD9 /* MaterialModel.swift */; };
 		B1349CA22542DE0100841AD9 /* MaterialList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1349CA12542DE0100841AD9 /* MaterialList.swift */; };
@@ -55,6 +58,9 @@
 		B1079F7725496D5900C72B57 /* seikai.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = seikai.mp3; sourceTree = "<group>"; };
 		B1079F7A254974A000C72B57 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		B1079F7E2549929000C72B57 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
+		B1079F9A25499B2900C72B57 /* well done.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "well done.json"; sourceTree = "<group>"; };
+		B1079F9D2549A7E200C72B57 /* congrats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = congrats.json; sourceTree = "<group>"; };
+		B1079FA02549A87900C72B57 /* kanseiVoice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kanseiVoice.mp3; sourceTree = "<group>"; };
 		B1349C9A2542D9BB00841AD9 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		B1349C9E2542DDE500841AD9 /* MaterialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialModel.swift; sourceTree = "<group>"; };
 		B1349CA12542DE0100841AD9 /* MaterialList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialList.swift; sourceTree = "<group>"; };
@@ -158,8 +164,11 @@
 				B1079F6625492BD900C72B57 /* unlocked.json */,
 				B1079F6C254934E300C72B57 /* failure.json */,
 				B1079F6D254934E300C72B57 /* success.json */,
+				B1079F9A25499B2900C72B57 /* well done.json */,
+				B1079F9D2549A7E200C72B57 /* congrats.json */,
 				B1079F7425496D4D00C72B57 /* fuseikai.mp3 */,
 				B1079F7725496D5900C72B57 /* seikai.mp3 */,
+				B1079FA02549A87900C72B57 /* kanseiVoice.mp3 */,
 				B167D0BA252F447400D31AFF /* LaunchScreen.storyboard */,
 				B167D0BD252F447400D31AFF /* Info.plist */,
 				B171294B253354B9003DCDF7 /* GoogleService-Info.plist */,
@@ -246,10 +255,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1079F7525496D4D00C72B57 /* fuseikai.mp3 in Resources */,
+				B1079F9B25499B2A00C72B57 /* well done.json in Resources */,
+				B1079FA12549A87900C72B57 /* kanseiVoice.mp3 in Resources */,
 				B1079F6925492BD900C72B57 /* unlocked.json in Resources */,
 				B167D0BC252F447400D31AFF /* LaunchScreen.storyboard in Resources */,
 				B171294C253354B9003DCDF7 /* GoogleService-Info.plist in Resources */,
 				B1079F6825492BD900C72B57 /* correct.json in Resources */,
+				B1079F9E2549A7E200C72B57 /* congrats.json in Resources */,
 				B167D0B9252F447400D31AFF /* Assets.xcassets in Resources */,
 				B1079F7825496D5900C72B57 /* seikai.mp3 in Resources */,
 				B1079F6F254934E300C72B57 /* success.json in Resources */,

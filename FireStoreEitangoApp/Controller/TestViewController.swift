@@ -32,6 +32,9 @@ class TestViewController: UIViewController {
     
     @IBOutlet weak var quesNumberLabel: UILabel!
     
+    var correctCount = 0
+    var incorrectCount = 0
+    
     var materialList = MaterialList()
     var wordCount = 0
     var receivedCellNumber = Int()
@@ -217,7 +220,6 @@ class TestViewController: UIViewController {
                 incorrectArray.append(wordCount)
             }
         case 3:
-            print(3)
             if whereIsCorrectSelection == 2{
                 playCorrectAniSound()
             }else{
@@ -225,7 +227,6 @@ class TestViewController: UIViewController {
                 incorrectArray.append(wordCount)
             }
         case 4:
-            print(4)
             if whereIsCorrectSelection == 3{
                 playCorrectAniSound()
             }else{
@@ -246,9 +247,10 @@ class TestViewController: UIViewController {
         selec2.isEnabled = false
         selec3.isEnabled = false
         selec4.isEnabled = false
+        
+
      
-        
-        
+
         
     }
 
@@ -328,6 +330,11 @@ class TestViewController: UIViewController {
         resultVC.receivedIncorrectNumberArray = incorrectArray
         //単語の範囲を渡す（復習用保存のため）
         resultVC.receivedCellNumber = receivedCellNumber
+        
+        //正解数不正解数を渡す
+        resultVC.correctCount = correctCount
+        resultVC.incorrectCount = incorrectCount
+        
     }
     
     
@@ -349,6 +356,8 @@ class TestViewController: UIViewController {
         
         //音ならす
         soundFile.playSound(fileName: "seikai", extensionName: "mp3")
+        
+        correctCount += 1
     }
     
     func playIncorrectAniSound(){
@@ -364,6 +373,8 @@ class TestViewController: UIViewController {
         
         //音ならす
         soundFile.playSound(fileName: "fuseikai", extensionName: "mp3")
+        
+        incorrectCount += 1
     }
     
     

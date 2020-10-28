@@ -35,7 +35,7 @@ class MaterialList{
         TOEIC600NounList.append(MaterialModel(wordsName: "option", japanWordsName: "選択肢", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "vehicle", japanWordsName: "乗り物", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "detail", japanWordsName: "詳細", correctOrNot: true))
-        TOEIC600NounList.append(MaterialModel(wordsName: "council", japanWordsName: "会議、議会", correctOrNot: true))
+//        TOEIC600NounList.append(MaterialModel(wordsName: "council", japanWordsName: "会議、議会", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "organization", japanWordsName: "組織", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "fee", japanWordsName: "料金", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "survey", japanWordsName: "調査", correctOrNot: true))
