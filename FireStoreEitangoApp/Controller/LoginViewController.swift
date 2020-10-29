@@ -11,6 +11,10 @@ import MaterialComponents.MaterialTextFields
 import MaterialComponents.MaterialDialogs
 import Firebase
 
+extension Notification.Name {
+    static let notification = Notification.Name("SettingsDone")
+}
+
 class LoginViewController: UIViewController,UITextFieldDelegate {
     
 
@@ -38,8 +42,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         textFieldFloatingPW.placeholder = "パスワード"
         self.textControllerPW = MDCTextInputControllerOutlined(textInput: textFieldFloatingPW)
         
-       
-        
+    }
+    
+    //ログイン画面が閉じるときに、元のviewへ「閉じるよ！」と伝える（プロフィールデータを更新のため）
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.post(name: .notification, object: nil)
     }
     
     
@@ -69,6 +76,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 //                    self.navigationController?.dismiss(animated: true, completion: nil)
 
                     self.dismiss(animated: true, completion: nil)
+                    
+//                    let othersVC = self.storyboard?.instantiateViewController(withIdentifier: "others") as! OthersViewController
+//                    self.present(othersVC, animated: true, completion: nil)
                 }
                 
                 alertController.addAction(action)

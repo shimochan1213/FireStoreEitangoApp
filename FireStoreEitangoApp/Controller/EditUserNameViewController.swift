@@ -41,17 +41,15 @@ class EditUserNameViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    @IBAction func close(_ sender: Any) {
+ 
+    
+    @IBAction func dismiss(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
     
-    @IBAction func renewUserInformation(_ sender: Any) {
-      
-
     
-        
-        
+    @IBAction func renewUserInformation(_ sender: Any) {
         //テキストが空でないなら、入れる
         if let newUserName = textFieldFloatingUserName.text,!newUserName.isEmpty{
             db.collection("Profile").document(refString).updateData(["userName" : textFieldFloatingUserName.text!]) { (error) in

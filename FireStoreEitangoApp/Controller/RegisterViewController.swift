@@ -22,6 +22,10 @@ import SDWebImage
 //        }
 //    }
 //}
+extension Notification.Name {
+    static let notificationFromRegister = Notification.Name("SettingsDone")
+}
+
 
 class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -80,6 +84,11 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
         
     }
     
+    //ログイン画面が閉じるときに、元のviewへ「閉じるよ！」と伝える（プロフィールデータを更新のため）
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.post(name: .notificationFromRegister, object: nil)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -116,6 +125,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 let action = MDCAlertAction(title:"OK"){(alert) in
 //                    self.navigationController?.dismiss(animated: true, completion: nil)
                     self.dismiss(animated: true, completion: nil)
+                    
+                    
+//                    let othersVC = self.storyboard?.instantiateViewController(withIdentifier: "others") as! OthersViewController
+//                    self.present(othersVC, animated: true, completion: nil)
                 }
                 
                 alertController.addAction(action)
