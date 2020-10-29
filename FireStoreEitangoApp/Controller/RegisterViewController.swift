@@ -32,6 +32,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     @IBOutlet weak var textFieldFloatingEmail: MDCTextField!
     @IBOutlet weak var textFieldFloatingPW: MDCTextField!
     @IBOutlet weak var registerBtn: MDCRaisedButton!
+    var textControllerUserName: MDCTextInputControllerOutlined!
     var textControllerEmail: MDCTextInputControllerOutlined!
     var textControllerPW: MDCTextInputControllerOutlined!
     
@@ -60,12 +61,16 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
          let checkModel = CheckPermission()
         checkModel.showCheckPermission()
         
+        textFieldFloatingUserName.delegate = self
         textFieldFloatingEmail.delegate = self
         textFieldFloatingPW.delegate = self
         
         
         
         registerBtn.layer.cornerRadius = 5
+        
+        textFieldFloatingUserName.placeholder = "ユーザー名"
+        self.textControllerUserName = MDCTextInputControllerOutlined(textInput: textFieldFloatingUserName)
     
         textFieldFloatingEmail.placeholder = "メールアドレス"
         self.textControllerEmail = MDCTextInputControllerOutlined(textInput: textFieldFloatingEmail)
@@ -109,7 +114,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 print("ユーザの作成が成功しただよ！")
                 let alertController = MDCAlertController(title: "ユーザー登録が完了しました", message: "さあ、はじめましょう！")
                 let action = MDCAlertAction(title:"OK"){(alert) in
-                    self.navigationController?.dismiss(animated: true, completion: nil)
+//                    self.navigationController?.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 }
                 
                 alertController.addAction(action)
@@ -207,26 +213,33 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     
     
 
-    @IBAction func back(_ sender: Any) {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+//    @IBAction func back(_ sender: Any) {
+//        self.navigationController?.dismiss(animated: true, completion: nil)
+//    }
+//
+    @IBAction func close(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
+    
     
     override func didReceiveMemoryWarning() {
            super.didReceiveMemoryWarning()
        }
        
-       //タッチでキーボ閉じる
-       override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-           textFieldFloatingEmail.resignFirstResponder()
-           textFieldFloatingPW.resignFirstResponder()
-       }
-       
-       //リターンでキーボ閉じる
-       func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-           textFieldFloatingEmail.resignFirstResponder()
-           textFieldFloatingPW.resignFirstResponder()
-           return true
-       }
+    //タッチでキーボ閉じる
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        textFieldFloatingEmail.resignFirstResponder()
+        textFieldFloatingPW.resignFirstResponder()
+        textFieldFloatingUserName.resignFirstResponder()
+    }
+    
+    //リターンでキーボ閉じる
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textFieldFloatingEmail.resignFirstResponder()
+        textFieldFloatingPW.resignFirstResponder()
+        textFieldFloatingUserName.resignFirstResponder()
+        return true
+    }
 
     
        //アラートを出す

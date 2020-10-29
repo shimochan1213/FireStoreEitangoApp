@@ -66,7 +66,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 //アラート
                 let alertController = MDCAlertController(title: "ログイン成功", message: "さあ、はじめましょう！")
                 let action = MDCAlertAction(title:"OK"){(alert) in
-                    self.navigationController?.dismiss(animated: true, completion: nil)
+//                    self.navigationController?.dismiss(animated: true, completion: nil)
+
+                    self.dismiss(animated: true, completion: nil)
                 }
                 
                 alertController.addAction(action)
@@ -78,10 +80,13 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     
     
-    @IBAction func back(_ sender: Any) {
-        self.navigationController?.dismiss(animated: true, completion: nil)
-    }
+//    @IBAction func back(_ sender: Any) {
+//        self.navigationController?.dismiss(animated: true, completion: nil)
+//    }
     
+    @IBAction func close(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

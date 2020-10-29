@@ -12,20 +12,14 @@ import Firebase
 import FirebaseFirestore
 import SDWebImage
 
-
-
 class OthersViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     let registerVC = RegisterViewController()
-    
     @IBOutlet weak var profileImageView: UIImageView!
-    
     @IBOutlet weak var profileLearnedNumberLabel: UILabel!
     @IBOutlet weak var profileUserNameLabel: UILabel!
     var profileImageData = Data()
     var profileImage = UIImage()
-    
-    
     var textController: MDCTextInputControllerOutlined!
     var email = String()
     var PW = String()
@@ -35,6 +29,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var iconImageView: UIImageView!
     
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var hintLabel: UILabel!
     //fireStoreにアクセスするため(firestoreから色々取ってきたり送ったりするため）
     let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
     let db = Firestore.firestore()
@@ -42,13 +37,14 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     var imageString = String()
     //firestoreから取ってきたデータを入れておく配列。型はProfileModel型
     var profiles:[ProfileModel] = []
-    
     //登録時保存したfirestoreのdocumentIDを入れる
     var refString = String()
-    
     @IBOutlet weak var loginButton: UIButton!
     
-    
+    @IBOutlet weak var loginBtn: UIButton!
+    @IBOutlet weak var logoutBtn: UIButton!
+    @IBOutlet weak var accountAskLabel: UILabel!
+    @IBOutlet weak var registerBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +55,16 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         loadFromFireStore()
         
+
+        
+        //ログイン済みであればログインボタンと登録ボタンなどを非表示
+         if Auth.auth().currentUser?.uid != nil{
+            loginBtn.isHidden = true
+            accountAskLabel.isHidden = true
+            registerBtn.isHidden = true
+            
+             
+         }
         
         //登録時に設定したユーザ名とアイコンを表示
 //        if UserDefaults.standard.object(forKey: "profileIconImage") != nil{
@@ -70,23 +76,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         
 //        profileImage = UIImage(data: profileImageData)!
 //        profileImageView.image = profileImage
-        
-        
-//        if UserDefaults.standard.object(forKey: "profileUserName") != nil{
-//            profileUserNameLabel.text = UserDefaults.standard.object(forKey: "profileUserName") as? String
-//        }
-        
-        
-        
-        
-        
-        
-//        if UserDefaults.standard.object(forKey: "refString") != nil{
-//            refString = UserDefaults.standard.object(forKey: "refString") as! String
-//        }
-        
-        
-        
+      
         
         //        let textFieldFloating = MDCTextField(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: 50))
         //        textFieldFloating.placeholder = "Usename"
@@ -106,61 +96,69 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         loginButton.layer.shadowOpacity = 0.5
         loginButton.layer.shadowOffset = CGSize(width: 1, height: 1)
         
-        
-    }
-    
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(true)
-            
-            
-            loadFromFireStore()
-//            print(profiles)
-            
-            if UserDefaults.standard.object(forKey: "refString") != nil{
-                refString = UserDefaults.standard.object(forKey: "refString") as! String
-                print(refString)
-                db.collection("Profile").document(refString).getDocument { (snapShot, error) in
-                    if error != nil{
-                        return
-                    }
-                    //dataメソッドはドキュメントの中のdata全体を取ってきている。
-                    let data = snapShot?.data()
-                    self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
-                    self.profileUserNameLabel.text = data!["userName"] as! String
-                    self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "loading"), completed: nil)
-
-                }
-            }
-            
-//            registerVC.profileRef.getDocument { (snapShot, error) in
-//                if error != nil{
-//                    return
-//                }
-//
-//                let data = snapShot?.data()
-//                self.profileUserNameLabel.text = data!["userName"] as! String
-//            }
-            
-            
-//            db.collection("Profile").document(refString).getDocument { (snapShot, error) in
+//        if UserDefaults.standard.object(forKey: "refString") != nil && Auth.auth().currentUser?.uid != nil{
+//            refString = UserDefaults.standard.object(forKey: "refString") as! String
+//            print(refString)
+//            db.collection("Profile").document(refString).addSnapshotListener { (snapShot, error) in
 //                if error != nil{
 //                    return
 //                }
 //                //dataメソッドはドキュメントの中のdata全体を取ってきている。
 //                let data = snapShot?.data()
 //                self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
+//                self.profileUserNameLabel.text = data!["userName"] as! String
+//                self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "loading"), completed: nil)
+//            }
+//            hintLabel.isHidden = true
+//        }
+        showUserInformationFromFireStore()
+    }
+    
+    
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(true)
+
+            loadFromFireStore()
+//            print(profiles)
+            
+            //firestoreへのdocumentIDが保存されている（ユーザー登録履歴あり）かつログイン済みの時にする処理
+//            if UserDefaults.standard.object(forKey: "refString") != nil && Auth.auth().currentUser?.uid != nil{
+//                refString = UserDefaults.standard.object(forKey: "refString") as! String
+//                print(refString)
+//                db.collection("Profile").document(refString).getDocument { (snapShot, error) in
+//                    if error != nil{
+//                        return
+//                    }
+//                    //dataメソッドはドキュメントの中のdata全体を取ってきている。
+//                    let data = snapShot?.data()
+//                    self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
+//                    self.profileUserNameLabel.text = data!["userName"] as! String
+//                    self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "loading"), completed: nil)
 //
+//                }
 //            }
             
-//            //firestoreからユーザー名とってきてる
-//            loadUserName()
+//            if UserDefaults.standard.object(forKey: "refString") != nil && Auth.auth().currentUser?.uid != nil{
+//                refString = UserDefaults.standard.object(forKey: "refString") as! String
+//                print(refString)
+//                db.collection("Profile").document(refString).addSnapshotListener { (snapShot, error) in
+//                    if error != nil{
+//                        return
+//                    }
+//                    //dataメソッドはドキュメントの中のdata全体を取ってきている。
+//                    let data = snapShot?.data()
+//                    self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
+//                    self.profileUserNameLabel.text = data!["userName"] as! String
+//                    self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "loading"), completed: nil)
 //
-//            //DBから取ってきた画像入ってるURLを定数に入れる
-//            if UserDefaults.standard.object(forKey: "userImage") != nil{
-//                imageString = UserDefaults.standard.object(forKey: "userImage") as! String
+//                }
+//
+//                hintLabel.isHidden = true
 //            }
-//            //そのurlをもとに画像を表示(とりあえずDBから取ってきて表示させる練習）
-//            iconImageView.sd_setImage(with: URL(string: imageString), completed: nil)
+            showUserInformationFromFireStore()
+ 
+            
+
     
         }
     
@@ -204,10 +202,20 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         return tableView.bounds.height/6
     }
     
-
+    
     @IBAction func tapped(_ sender: Any) {
-        showAlert()
+        if Auth.auth().currentUser?.uid != nil{
+            showAlert()
+        }
     }
+    
+    @IBAction func userNameLabelTapped(_ sender: Any) {
+        if Auth.auth().currentUser?.uid != nil{
+        performSegue(withIdentifier: "newUserName", sender: nil)
+        }
+    }
+    
+    
     
     
 
@@ -269,15 +277,31 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
 //        }
 //
 //    }
-    
-    @IBAction func zikken(_ sender: Any) {
-        print("レフストリング\(refString)")
-//        db.collection("Profile").document(refString).setData(["userName":"おおおおおおおお","imageString":"すき"])
+
+    func showUserInformationFromFireStore(){
         
-        //ドキュメントの中身を一部更新する
-        db.collection("Profile").document(refString).updateData(["learnedNumber" : 100]) { (error) in
-            print(error.debugDescription)
-            return
+        //ユーザーカードにfirestoreから取ってきたユーザー情報を表示する
+        if UserDefaults.standard.object(forKey: "refString") != nil && Auth.auth().currentUser?.uid != nil{
+            refString = UserDefaults.standard.object(forKey: "refString") as! String
+            print(refString)
+            
+            db.collection("Profile").document(refString).addSnapshotListener { (snapShot, error) in
+                if error != nil{
+                    return
+                }
+                //dataメソッドはドキュメントの中のdata全体を取ってきている。
+                let data = snapShot?.data()
+                self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
+                self.profileUserNameLabel.text = data!["userName"] as! String
+                self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "loading"), completed: nil)
+
+            }
+            
+            //ログイン中は、これらを非表示
+            hintLabel.isHidden = true
+            loginBtn.isHidden = true
+            accountAskLabel.isHidden = true
+            registerBtn.isHidden = true
         }
     }
     
@@ -288,9 +312,28 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         do {
             try firebaseAuth.signOut()
             print("ログアウトしました")
+            
+            loginBtn.isHidden = false
+            accountAskLabel.isHidden = false
+            registerBtn.isHidden = false
+            hintLabel.isHidden = false
+            
+            profileLearnedNumberLabel.text = "学んだ単語数"
+            profileUserNameLabel.text = "ユーザー名"
+            profileImageView.image = UIImage(named: "user128")
+            
         } catch let signOutError as NSError {
             print ("error", signOutError)
         }
+        
+//        loginBtn.isHidden = false
+//        accountAskLabel.isHidden = false
+//        registerBtn.isHidden = false
+//
+//        profileLearnedNumberLabel.text = "学んだ単語数"
+//        profileUserNameLabel.text = "ユーザー名"
+//        profileImageView.image = UIImage(named: "120reo")
+        
     }
     
     //以下、アイコン設定関連

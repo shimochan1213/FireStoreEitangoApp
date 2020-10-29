@@ -41,6 +41,7 @@
 		B171294725332D5F003DCDF7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B171294625332D5F003DCDF7 /* LoginViewController.swift */; };
 		B171294925333B8E003DCDF7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B171294825333B8E003DCDF7 /* RegisterViewController.swift */; };
 		B171294C253354B9003DCDF7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B171294B253354B9003DCDF7 /* GoogleService-Info.plist */; };
+		B19E0D69254AB9730057B500 /* EditUserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19E0D68254AB9730057B500 /* EditUserNameViewController.swift */; };
 		B1F726A22547D7DB00A6EFDE /* NewsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F726A12547D7DB00A6EFDE /* NewsItems.swift */; };
 		B1F726A52547FE4300A6EFDE /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F726A42547FE4300A6EFDE /* WebViewController.swift */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,7 @@
 		B171294625332D5F003DCDF7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B171294825333B8E003DCDF7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		B171294B253354B9003DCDF7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B19E0D68254AB9730057B500 /* EditUserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserNameViewController.swift; sourceTree = "<group>"; };
 		B1F726A12547D7DB00A6EFDE /* NewsItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItems.swift; sourceTree = "<group>"; };
 		B1F726A42547FE4300A6EFDE /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B3B32305924707350649D7C9 /* Pods_FireStoreEitangoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireStoreEitangoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,19 +181,28 @@
 		B171294A25333B92003DCDF7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B19E0D66254AA95B0057B500 /* Learning */,
 				B167D0B3252F447300D31AFF /* ViewController.swift */,
 				B1482F4A253497AF00CC0C6B /* HomeViewController.swift */,
 				B1F726A42547FE4300A6EFDE /* WebViewController.swift */,
-				B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */,
-				B17129442532F4DE003DCDF7 /* ManabuViewController.swift */,
-				B1349C9A2542D9BB00841AD9 /* TestViewController.swift */,
-				B1079F7A254974A000C72B57 /* ResultViewController.swift */,
 				B171294825333B8E003DCDF7 /* RegisterViewController.swift */,
 				B171294625332D5F003DCDF7 /* LoginViewController.swift */,
 				B167D0C5252F65C000D31AFF /* OthersViewController.swift */,
 				B1079F7E2549929000C72B57 /* ReviewViewController.swift */,
+				B19E0D68254AB9730057B500 /* EditUserNameViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		B19E0D66254AA95B0057B500 /* Learning */ = {
+			isa = PBXGroup;
+			children = (
+				B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */,
+				B17129442532F4DE003DCDF7 /* ManabuViewController.swift */,
+				B1349C9A2542D9BB00841AD9 /* TestViewController.swift */,
+				B1079F7A254974A000C72B57 /* ResultViewController.swift */,
+			);
+			path = Learning;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,6 +332,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B19E0D69254AB9730057B500 /* EditUserNameViewController.swift in Sources */,
 				B167D0B4252F447300D31AFF /* ViewController.swift in Sources */,
 				B1079F7B254974A000C72B57 /* ResultViewController.swift in Sources */,
 				B1079F7F2549929000C72B57 /* ReviewViewController.swift in Sources */,
