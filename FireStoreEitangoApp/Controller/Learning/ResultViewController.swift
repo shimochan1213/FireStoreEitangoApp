@@ -37,6 +37,7 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var correctRateLabel: UILabel!
+    @IBOutlet weak var ichiranLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +59,7 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
             soundFile.playSound(fileName: "kanseiVoice", extensionName: "mp3")
             
             correctRateLabel.text = "全問正解！"
+            ichiranLabel.isHidden = true
             tableView.removeFromSuperview()
             
 //            let backToHomeBtn = UIButton()

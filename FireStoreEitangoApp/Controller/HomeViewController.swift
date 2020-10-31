@@ -47,6 +47,16 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        //XMLパース
+        let urlString = "https://news.yahoo.co.jp/rss/media/koukousei/all.xml"
+        let url:URL = URL(string:urlString)!
+        parser = XMLParser(contentsOf: url)!
+        parser.delegate = self
+        parser.parse()
+    }
+    
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElementName = nil
@@ -67,20 +77,29 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
             
             switch self.currentElementName {
             case "title":
-                
                 //foundCharacters string: stringという変数に入ってきたものをぶち込んでる
                 lastItem.title = string
+                print(string)
+//                print("こっち\(lastItem.title)")
+             
+                
                 
             case "link":
-                lastItem.url = string
+//                lastItem.url = string
+                if string.contains("&") != true && string.contains("source=rss") != true{
+                    lastItem.url = string
+                }
 //                print("リンクを出力\(string)")
             case "description":
                 lastItem.description = string
             case "pubDate":
                 lastItem.pubDate = string
             case "image":
+//                lastItem.imageString = string
+                if string.contains("&") != true && string.contains("h=") != true && string.contains("q=") != true && string.contains("exp=") != true && string.contains("pri=") != true{
                 lastItem.imageString = string
-//                print("ここは画像URLを出力\(string)")
+                }
+//                print("ここは画像URLを出力\(lastItem.imageString)")
             default:
                 break
             }
@@ -116,8 +135,13 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
         
+
+        
         let newsItem = self.newsItems[indexPath.row]
+        
+        
         //        cell.backgroundColor = .blue
+            
         
         cell.layer.masksToBounds = false
         // 影の方向（width=右方向、height=下方向、CGSize.zero=方向指定なし）
@@ -132,20 +156,12 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         let samuneImageView = cell.viewWithTag(1) as! UIImageView
         samuneImageView.layer.cornerRadius = 3
         //取ってきたサムネを表示
+
+        if newsItem.imageString != nil{
+            samuneImageView.sd_setImage(with: URL(string: newsItem.imageString!), placeholderImage: UIImage(named: "loading"))
+        }
         
-                if newsItem.imageString != nil{
-                samuneImageView.sd_setImage(with: URL(string: newsItem.imageString!), completed: nil)
-                }
-        
-        //        if samuneImageView.image == nil{
-        //            samuneImageView.sd_setImage(with: URL(string: "https://s.yimg.jp/images/news/yjnews_s.gif"), completed: nil)
-        //        }
-        
-//        samuneImageView.sd_setImage(with: URL(string: newsItem.imageString!), placeholderImage: UIImage(named: "120reo"))
-        
-        
-        
-        
+  
         
         //タイトル記事
         let titleLabel = cell.contentView.viewWithTag(2) as! UILabel
@@ -170,7 +186,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let horizontalSpace : CGFloat = 20
         let cellSize : CGFloat = self.view.bounds.width * 6/7
-        return CGSize(width: cellSize, height: self.view.bounds.height/2)
+        return CGSize(width: cellSize, height: self.view.bounds.height/3)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
