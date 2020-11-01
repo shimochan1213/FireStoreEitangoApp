@@ -13,9 +13,11 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
     
     @IBOutlet weak var collectionView: UICollectionView!
  
-    @IBOutlet weak var reviewCollectinView: UICollectionView!
+//    @IBOutlet weak var reviewCollectinView: UICollectionView!
+    @IBOutlet weak var testCollectionView: UICollectionView!
     
     @IBOutlet weak var ReviewCollectionView: UICollectionView!
+    @IBOutlet weak var learnCollectionView: UICollectionView!
     
     let ranges: [String] = ["1-20","21-40","41-60","61-80","81-100"]
     
@@ -27,11 +29,14 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         super.viewDidLoad()
         
         //collectionViewプロトコルのメソッドを使えるようにする
-        collectionView.dataSource = self
-        collectionView.delegate = self
+//        collectionView.dataSource = self
+//        collectionView.delegate = self
+        
+        learnCollectionView.dataSource = self
+        learnCollectionView.delegate = self
 //
-        reviewCollectinView.dataSource = self
-        reviewCollectinView.delegate = self
+        testCollectionView.dataSource = self
+        testCollectionView.delegate = self
         
         ReviewCollectionView.dataSource = self
         ReviewCollectionView.delegate = self
@@ -73,8 +78,11 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         // 影をぼかし
         cell.layer.shadowRadius = 4
         
-        let rangeLabel = cell.contentView.viewWithTag(1) as! UILabel
-        rangeLabel.text = ranges[indexPath.row]
+//        let rangeLabel = cell.contentView.viewWithTag(1) as! UILabel
+//        rangeLabel.text = ranges[indexPath.row]
+            
+//            let rangeImage = cell.viewWithTag(2) as! UIImageView
+//            rangeImage.image = UIImage(named: "120reo")
        
     
         return cell
@@ -118,13 +126,13 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         
         if collectionView.tag == 1{
         let cellSize : CGFloat = self.view.bounds.width * 6/7
-        return CGSize(width: cellSize, height: self.view.bounds.height/4)
+        return CGSize(width: cellSize, height: self.view.bounds.height/5)
         }else if collectionView.tag == 2{
             let cellSize : CGFloat = self.view.bounds.width * 6/7
-            return CGSize(width: cellSize, height: self.view.bounds.height/4)
+            return CGSize(width: cellSize, height: self.view.bounds.height/5)
         }else if collectionView.tag == 3{
             let cellSize : CGFloat = self.view.bounds.width * 6/7
-            return CGSize(width: cellSize, height: self.view.bounds.height/4)
+            return CGSize(width: cellSize, height: self.view.bounds.height/5)
         }
         return CGSize(width: 100, height: 100)
         }

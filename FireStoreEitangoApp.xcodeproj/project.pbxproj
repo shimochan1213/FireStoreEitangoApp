@@ -37,6 +37,7 @@
 		B167D0BC252F447400D31AFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B167D0BA252F447400D31AFF /* LaunchScreen.storyboard */; };
 		B167D0C4252F463700D31AFF /* 30pixel.png in Resources */ = {isa = PBXBuildFile; fileRef = B167D0C3252F463700D31AFF /* 30pixel.png */; };
 		B167D0C6252F65C000D31AFF /* OthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B167D0C5252F65C000D31AFF /* OthersViewController.swift */; };
+		B1692032254ECAA600D9C90D /* ModeSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1692031254ECAA600D9C90D /* ModeSelectViewController.swift */; };
 		B17129452532F4DE003DCDF7 /* ManabuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17129442532F4DE003DCDF7 /* ManabuViewController.swift */; };
 		B171294725332D5F003DCDF7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B171294625332D5F003DCDF7 /* LoginViewController.swift */; };
 		B171294925333B8E003DCDF7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B171294825333B8E003DCDF7 /* RegisterViewController.swift */; };
@@ -80,6 +81,7 @@
 		B167D0BD252F447400D31AFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B167D0C3252F463700D31AFF /* 30pixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 30pixel.png; sourceTree = "<group>"; };
 		B167D0C5252F65C000D31AFF /* OthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersViewController.swift; sourceTree = "<group>"; };
+		B1692031254ECAA600D9C90D /* ModeSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeSelectViewController.swift; sourceTree = "<group>"; };
 		B17129442532F4DE003DCDF7 /* ManabuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManabuViewController.swift; sourceTree = "<group>"; };
 		B171294625332D5F003DCDF7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B171294825333B8E003DCDF7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				B17129442532F4DE003DCDF7 /* ManabuViewController.swift */,
 				B1349C9A2542D9BB00841AD9 /* TestViewController.swift */,
 				B1079F7A254974A000C72B57 /* ResultViewController.swift */,
+				B1692031254ECAA600D9C90D /* ModeSelectViewController.swift */,
 			);
 			path = Learning;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				B1F726A52547FE4300A6EFDE /* WebViewController.swift in Sources */,
 				B17129452532F4DE003DCDF7 /* ManabuViewController.swift in Sources */,
 				B167D0B0252F447300D31AFF /* AppDelegate.swift in Sources */,
+				B1692032254ECAA600D9C90D /* ModeSelectViewController.swift in Sources */,
 				B167D0B2252F447300D31AFF /* SceneDelegate.swift in Sources */,
 				B1349CA22542DE0100841AD9 /* MaterialList.swift in Sources */,
 			);

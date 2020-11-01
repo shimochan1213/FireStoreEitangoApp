@@ -24,12 +24,16 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     var email = String()
     var PW = String()
     @IBOutlet weak var tableView: UITableView!
+   
+    @IBOutlet weak var scrollView: UIScrollView!
     
     //firestoreから取ってきた画像のurlをもとにアイコンを表示してみる
     @IBOutlet weak var iconImageView: UIImageView!
     
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var hintLabel: UILabel!
+    let profileLabel = UILabel()
+    @IBOutlet weak var otherUsersLabel: UILabel!
     //fireStoreにアクセスするため(firestoreから色々取ってきたり送ったりするため）
     let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
     let db = Firestore.firestore()
@@ -85,11 +89,11 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         //        // MDCTextInputControllerOutlined
         
         //materia design風の影の付け方の基本
-        loginButton.layer.cornerRadius = 10.0
-        loginButton.layer.shadowColor = UIColor.black.cgColor
-        loginButton.layer.shadowRadius = 1
-        loginButton.layer.shadowOpacity = 0.5
-        loginButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+//        loginButton.layer.cornerRadius = 10.0
+//        loginButton.layer.shadowColor = UIColor.black.cgColor
+//        loginButton.layer.shadowRadius = 1
+//        loginButton.layer.shadowOpacity = 0.5
+//        loginButton.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         showUserInformationFromFireStore()
     }
@@ -176,6 +180,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     }else{
     iconImageView.image = UIImage(named: "120reo")
     }
+        iconImageView.layer.cornerRadius = iconImageView.bounds.width/2
     
         userNameLabel.text = profiles[indexPath.row].userName
         learnedNumberLabel.text = "学んだ単語数は\(String(profiles[indexPath.row].learnedNumber))"
@@ -311,7 +316,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                 self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
                 self.profileUserNameLabel.text = data!["userName"] as! String
                 self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "120reo"), completed: nil)
-                
+//                self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.width/2
 
             }
             
@@ -320,6 +325,13 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             loginBtn.isHidden = true
             accountAskLabel.isHidden = true
             registerBtn.isHidden = true
+            
+            //代わりに上部にラベルを表示
+            profileLabel.frame = CGRect(x: view.bounds.width/20, y: view.bounds.height/11, width: otherUsersLabel.bounds.width, height: otherUsersLabel.bounds.height)
+            profileLabel.text = "プロフィール"
+            profileLabel.font =  UIFont.boldSystemFont(ofSize: 26)
+            scrollView.addSubview(profileLabel)
+            
         }
     }
     
@@ -335,6 +347,8 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             accountAskLabel.isHidden = false
             registerBtn.isHidden = false
             hintLabel.isHidden = false
+            
+            profileLabel.isHidden = true
             
             profileLearnedNumberLabel.text = "学んだ単語数"
             profileUserNameLabel.text = "ユーザー名"

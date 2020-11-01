@@ -71,6 +71,14 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
             backToHomeBtn.titleLabel?.adjustsFontSizeToFitWidth = true
             backToHomeBtn.titleLabel?.font =  UIFont.boldSystemFont(ofSize: 22)
             backToHomeBtn.layer.cornerRadius = 10
+            
+            //materia design風の影の付け方の基本
+            backToHomeBtn.layer.cornerRadius = 10.0
+            backToHomeBtn.layer.shadowColor = UIColor.black.cgColor
+            backToHomeBtn.layer.shadowRadius = 1
+            backToHomeBtn.layer.shadowOpacity = 0.5
+            backToHomeBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+            
             // タップされたときのaction
             self.backToHomeBtn.addTarget(self,action: #selector(self.buttonTapped(_ :)),for: .touchUpInside)
             
