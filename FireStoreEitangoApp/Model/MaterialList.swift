@@ -54,7 +54,7 @@ class MaterialList{
         TOEIC600NounList.append(MaterialModel(wordsName: "warehouse", japanWordsName: "倉庫", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "district", japanWordsName: "地区", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "duty", japanWordsName: "義務", correctOrNot: true))
-        TOEIC600NounList.append(MaterialModel(wordsName: "occasion", japanWordsName: "機会", correctOrNot: true))
+//        TOEIC600NounList.append(MaterialModel(wordsName: "occasion", japanWordsName: "機会", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "opportunity", japanWordsName: "機会", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "function", japanWordsName: "機能", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "institution", japanWordsName: "機関", correctOrNot: true))

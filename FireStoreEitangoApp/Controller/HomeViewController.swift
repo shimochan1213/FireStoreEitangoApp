@@ -22,6 +22,14 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     var currentElementName:String!
     var newsItems = [NewsItems]()
     
+    //練習用
+    var check_title = [String]()
+    var news_title = [String]()
+    
+    var check_description = [String]()
+    var news_description = [String]()
+   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,32 +66,47 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     }
     
     
+    //例えば、<title>Yahoo!ニュース</title>なら、前の<title>に到達した時に呼ばれるメソッド
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElementName = nil
+        
+     
         if elementName == "item"{
             
             //NewsItemsを初期化したものを配列にぶち込む
             self.newsItems.append(NewsItems())
             
+            
         }else{
             currentElementName = elementName
+//            print(elementName)
         }
     }
     
+    //タグ（<title>など)以外のテキストを読み込んだ時に呼ばれるメソッド
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         
+     
         if self.newsItems.count > 0{
             let lastItem = self.newsItems[self.newsItems.count - 1]
+//            print(newsItems[0])
             
             switch self.currentElementName {
             case "title":
                 //foundCharacters string: stringという変数に入ってきたものをぶち込んでる
-                lastItem.title = string
-                print(string)
-//                print("こっち\(lastItem.title)")
+                
+//                lastItem.title = string
+//                print(string)
+
+            
+                
+            
+            
+               //後で要素が複数に分かれていないかチェックするために一度配列に入れてる
+                check_title.append(string)
+    
+
              
-                
-                
             case "link":
 //                lastItem.url = string
                 if string.contains("&") != true && string.contains("source=rss") != true{
@@ -91,7 +114,12 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
                 }
 //                print("リンクを出力\(string)")
             case "description":
-                lastItem.description = string
+//                lastItem.description = string
+                
+                //後で要素が複数に分かれていないかチェックするために一度配列に入れてる
+                check_description.append(string)
+                
+                
             case "pubDate":
                 lastItem.pubDate = string
             case "image":
@@ -108,8 +136,60 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         
     }
     
-    
+    //例えば、<title>Yahoo!ニュース</title>なら、後ろの</title>に到達した時に呼ばれるメソッド
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        
+
+        
+        if self.check_title.count != 0{
+            
+            //先ほど要素が分かれていないか（例えば、「10」「月のホットニュース」）のチェック（そしてその要素たちをくっつける）のために入れておいた配列から初めの要素を変数に入れる
+            var title = check_title[0]
+            //分かれて取ってきてしまったものたちをくっつける
+            for i in 1..<check_title.count{
+                title = title + check_title[i]
+            }
+            //一旦初期化
+            check_title = [String]()
+            
+            news_title.append(title)
+        }
+        
+        if self.check_description.count != 0{
+            var description = check_description[0]
+            for i in 1..<check_description.count{
+                description = description + check_description[i]
+            }
+            check_description = [String]()
+            news_description.append(description)
+        }
+        
+//        //いけたやつ
+//        if currentElementName == "title" {
+//
+//            if check_title.count != 0{
+//            var title = check_title[0]
+////                print(title)
+//            for i in 1..<check_title.count {
+//                title = title + check_title[i]
+//                print("ここや\(title)")
+////                print("これや\(news_title)")
+//            }
+//
+//            check_title = [String]()
+////            print("ここや\(title)")
+//            news_title.append(title)
+//                print(news_title)
+//        }
+//        }
+     
+        
+        
+        
+        
+        
+        
+        
         //新しいものを入れる準備をする
         self.currentElementName = nil
     }
@@ -128,7 +208,8 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return newsItems.count
+//        return newsItems.count
+        return news_title.count
         
     }
     
@@ -156,9 +237,11 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         cell.layer.cornerRadius = 30
         
         let samuneImageView = cell.viewWithTag(1) as! UIImageView
-        samuneImageView.layer.cornerRadius = 3
+        samuneImageView.layer.cornerRadius = 30
+        //上側だけ丸くする
+        samuneImageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
         //取ってきたサムネを表示
-
         if newsItem.imageString != nil{
             samuneImageView.sd_setImage(with: URL(string: newsItem.imageString!), placeholderImage: UIImage(named: "loading"))
         }
@@ -167,12 +250,13 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         
         //タイトル記事
         let titleLabel = cell.contentView.viewWithTag(2) as! UILabel
-        //        titleLabel.text = "ドラもん"
-        titleLabel.text = newsItem.title
+//        titleLabel.text = newsItem.title
+        titleLabel.text = news_title[indexPath.row]
         
         //記事本文
         let descriptionLabel = cell.contentView.viewWithTag(3) as! UILabel
-        descriptionLabel.text = newsItem.description
+//        descriptionLabel.text = newsItem.description
+        descriptionLabel.text = news_description[indexPath.row]
         
         //日付
         let pubDateLabel = cell.contentView.viewWithTag(5) as! UILabel
@@ -195,7 +279,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         //せるがタップされた時の処理
         //webViewControllerにurlを渡して表示したい。
         let webViewController = WebViewController()
-        webViewController.modalTransitionStyle = .flipHorizontal
+        webViewController.modalTransitionStyle = .coverVertical
         let newsItem = newsItems[indexPath.row]
         print("ここやややや\(newsItem.url)")
         UserDefaults.standard.set(newsItem.url, forKey: "url")
