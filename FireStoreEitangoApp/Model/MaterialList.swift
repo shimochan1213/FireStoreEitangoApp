@@ -25,7 +25,7 @@ class MaterialList{
 //        TOEIC600NounList.append(MaterialModel(wordsName: "resume", japanWordsName: "履歴書", correctOrNot: true))
 //        TOEIC600NounList.append(MaterialModel(wordsName: "memorandom", japanWordsName: "メモ", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "destination", japanWordsName: "目的地", correctOrNot: true))
-        TOEIC600NounList.append(MaterialModel(wordsName: "complex", japanWordsName: "(ショッピングモールなど)複合施設", correctOrNot: true))
+//        TOEIC600NounList.append(MaterialModel(wordsName: "complex", japanWordsName: "(ショッピングモールなど)複合施設", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "equipment", japanWordsName: "設備", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "advertisement", japanWordsName: "広告", correctOrNot: true))
         TOEIC600NounList.append(MaterialModel(wordsName: "deadline", japanWordsName: "締切", correctOrNot: true))

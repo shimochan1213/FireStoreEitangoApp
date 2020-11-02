@@ -155,7 +155,7 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
  }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.bounds.height/5
+        return tableView.bounds.height/4
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
