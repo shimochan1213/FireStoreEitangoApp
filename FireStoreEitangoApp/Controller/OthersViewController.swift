@@ -44,6 +44,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     //登録時保存したfirestoreのdocumentIDを入れる
     var refString = String()
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var profileCard: MDCCard!
     
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIButton!
@@ -53,6 +54,8 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         print("didload")
+        
+        profileCard.layer.cornerRadius = 20
         
         //ログイン画面が閉じられたことを感知（プロフィール更新のため）
         NotificationCenter.default.addObserver(self, selector: #selector(fromSub), name: .notification, object: nil)
@@ -113,6 +116,8 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
 
             loadFromFireStore()
             print("willappear")
+            
+            iconImageView.layer.cornerRadius = iconImageView.bounds.width/2
 //            print(profiles)
             
             //firestoreへのdocumentIDが保存されている（ユーザー登録履歴あり）かつログイン済みの時にする処理

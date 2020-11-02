@@ -153,6 +153,8 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         // 影をぼかし
         cell.layer.shadowRadius = 4
         
+        cell.layer.cornerRadius = 30
+        
         let samuneImageView = cell.viewWithTag(1) as! UIImageView
         samuneImageView.layer.cornerRadius = 3
         //取ってきたサムネを表示
@@ -186,7 +188,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let horizontalSpace : CGFloat = 20
         let cellSize : CGFloat = self.view.bounds.width * 6/7
-        return CGSize(width: cellSize, height: self.view.bounds.height/3)
+        return CGSize(width: cellSize, height: 323)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

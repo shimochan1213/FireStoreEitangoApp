@@ -67,6 +67,11 @@ class TestViewController: UIViewController {
             }
         }
         
+        var radiusRate:CGFloat = 20
+        selec1.layer.cornerRadius = radiusRate
+        selec2.layer.cornerRadius = radiusRate
+        selec3.layer.cornerRadius = radiusRate
+        selec4.layer.cornerRadius = radiusRate
         
 
         //アニメーション練習
@@ -138,7 +143,7 @@ class TestViewController: UIViewController {
         animationView.removeFromSuperview()
         wordCount += 1
 //        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
-        quesNumberLabel.text = "\(wordCount % 20 + 1) /20"
+        quesNumberLabel.text = "\(wordCount % 20 + 1) / 20"
 //        soundYomiage()
         jpnWordLabel.text = ""
 //        showRandomSelection()

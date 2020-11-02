@@ -64,6 +64,8 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        var cellRadius:CGFloat = 30
+        
         if collectionView.tag == 1{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
 //                cell.backgroundColor = .blue
@@ -77,9 +79,11 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         cell.layer.shadowOpacity = 0.05
         // 影をぼかし
         cell.layer.shadowRadius = 4
+            
+            cell.layer.cornerRadius = cellRadius
         
-//        let rangeLabel = cell.contentView.viewWithTag(1) as! UILabel
-//        rangeLabel.text = ranges[indexPath.row]
+        let rangeLabel = cell.contentView.viewWithTag(1) as! UILabel
+        rangeLabel.text = ranges[indexPath.row]
             
 //            let rangeImage = cell.viewWithTag(2) as! UIImageView
 //            rangeImage.image = UIImage(named: "120reo")
@@ -97,6 +101,8 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
             cell2.layer.shadowOpacity = 0.05
             cell2.layer.shadowRadius = 4
             
+            cell2.layer.cornerRadius = cellRadius
+            
             let reviewRangeLabel = cell2.contentView.viewWithTag(1) as! UILabel
             reviewRangeLabel.text = ranges[indexPath.row]
             
@@ -111,6 +117,8 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
             cell3.layer.shadowColor = UIColor.black.cgColor
             cell3.layer.shadowOpacity = 0.05
             cell3.layer.shadowRadius = 4
+            
+            cell3.layer.cornerRadius = cellRadius
             
             let reviewRangeLabel = cell3.contentView.viewWithTag(1) as! UILabel
             reviewRangeLabel.text = ranges[indexPath.row]
