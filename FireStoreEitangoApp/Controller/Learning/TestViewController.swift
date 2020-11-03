@@ -267,7 +267,7 @@ class TestViewController: UIViewController {
         //正解選択肢を置く場所を決める
 //        var whereIsCorrectSelection = Int()
         whereIsCorrectSelection = Int(arc4random_uniform(UInt32(4)))
-//        print(whereIsCorrectSelection)
+        print(whereIsCorrectSelection)
         
         //ダミー選択肢を表示させるために被りのない数字を生成する
         var damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
@@ -278,7 +278,14 @@ class TestViewController: UIViewController {
            damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
            damiNumber2 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
            damiNumber3 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+        }else if damiNumber1 == wordCount || damiNumber1 == damiNumber2 || damiNumber1 == damiNumber3 || damiNumber2 == damiNumber3{
+            //それでもダメならこれらを表示
+            damiNumber1 = 25
+            damiNumber2 = 65
+            damiNumber3 = 90
         }
+        
+        print(damiNumber1,damiNumber2,damiNumber3)
         
         switch whereIsCorrectSelection {
         case 0:

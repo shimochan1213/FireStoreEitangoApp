@@ -56,6 +56,13 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         print("didload")
         
         profileCard.layer.cornerRadius = 20
+        tableView.layer.cornerRadius = 20
+        
+        //materia design風の影の付け方の基本
+        tableView.layer.shadowColor = UIColor.black.cgColor
+        tableView.layer.shadowRadius = 1
+        tableView.layer.shadowOpacity = 0.5
+        tableView.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         //ログイン画面が閉じられたことを感知（プロフィール更新のため）
         NotificationCenter.default.addObserver(self, selector: #selector(fromSub), name: .notification, object: nil)
@@ -447,7 +454,8 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
      
      if info[.originalImage] as? UIImage != nil{
          
-         let selectedImage = info[.originalImage] as! UIImage
+//         let selectedImage = info[.originalImage] as! UIImage
+        let selectedImage = info[.editedImage] as! UIImage
          
 //         //画像を圧縮
 //         UserDefaults.standard.set(selectedImage.jpegData(compressionQuality: 0.1), forKey: "profileIconImage")
