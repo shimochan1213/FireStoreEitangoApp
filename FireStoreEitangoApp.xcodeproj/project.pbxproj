@@ -29,6 +29,7 @@
 		B140A8AB2539962800099E0D /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B140A8AA2539962800099E0D /* ProfileModel.swift */; };
 		B1482F4B253497AF00CC0C6B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1482F4A253497AF00CC0C6B /* HomeViewController.swift */; };
 		B1482F4D2534984000CC0C6B /* PreManabuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */; };
+		B160214B255120910006D00F /* swipe.json in Resources */ = {isa = PBXBuildFile; fileRef = B160214A255120910006D00F /* swipe.json */; };
 		B167D0B0252F447300D31AFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B167D0AF252F447300D31AFF /* AppDelegate.swift */; };
 		B167D0B2252F447300D31AFF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B167D0B1252F447300D31AFF /* SceneDelegate.swift */; };
 		B167D0B4252F447300D31AFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B167D0B3252F447300D31AFF /* ViewController.swift */; };
@@ -71,6 +72,7 @@
 		B140A8AA2539962800099E0D /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		B1482F4A253497AF00CC0C6B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreManabuViewController.swift; sourceTree = "<group>"; };
+		B160214A255120910006D00F /* swipe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swipe.json; sourceTree = "<group>"; };
 		B167D0AC252F447300D31AFF /* FireStoreEitangoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireStoreEitangoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B167D0AF252F447300D31AFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B167D0B1252F447300D31AFF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				B1079F6D254934E300C72B57 /* success.json */,
 				B1079F9A25499B2900C72B57 /* well done.json */,
 				B1079F9D2549A7E200C72B57 /* congrats.json */,
+				B160214A255120910006D00F /* swipe.json */,
 				B1079F7425496D4D00C72B57 /* fuseikai.mp3 */,
 				B1079F7725496D5900C72B57 /* seikai.mp3 */,
 				B1079FA02549A87900C72B57 /* kanseiVoice.mp3 */,
@@ -278,6 +281,7 @@
 				B1079F9E2549A7E200C72B57 /* congrats.json in Resources */,
 				B167D0B9252F447400D31AFF /* Assets.xcassets in Resources */,
 				B1079F7825496D5900C72B57 /* seikai.mp3 in Resources */,
+				B160214B255120910006D00F /* swipe.json in Resources */,
 				B1079F6F254934E300C72B57 /* success.json in Resources */,
 				B167D0B7252F447300D31AFF /* Main.storyboard in Resources */,
 				B167D0C4252F463700D31AFF /* 30pixel.png in Resources */,

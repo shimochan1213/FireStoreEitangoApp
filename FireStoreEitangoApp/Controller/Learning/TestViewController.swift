@@ -349,6 +349,9 @@ class TestViewController: UIViewController {
     }
     
     func playCorrectAniSound(){
+        //日本語を黒色に
+        jpnWordLabel.textColor = .black
+        
 //        var animationView = AnimationView()
         animationView = .init(name: "success")
         //         animationView.frame = view.bounds
@@ -366,6 +369,10 @@ class TestViewController: UIViewController {
     }
     
     func playIncorrectAniSound(){
+        
+        //日本語を赤色に
+        jpnWordLabel.textColor = .red
+        
 //        var animationView = AnimationView()
         animationView = .init(name: "failure")
         //         animationView.frame = view.bounds

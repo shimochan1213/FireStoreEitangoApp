@@ -34,6 +34,7 @@ open class RAMBounceAnimation: RAMItemAnimation {
     open override func playAnimation(_ icon: UIImageView, textLabel: UILabel) {
         playBounceAnimation(icon)
         textLabel.textColor = textSelectedColor
+        
     }
 
     /**
@@ -87,4 +88,6 @@ open class RAMBounceAnimation: RAMItemAnimation {
             icon.tintColor = iconSelectedColor
         }
     }
+    
+    
 }

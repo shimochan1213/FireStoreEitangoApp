@@ -33,6 +33,10 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("didloaddddd")
+        
+
+        
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -42,10 +46,12 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         layout.minimumLineSpacing = 30
         collectionView.collectionViewLayout = layout
         
+         
         
         //XMLパース
 //                let urlString = "https://news.yahoo.co.jp/pickup/rss.xml"
         //        let urlString = "https://news.yahoo.co.jp/rss/media/kyoikuict/all.xml"
+        
         let urlString = "https://news.yahoo.co.jp/rss/media/koukousei/all.xml"
         let url:URL = URL(string:urlString)!
         parser = XMLParser(contentsOf: url)!
@@ -57,12 +63,16 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        //XMLパース
-        let urlString = "https://news.yahoo.co.jp/rss/media/koukousei/all.xml"
-        let url:URL = URL(string:urlString)!
-        parser = XMLParser(contentsOf: url)!
-        parser.delegate = self
-        parser.parse()
+        print("willApeearrrrr")
+        
+        //先頭（top)へ戻る
+        collectionView.setContentOffset(.zero, animated: true)
+//        //XMLパース
+//        let urlString = "https://news.yahoo.co.jp/rss/media/koukousei/all.xml"
+//        let url:URL = URL(string:urlString)!
+//        parser = XMLParser(contentsOf: url)!
+//        parser.delegate = self
+//        parser.parse()
     }
     
     
@@ -86,6 +96,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     //タグ（<title>など)以外のテキストを読み込んだ時に呼ばれるメソッド
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         
+    
      
         if self.newsItems.count > 0{
             let lastItem = self.newsItems[self.newsItems.count - 1]
@@ -209,6 +220,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        return newsItems.count
+        print(news_title)
         return news_title.count
         
     }
@@ -280,6 +292,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         //webViewControllerにurlを渡して表示したい。
         let webViewController = WebViewController()
         webViewController.modalTransitionStyle = .coverVertical
+       
         let newsItem = newsItems[indexPath.row]
         print("ここやややや\(newsItem.url)")
         UserDefaults.standard.set(newsItem.url, forKey: "url")

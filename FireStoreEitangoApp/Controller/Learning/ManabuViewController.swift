@@ -14,6 +14,7 @@ import Photos
 import AVFoundation
 import Firebase
 import FirebaseFirestore
+import Lottie
 
 class ManabuViewController: UIViewController {
 
@@ -23,10 +24,13 @@ class ManabuViewController: UIViewController {
     @IBOutlet weak var manabuImageView: UIImageView!
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var japanWordLabel: UILabel!
+    @IBOutlet weak var manabuView: UIView!
     
     var materialList = MaterialList()
     var wordCount = 0
     var refString = String()
+    
+    var animationView = AnimationView()
     
     //単語の範囲を受け取る
     var receivedCellNumber = Int()
@@ -39,6 +43,11 @@ class ManabuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //初回のみ表示
+        if UserDefaults.standard.object(forKey: "visited") == nil{
+        showHowToSwipe()
+        }
         
         //これまで学んだ単語数をfirestoreから引っ張ってくる
         if UserDefaults.standard.object(forKey: "refString") != nil{
@@ -77,6 +86,13 @@ class ManabuViewController: UIViewController {
             return
         }
         
+        manabuView.layer.cornerRadius = 20
+        manabuImageView.layer.cornerRadius = 20
+        //materia design風の影の付け方の基本
+        manabuView.layer.shadowColor = UIColor.black.cgColor
+        manabuView.layer.shadowRadius = 1
+        manabuView.layer.shadowOpacity = 0.5
+        manabuView.layer.shadowOffset = CGSize(width: 1, height: 1)
         //単語の番号を表示
         numberLabel.text = String("No. \(wordCount + 1)")
         getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
@@ -166,6 +182,89 @@ class ManabuViewController: UIViewController {
     
     @IBAction func nextWord(_ sender: Any) {
         
+        NEXTWORD()
+//        switch receivedCellNumber {
+//        case 0:
+//            if wordCount == 19{
+//                //終了
+//                //学んだ単語数をfirestoreに送信する練習
+//                //ドキュメントの中身を一部更新する
+////                db.collection("Profile").document(refString).updateData(["learnedNumber" : 400]) { (error) in
+////                    print(error.debugDescription)
+////                    return
+////                }
+////                dismiss(animated: true, completion: nil)
+//                endLearning()
+//            }
+//        case 1:
+//            if wordCount == 39{
+//                endLearning()
+//            }
+//        case 2:
+//            if wordCount == 59{
+//                endLearning()
+//            }
+//        case 3:
+//            if wordCount == 79{
+//                endLearning()
+//            }
+//        case 4:
+//            if wordCount == 99{
+//                endLearning()
+//            }
+//        default:
+//            break
+//        }
+//
+//
+//        //範囲のコード後で追加（落ちないように）
+//        wordCount += 1
+//        getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
+//        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+//        japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
+//        //単語の番号を表示
+//        numberLabel.text = String("No. \(wordCount + 1)")
+    }
+    
+    @IBAction func beforeWord(_ sender: Any) {
+        
+//        //問題のはじめは戻るボタン押せない様にする
+//        if wordCount == 0 || wordCount == 20 || wordCount == 40 || wordCount == 60 || wordCount == 80{
+//            return
+//        }
+//
+//        wordCount -= 1
+//        getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
+//        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+//        japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
+//        //単語の番号を表示
+//        numberLabel.text = String("No. \(wordCount + 1)")
+        BEFOREWORD()
+    }
+    
+    
+    @IBAction func karinoButton(_ sender: Any) {
+        //学んだ単語数をfirestoreに送信する練習
+        
+        //ドキュメントの中身を一部更新する
+        db.collection("Profile").document(refString).updateData(["learnedNumber" : 400]) { (error) in
+            print(error.debugDescription)
+            return
+        }
+    }
+    
+    func endLearning(){
+        //学んだ単語数をfirestoreに送信する
+        //ドキュメントの中身を一部更新する
+        db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
+            print(error.debugDescription)
+            return
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func NEXTWORD(){
         switch receivedCellNumber {
         case 0:
             if wordCount == 19{
@@ -209,8 +308,7 @@ class ManabuViewController: UIViewController {
         numberLabel.text = String("No. \(wordCount + 1)")
     }
     
-    @IBAction func beforeWord(_ sender: Any) {
-        
+    func BEFOREWORD(){
         //問題のはじめは戻るボタン押せない様にする
         if wordCount == 0 || wordCount == 20 || wordCount == 40 || wordCount == 60 || wordCount == 80{
             return
@@ -225,27 +323,45 @@ class ManabuViewController: UIViewController {
     }
     
     
-    @IBAction func karinoButton(_ sender: Any) {
-        //学んだ単語数をfirestoreに送信する練習
-        
-        //ドキュメントの中身を一部更新する
-        db.collection("Profile").document(refString).updateData(["learnedNumber" : 400]) { (error) in
-            print(error.debugDescription)
-            return
-        }
+    @IBAction func swiped(_ sender: Any) {
+//        //右へのスワイプ
+//        print("swiped")
+//        //問題のはじめは戻るボタン押せない様にする
+//        if wordCount == 0 || wordCount == 20 || wordCount == 40 || wordCount == 60 || wordCount == 80{
+//            return
+//        }
+//
+//        wordCount -= 1
+//        getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
+//        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+//        japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
+//        //単語の番号を表示
+//        numberLabel.text = String("No. \(wordCount + 1)")
+        BEFOREWORD()
     }
     
-    func endLearning(){
-        //学んだ単語数をfirestoreに送信する
-        //ドキュメントの中身を一部更新する
-        db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
-            print(error.debugDescription)
-            return
-        }
-        
-        dismiss(animated: true, completion: nil)
+    @IBAction func leftSwiped(_ sender: Any) {
+        //左へのスワイプ
+        NEXTWORD()
+        animationView.removeFromSuperview()
     }
     
+    func showHowToSwipe(){
+       //スワイプで単語をめくれることを伝える
+        
+//        var animationView = AnimationView()
+        animationView = .init(name: "swipe")
+            animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
+//        animationView.frame = view.bounds
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.animationSpeed = 1
+        view.addSubview(animationView)
+        animationView.play()
+      
+        
+        UserDefaults.standard.set(true, forKey: "visited")
+    }
     
     
 

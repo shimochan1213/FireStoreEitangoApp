@@ -117,6 +117,13 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             loadFromFireStore()
             print("willappear")
             
+            //ログイン済みであればログインボタンと登録ボタンなどを非表示
+             if Auth.auth().currentUser?.uid != nil{
+                loginBtn.isHidden = true
+                accountAskLabel.isHidden = true
+                registerBtn.isHidden = true
+             }
+            
             iconImageView.layer.cornerRadius = iconImageView.bounds.width/2
 //            print(profiles)
             
@@ -362,6 +369,9 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         } catch let signOutError as NSError {
             print ("error", signOutError)
         }
+        
+        //top(スクロールの一番上へ戻る）
+        scrollView.setContentOffset(.zero, animated: true)
         
 //        loginBtn.isHidden = false
 //        accountAskLabel.isHidden = false
