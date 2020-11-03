@@ -30,6 +30,8 @@
 		B1482F4B253497AF00CC0C6B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1482F4A253497AF00CC0C6B /* HomeViewController.swift */; };
 		B1482F4D2534984000CC0C6B /* PreManabuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */; };
 		B160214B255120910006D00F /* swipe.json in Resources */ = {isa = PBXBuildFile; fileRef = B160214A255120910006D00F /* swipe.json */; };
+		B160214F255185D60006D00F /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B160214D255185D60006D00F /* CustomCell.swift */; };
+		B1602150255185D60006D00F /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B160214E255185D60006D00F /* CustomCell.xib */; };
 		B167D0B0252F447300D31AFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B167D0AF252F447300D31AFF /* AppDelegate.swift */; };
 		B167D0B2252F447300D31AFF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B167D0B1252F447300D31AFF /* SceneDelegate.swift */; };
 		B167D0B4252F447300D31AFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B167D0B3252F447300D31AFF /* ViewController.swift */; };
@@ -73,6 +75,8 @@
 		B1482F4A253497AF00CC0C6B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreManabuViewController.swift; sourceTree = "<group>"; };
 		B160214A255120910006D00F /* swipe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swipe.json; sourceTree = "<group>"; };
+		B160214D255185D60006D00F /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		B160214E255185D60006D00F /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		B167D0AC252F447300D31AFF /* FireStoreEitangoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireStoreEitangoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B167D0AF252F447300D31AFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B167D0B1252F447300D31AFF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 				B167D0AF252F447300D31AFF /* AppDelegate.swift */,
 				B167D0B1252F447300D31AFF /* SceneDelegate.swift */,
 				B167D0B5252F447300D31AFF /* Main.storyboard */,
+				B160214D255185D60006D00F /* CustomCell.swift */,
+				B160214E255185D60006D00F /* CustomCell.xib */,
 				B167D0B8252F447400D31AFF /* Assets.xcassets */,
 				B1079F6525492BD800C72B57 /* correct.json */,
 				B1079F6725492BD900C72B57 /* incorrect.json */,
@@ -280,6 +286,7 @@
 				B1079F6825492BD900C72B57 /* correct.json in Resources */,
 				B1079F9E2549A7E200C72B57 /* congrats.json in Resources */,
 				B167D0B9252F447400D31AFF /* Assets.xcassets in Resources */,
+				B1602150255185D60006D00F /* CustomCell.xib in Resources */,
 				B1079F7825496D5900C72B57 /* seikai.mp3 in Resources */,
 				B160214B255120910006D00F /* swipe.json in Resources */,
 				B1079F6F254934E300C72B57 /* success.json in Resources */,
@@ -339,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B160214F255185D60006D00F /* CustomCell.swift in Sources */,
 				B19E0D69254AB9730057B500 /* EditUserNameViewController.swift in Sources */,
 				B167D0B4252F447300D31AFF /* ViewController.swift in Sources */,
 				B1079F7B254974A000C72B57 /* ResultViewController.swift in Sources */,

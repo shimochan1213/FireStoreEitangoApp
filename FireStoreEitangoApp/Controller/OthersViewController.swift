@@ -43,6 +43,8 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     var profiles:[ProfileModel] = []
     //登録時保存したfirestoreのdocumentIDを入れる
     var refString = String()
+//    var likeCount = 0
+//    var likeFlagDic:Dictionary<String, Any> = [:]
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var profileCard: MDCCard!
     
@@ -54,6 +56,9 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         print("didload")
+        
+        tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        
         
         profileCard.layer.cornerRadius = 20
         tableView.layer.cornerRadius = 20
@@ -132,43 +137,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
              }
             
             iconImageView.layer.cornerRadius = iconImageView.bounds.width/2
-//            print(profiles)
-            
-            //firestoreへのdocumentIDが保存されている（ユーザー登録履歴あり）かつログイン済みの時にする処理
-//            if UserDefaults.standard.object(forKey: "refString") != nil && Auth.auth().currentUser?.uid != nil{
-//                refString = UserDefaults.standard.object(forKey: "refString") as! String
-//                print(refString)
-//                db.collection("Profile").document(refString).getDocument { (snapShot, error) in
-//                    if error != nil{
-//                        return
-//                    }
-//                    //dataメソッドはドキュメントの中のdata全体を取ってきている。
-//                    let data = snapShot?.data()
-//                    self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
-//                    self.profileUserNameLabel.text = data!["userName"] as! String
-//                    self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "loading"), completed: nil)
-//
-//                }
-//            }
-            
-//            if UserDefaults.standard.object(forKey: "refString") != nil && Auth.auth().currentUser?.uid != nil{
-//                refString = UserDefaults.standard.object(forKey: "refString") as! String
-//                print(refString)
-//                db.collection("Profile").document(refString).addSnapshotListener { (snapShot, error) in
-//                    if error != nil{
-//                        return
-//                    }
-//                    //dataメソッドはドキュメントの中のdata全体を取ってきている。
-//                    let data = snapShot?.data()
-//                    self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
-//                    self.profileUserNameLabel.text = data!["userName"] as! String
-//                    self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "loading"), completed: nil)
-//
-//                }
-//
-//                hintLabel.isHidden = true
-//            }
-//            getUserInformaitonFromFS()
+            print(profiles)
             showUserInformationFromFireStore()
  
             
@@ -183,31 +152,101 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-//        tableView.rowHeight = 200
-        let iconImageView = cell.contentView.viewWithTag(1) as! UIImageView
-//        let userNameLabel = cell.contentView.viewWithTag(2) as! UILabel
-        let userNameLabel = cell.viewWithTag(2) as! UILabel
-        let learnedNumberLabel = cell.viewWithTag(3) as! UILabel
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomCell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
+//        let iconImageView = cell.contentView.viewWithTag(1) as! UIImageView
+//        let userNameLabel = cell.viewWithTag(2) as! UILabel
+//        let learnedNumberLabel = cell.viewWithTag(3) as! UILabel
+////        let likeBtn = cell.viewWithTag(4) as! UIButton
+//        let likeBtn = cell.contentView.viewWithTag(6) as! UIButton
+//        let likeLabel = cell.viewWithTag(5) as! UILabel
        
+    
+        
            
         //新規登録時に画像を設定した人にはアイコン表示、してない人にはデフォルトアイコンを表示。
     if profiles[indexPath.row].imageString.isEmpty == false{
-        iconImageView.sd_setImage(with: URL(string: profiles[indexPath.row].imageString), completed: nil)
+        cell.iconImageView.sd_setImage(with: URL(string: profiles[indexPath.row].imageString), completed: nil)
     }else{
-    iconImageView.image = UIImage(named: "120reo")
+        cell.iconImageView.image = UIImage(named: "120reo")
     }
-        iconImageView.layer.cornerRadius = iconImageView.bounds.width/2
+        cell.iconImageView.layer.cornerRadius = cell.iconImageView.bounds.width/2
     
-        userNameLabel.text = profiles[indexPath.row].userName
-        learnedNumberLabel.text = "学んだ単語数は\(String(profiles[indexPath.row].learnedNumber))"
-
+        cell.userNameLabel.text = profiles[indexPath.row].userName
+        cell.learnedNumberLabel.text = "学んだ単語数は\(String(profiles[indexPath.row].learnedNumber))"
+        
+        
+        //後で何番目のセルが押されたか判別するため
+        cell.likeBtn.tag = indexPath.row
+        
+        
+        cell.likeLabel.text = String(profiles[indexPath.row].likeCount)
+        cell.likeBtn.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
+        
+        //自分（regStringで指定してる）が、既にいいねをした記録があるならば
+        if (self.profiles[indexPath.row].likeFlagDic[refString] != nil) == true{
+            
+            //現在、　いいねか、notいいねかを取得
+            let flag = self.profiles[indexPath.row].likeFlagDic[refString]
+            
+            if flag! as! Bool == true{
+                //「いいね」にステータスを変える
+                cell.likeBtn.setImage(UIImage(named: "like"), for: .normal)
+            }else{
+                //「いいね」したことあるけど今はnotいいねになっている）。つまり、likeFlagDicのidはfirestoreにのこったままである。
+                cell.likeBtn.setImage(UIImage(named: "noLike"), for: .normal)
+            }
+        }
         
         
         return cell
     }
+    
+    @objc func like(_ sender:UIButton){
+        //押されたボタンの情報が入ってくる（引数として）
+        
+        //値を送信
+        
+        var count = Int()
+        //senderはlikeBtnのこと。どのユーザーにいいねするか判別するための処理。
+        let flag = self.profiles[sender.tag].likeFlagDic[refString]
+        
+        
+        
+        if flag == nil{
+            //初めていいねするので自分のidがない
+            count = self.profiles[sender.tag].likeCount + 1
+            //いいねの対象を取得して、データを追加してる。[自分のid：true]を追加してる。mergeは他の人のデータたちに「追加（not上書き）」するという意味
+            db.collection("Profile").document(profiles[sender.tag].docID).setData(["likeFlagDic":[refString:true]], merge: true)
+            
+        }else{
+            
+            //既にいいねされている時
+            if flag! as! Bool == true{
+                
+                //いいねを解除
+                count = self.profiles[sender.tag].likeCount - 1
+                db.collection("Profile").document(profiles[sender.tag].docID).setData(["likeFlagDic":[refString:false]], merge: true)
+                
+            }else{
+                
+                count = self.profiles[sender.tag].likeCount + 1
+                db.collection("Profile").document(profiles[sender.tag].docID).setData(["likeFlagDic":[refString:true]], merge: true)
+                
+            }
+            
+            
+        }
+        
+        //count情報を送信（増減したいいねの数を送信）
+        db.collection("Profile").document(profiles[sender.tag].docID).updateData(["like":count], completion: nil)
+        tableView.reloadData()
+        
+        
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -259,12 +298,16 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                     //docの中にあるdataを定数に入れてる。
                     let data = doc.data()
                     //空じゃないなら、定数に入れる。
-                    if let userName = data["userName"] as? String, let imageString = data["imageString"] as? String, let learnedNumber = data["learnedNumber"] as? Int{
+                    if let userName = data["userName"] as? String, let imageString = data["imageString"] as? String, let learnedNumber = data["learnedNumber"] as? Int, let likeCount = data["like"] as? Int, let likeFlagDic = data["likeFlagDic"] as? Dictionary<String, Bool>{
 
+//                        //最初の最初は空っぽなのでこの処理してる
+//                        if likeFlagDic["\(doc.documentID)"] != nil{
                         //配列に入れる準備(key-value型)
-                        let profile = ProfileModel(userName: userName, imageString: imageString, learnedNumber: learnedNumber)
+                            let profile = ProfileModel(userName: userName, imageString: imageString, learnedNumber: learnedNumber, likeCount: likeCount, likeFlagDic: likeFlagDic, docID: doc.documentID)
                     
                             self.profiles.append(profile)
+                            
+//                        }
                         
                         self.tableView.reloadData()
                     }

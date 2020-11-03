@@ -47,7 +47,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     
     let db = Firestore.firestore()
     
-    //このユーザー専用のfirestore参照先
+    //このユーザー専用のfirestore参照先(ドキュメントID)
     let profileRef = Firestore.firestore().collection("Profile").document()
     
     let urlString = String()
@@ -144,38 +144,39 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 sendProfileImageData()
                 if let userName = textFieldFloatingUserName.text {
                     
-//                    db.collection("Profile").addDocument(data: ["userName":userName,"imageString":imageString, "learnedNumber" : 0]) { (error) in
-//
+                  
+                    //いけてたやつ
+                    //最初に宣言した、このユーザー専用のfirestore参照先にデータを入れる
+//                    profileRef.setData(["userName":userName,"imageString":imageString, "learnedNumber" : 0]) { (error) in
 //                        if error != nil{
-//
 //                            print(error.debugDescription)
 //                            return
 //                        }
-                    
-                    //最初に宣言した、このユーザー専用のfirestore参照先にデータを入れる
-                    profileRef.setData(["userName":userName,"imageString":imageString, "learnedNumber" : 0]) { (error) in
-                        if error != nil{
-                            print(error.debugDescription)
-                            return
-                        }
-                        var refString = String()
                         
+                    
+                    
+                    
+                    var refString = String()
+                    refString = profileRef.documentID
+                        
+                    profileRef.setData(["userName":userName,"imageString":imageString, "learnedNumber": 0, "like":0, "likeFlagDic":[refString:false]] ) { (error) in
+                            if error != nil{
+                                print(error.debugDescription)
+                                return
+                            }
+                        
+                        
+//                        var refString = String()
                         //指定済みのdocumentにおけるIDを保存しておく（othersViewでデータ読み込むため）
-                        refString = profileRef.documentID
+//                        refString = profileRef.documentID
                         UserDefaults.standard.setValue(refString, forKey: "refString")
                         print("ふふ\(refString)")
                         
                     }
-//                        var refString = String()
-                                    //ユーザーのドキュメントIDを保存する。（後で学んだ単語数を、自分のドキュメントで更新するため）
-//                        refString = Firestore.firestore().collection("Profile").document().documentID
-//                        UserDefaults.standard.setValue(refString, forKey: "refString")
-//                        print("ドキュメントIDや\(refString)")
-                        
-                        
-//                        idString = db.collection("Answers").document().path
-//                        print("ここに\(idString)を表示します")
-//                        UserDefaults.standard.setValue(idString, forKey: "documentID")
+
+
+                    
+                    
                     }
                
             }
@@ -322,8 +323,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
         
         if info[.originalImage] as? UIImage != nil{
             
-            let selectedImage = info[.originalImage] as! UIImage
-            
+//            let selectedImage = info[.originalImage] as! UIImage
+            let selectedImage = info[.editedImage] as! UIImage
             //画像を圧縮
             UserDefaults.standard.set(selectedImage.jpegData(compressionQuality: 0.1), forKey: "userImage")
             

@@ -63,7 +63,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("willApeearrrrr")
+//        print("willApeearrrrr")
         
         //先頭（top)へ戻る
         collectionView.setContentOffset(.zero, animated: true)
@@ -220,7 +220,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        return newsItems.count
-        print(news_title)
+//        print(news_title)
         return news_title.count
         
     }
@@ -299,6 +299,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     
         present(webViewController, animated: true, completion: nil)
     }
+    
     
     
     

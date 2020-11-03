@@ -39,47 +39,12 @@
                                                     <constraint firstAttribute="height" constant="664" id="hMq-eS-VvS"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="113" id="V1V-T2-ZWq">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="113" id="V1V-T2-ZWq">
                                                         <rect key="frame" x="0.0" y="28" width="368" height="113"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="V1V-T2-ZWq" id="iy1-Qa-Hfb">
                                                             <rect key="frame" x="0.0" y="0.0" width="368" height="113"/>
                                                             <autoresizingMask key="autoresizingMask"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザー名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2VS-7A-Ifm">
-                                                                    <rect key="frame" x="116" y="18" width="242" height="32"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="32" id="o4f-yx-Q0A"/>
-                                                                    </constraints>
-                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学んだ単語数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZV-dZ-0MN">
-                                                                    <rect key="frame" x="116" y="58" width="242" height="33.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="120reo" translatesAutoresizingMaskIntoConstraints="NO" id="wdK-wF-dCJ">
-                                                                    <rect key="frame" x="16" y="17" width="87" height="87"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" secondItem="wdK-wF-dCJ" secondAttribute="height" multiplier="92:85" constant="-7.1647058823529335" id="Buv-nH-rpL"/>
-                                                                    </constraints>
-                                                                </imageView>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="TZV-dZ-0MN" firstAttribute="leading" secondItem="wdK-wF-dCJ" secondAttribute="trailing" constant="13" id="0qb-cA-Ttt"/>
-                                                                <constraint firstItem="wdK-wF-dCJ" firstAttribute="bottom" secondItem="iy1-Qa-Hfb" secondAttribute="bottomMargin" constant="2" id="AQp-pf-fWW"/>
-                                                                <constraint firstItem="TZV-dZ-0MN" firstAttribute="top" secondItem="2VS-7A-Ifm" secondAttribute="bottom" constant="8" id="C3P-hO-P6w"/>
-                                                                <constraint firstAttribute="trailing" secondItem="TZV-dZ-0MN" secondAttribute="trailing" constant="10" id="GBb-L7-Fbt"/>
-                                                                <constraint firstAttribute="trailing" secondItem="2VS-7A-Ifm" secondAttribute="trailing" constant="10" id="Nhc-jt-0OH"/>
-                                                                <constraint firstItem="wdK-wF-dCJ" firstAttribute="top" secondItem="iy1-Qa-Hfb" secondAttribute="topMargin" constant="6" id="W8p-9K-Ug1"/>
-                                                                <constraint firstItem="2VS-7A-Ifm" firstAttribute="leading" secondItem="wdK-wF-dCJ" secondAttribute="trailing" constant="13" id="bhb-zm-lSf"/>
-                                                                <constraint firstItem="wdK-wF-dCJ" firstAttribute="leading" secondItem="iy1-Qa-Hfb" secondAttribute="leadingMargin" id="qCt-2A-eNJ"/>
-                                                                <constraint firstItem="2VS-7A-Ifm" firstAttribute="top" secondItem="iy1-Qa-Hfb" secondAttribute="top" constant="18" id="qnC-vU-mXJ"/>
-                                                                <constraint firstAttribute="bottom" secondItem="TZV-dZ-0MN" secondAttribute="bottom" constant="21.5" id="uUt-1z-7o1"/>
-                                                            </constraints>
                                                         </tableViewCellContentView>
                                                         <color key="backgroundColor" red="1" green="0.9741690062482663" blue="0.89636571373099061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </tableViewCell>
@@ -279,7 +244,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-159.42028985507247" y="207.58928571428569"/>
+            <point key="canvasLocation" x="-160" y="206.89655172413794"/>
         </scene>
         <!--Edit User Name View Controller-->
         <scene sceneID="dDY-nW-HKl">
@@ -289,35 +254,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3VU-Ew-eEv" customClass="MDCTextField">
-                                <rect key="frame" x="56" y="193" width="302" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3VU-Ew-eEv" customClass="MDCTextField">
+                                <rect key="frame" x="40" y="172" width="295" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ユーザー名を変更しますか？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pic-DR-GZu">
-                                <rect key="frame" x="56" y="121" width="302" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザー名を変更しますか？" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pic-DR-GZu">
+                                <rect key="frame" x="36" y="113" width="303" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="z7m-8j-rft"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVs-2v-uh1" customClass="MDCRaisedButton">
-                                <rect key="frame" x="56" y="272" width="302" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="変更">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="renewUserInformation:" destination="fpa-fy-uOp" eventType="touchUpInside" id="xFT-zG-RaI"/>
-                                </connections>
-                            </button>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3sZ-ZQ-PLZ">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3sZ-ZQ-PLZ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.88738499810000004" green="0.89142875389999998" blue="0.90356002140000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="LQP-I4-mSm"/>
+                                </constraints>
                                 <items>
                                     <navigationItem title="ユーザー名変更" id="1ck-rv-Pqz">
                                         <barButtonItem key="leftBarButtonItem" image="chevron.left" catalog="system" id="FNz-kb-sYv">
@@ -328,9 +284,37 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVs-2v-uh1" customClass="MDCRaisedButton">
+                                <rect key="frame" x="36" y="275" width="302" height="47"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="oH7-xJ-bRk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="変更">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="renewUserInformation:" destination="fpa-fy-uOp" eventType="touchUpInside" id="xFT-zG-RaI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3Po-Sf-64j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Pic-DR-GZu" firstAttribute="centerX" secondItem="jQH-Lo-prz" secondAttribute="centerX" id="5r9-qp-FrM"/>
+                            <constraint firstItem="3Po-Sf-64j" firstAttribute="trailing" secondItem="3VU-Ew-eEv" secondAttribute="trailing" constant="40" id="8SQ-F4-agi"/>
+                            <constraint firstItem="MVs-2v-uh1" firstAttribute="leading" secondItem="Pic-DR-GZu" secondAttribute="leading" id="GIl-3P-44h"/>
+                            <constraint firstItem="3sZ-ZQ-PLZ" firstAttribute="centerX" secondItem="Pic-DR-GZu" secondAttribute="centerX" id="MS8-mM-CMX"/>
+                            <constraint firstItem="3sZ-ZQ-PLZ" firstAttribute="leading" secondItem="3Po-Sf-64j" secondAttribute="leading" id="OYH-X2-CgA"/>
+                            <constraint firstItem="3VU-Ew-eEv" firstAttribute="leading" secondItem="3Po-Sf-64j" secondAttribute="leading" constant="40" id="VeX-4k-wL7"/>
+                            <constraint firstItem="MVs-2v-uh1" firstAttribute="top" secondItem="3VU-Ew-eEv" secondAttribute="bottom" constant="69" id="c6q-y9-oCT"/>
+                            <constraint firstItem="3VU-Ew-eEv" firstAttribute="top" secondItem="Pic-DR-GZu" secondAttribute="bottom" constant="29" id="dDv-1o-mix"/>
+                            <constraint firstItem="MVs-2v-uh1" firstAttribute="centerX" secondItem="3VU-Ew-eEv" secondAttribute="centerX" id="dVV-mg-bg0"/>
+                            <constraint firstItem="Pic-DR-GZu" firstAttribute="leading" secondItem="3Po-Sf-64j" secondAttribute="leading" constant="36" id="kmq-v5-OIT"/>
+                            <constraint firstItem="Pic-DR-GZu" firstAttribute="top" secondItem="3sZ-ZQ-PLZ" secondAttribute="bottom" constant="69" id="kms-RE-qbT"/>
+                            <constraint firstItem="3sZ-ZQ-PLZ" firstAttribute="top" secondItem="3Po-Sf-64j" secondAttribute="top" id="n6R-DA-Xx7"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="renewBtn" destination="MVs-2v-uh1" id="Nob-1L-4Ca"/>
@@ -339,7 +323,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmD-No-08T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="928" y="376"/>
+            <point key="canvasLocation" x="927.20000000000005" y="375.56221889055473"/>
         </scene>
         <!--ログイン-->
         <scene sceneID="kWx-aH-Ph5">
@@ -349,34 +333,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="auy-Zv-8pU" customClass="MDCTextField">
-                                <rect key="frame" x="47" y="105" width="320" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="auy-Zv-8pU" customClass="MDCTextField">
+                                <rect key="frame" x="40" y="145" width="296" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKp-g3-fkn" customClass="MDCRaisedButton">
-                                <rect key="frame" x="47" y="373" width="320" height="52"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <state key="normal" title="ログイン">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="login:" destination="Z2i-1A-5QB" eventType="touchUpInside" id="W4l-3j-3Lc"/>
-                                    <action selector="registerNewUser:" destination="I1k-Ag-Ef0" eventType="touchUpInside" id="9ji-it-aGR"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zVh-kc-exg" customClass="MDCTextField">
-                                <rect key="frame" x="47" y="232" width="320" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zVh-kc-exg" customClass="MDCTextField">
+                                <rect key="frame" x="40" y="293" width="296" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q8S-FP-AQz">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q8S-FP-AQz">
+                                <rect key="frame" x="0.0" y="0.0" width="376" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="xCj-pb-epC"/>
+                                </constraints>
                                 <items>
                                     <navigationItem title="ログイン" id="3Qi-td-ag3">
                                         <barButtonItem key="leftBarButtonItem" image="chevron.left" catalog="system" id="CDp-Sb-zP1">
@@ -387,9 +358,38 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKp-g3-fkn" customClass="MDCRaisedButton">
+                                <rect key="frame" x="37" y="404" width="300" height="52"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="Rze-OQ-eyT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <state key="normal" title="ログイン">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="login:" destination="Z2i-1A-5QB" eventType="touchUpInside" id="W4l-3j-3Lc"/>
+                                    <action selector="registerNewUser:" destination="I1k-Ag-Ef0" eventType="touchUpInside" id="9ji-it-aGR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WOt-PG-laZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Q8S-FP-AQz" firstAttribute="top" secondItem="WOt-PG-laZ" secondAttribute="top" id="GyM-OE-nrj"/>
+                            <constraint firstItem="OKp-g3-fkn" firstAttribute="leading" secondItem="auy-Zv-8pU" secondAttribute="leading" constant="-3" id="HRA-AR-jtO"/>
+                            <constraint firstItem="WOt-PG-laZ" firstAttribute="bottom" secondItem="OKp-g3-fkn" secondAttribute="bottom" constant="191" id="Jce-1Q-QeN"/>
+                            <constraint firstItem="Q8S-FP-AQz" firstAttribute="leading" secondItem="WOt-PG-laZ" secondAttribute="leading" id="Mty-MJ-5pG"/>
+                            <constraint firstItem="auy-Zv-8pU" firstAttribute="top" secondItem="Q8S-FP-AQz" secondAttribute="bottom" constant="85" id="UXQ-7e-BOp"/>
+                            <constraint firstItem="WOt-PG-laZ" firstAttribute="trailing" secondItem="OKp-g3-fkn" secondAttribute="trailing" constant="38" id="jJQ-1H-gth"/>
+                            <constraint firstItem="OKp-g3-fkn" firstAttribute="trailing" secondItem="auy-Zv-8pU" secondAttribute="trailing" constant="1" id="kFn-yC-GF6"/>
+                            <constraint firstItem="OKp-g3-fkn" firstAttribute="leading" secondItem="zVh-kc-exg" secondAttribute="leading" constant="-3" id="l27-3W-3VA"/>
+                            <constraint firstItem="OKp-g3-fkn" firstAttribute="trailing" secondItem="zVh-kc-exg" secondAttribute="trailing" constant="1" id="oAQ-hL-05T"/>
+                            <constraint firstItem="OKp-g3-fkn" firstAttribute="centerX" secondItem="Q8S-FP-AQz" secondAttribute="centerX" constant="-1" id="tMU-Sv-4hn"/>
+                            <constraint firstItem="OKp-g3-fkn" firstAttribute="leading" secondItem="WOt-PG-laZ" secondAttribute="leading" constant="37" id="wjq-H3-Gow"/>
+                            <constraint firstItem="OKp-g3-fkn" firstAttribute="top" secondItem="zVh-kc-exg" secondAttribute="bottom" constant="77" id="yVX-rR-c8x"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="loginBtn" destination="OKp-g3-fkn" id="JfN-Lh-0ce"/>
@@ -399,7 +399,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ol-wa-KGP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-248" y="1136"/>
+            <point key="canvasLocation" x="-248.80000000000001" y="1135.6821589205399"/>
         </scene>
         <!--学習-->
         <scene sceneID="HsR-O0-NML">
@@ -903,47 +903,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ABW-uH-nim" customClass="MDCRaisedButton">
-                                <rect key="frame" x="63" y="485" width="289" height="52"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <state key="normal" title="新規登録">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="registerNewUser:" destination="I1k-Ag-Ef0" eventType="touchUpInside" id="tdF-sR-gBG"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVv-uK-DA5" customClass="MDCTextField">
-                                <rect key="frame" x="63" y="404" width="289" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVv-uK-DA5" customClass="MDCTextField">
+                                <rect key="frame" x="39" y="332" width="296" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="P7g-px-Eff">
-                                <rect key="frame" x="147" y="68.5" width="120" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="P7g-px-Eff">
+                                <rect key="frame" x="127" y="76.5" width="120" height="120"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="121" id="yEC-H2-bls"/>
+                                </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="HIk-Yu-o1u" appends="YES" id="g2Y-oC-zc9"/>
                                 </connections>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gZW-iD-aAm" customClass="MDCTextField">
-                                <rect key="frame" x="63" y="244" width="289" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gZW-iD-aAm" customClass="MDCTextField">
+                                <rect key="frame" x="39" y="222" width="296" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TGh-cu-Ix3" customClass="MDCTextField">
-                                <rect key="frame" x="63" y="326" width="289" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TGh-cu-Ix3" customClass="MDCTextField">
+                                <rect key="frame" x="39" y="276" width="296" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5D5-Uu-ov3">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5D5-Uu-ov3">
+                                <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Jjt-Ih-OZP"/>
+                                </constraints>
                                 <items>
                                     <navigationItem title="新規登録" id="QPI-yb-WtZ">
                                         <barButtonItem key="leftBarButtonItem" image="chevron.left" catalog="system" id="16G-Df-M1D">
@@ -954,9 +943,40 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ABW-uH-nim" customClass="MDCRaisedButton">
+                                <rect key="frame" x="31" y="548" width="312" height="66"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <state key="normal" title="新規登録">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="registerNewUser:" destination="I1k-Ag-Ef0" eventType="touchUpInside" id="tdF-sR-gBG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Sm-V6-OEH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="P7g-px-Eff" firstAttribute="centerX" secondItem="gZW-iD-aAm" secondAttribute="centerX" id="3Lz-Yc-1v8"/>
+                            <constraint firstItem="P7g-px-Eff" firstAttribute="centerX" secondItem="TGh-cu-Ix3" secondAttribute="centerX" id="3xf-ut-xvg"/>
+                            <constraint firstItem="5D5-Uu-ov3" firstAttribute="centerX" secondItem="P7g-px-Eff" secondAttribute="centerX" id="7Jh-3s-4ad"/>
+                            <constraint firstItem="P7g-px-Eff" firstAttribute="top" secondItem="5D5-Uu-ov3" secondAttribute="bottom" constant="32" id="Ae1-R3-FC3"/>
+                            <constraint firstItem="P7g-px-Eff" firstAttribute="leading" secondItem="6Sm-V6-OEH" secondAttribute="leading" constant="127" id="G2F-fu-dU5"/>
+                            <constraint firstItem="P7g-px-Eff" firstAttribute="centerX" secondItem="ABW-uH-nim" secondAttribute="centerX" id="GC8-GL-mJG"/>
+                            <constraint firstItem="HVv-uK-DA5" firstAttribute="top" secondItem="TGh-cu-Ix3" secondAttribute="bottom" constant="22" id="GuQ-F0-y2Q"/>
+                            <constraint firstItem="ABW-uH-nim" firstAttribute="leading" secondItem="6Sm-V6-OEH" secondAttribute="leading" constant="31" id="HV7-2E-fwN"/>
+                            <constraint firstItem="6Sm-V6-OEH" firstAttribute="bottom" secondItem="ABW-uH-nim" secondAttribute="bottom" constant="33" id="NRZ-uX-sC2"/>
+                            <constraint firstItem="TGh-cu-Ix3" firstAttribute="leading" secondItem="gZW-iD-aAm" secondAttribute="leading" id="Rai-yX-2Af"/>
+                            <constraint firstItem="gZW-iD-aAm" firstAttribute="top" secondItem="P7g-px-Eff" secondAttribute="bottom" constant="25" id="S1h-Vj-oNg"/>
+                            <constraint firstItem="TGh-cu-Ix3" firstAttribute="leading" secondItem="HVv-uK-DA5" secondAttribute="leading" id="TEU-uf-shQ"/>
+                            <constraint firstItem="6Sm-V6-OEH" firstAttribute="trailing" secondItem="ABW-uH-nim" secondAttribute="trailing" constant="32" id="a81-0q-JGl"/>
+                            <constraint firstItem="TGh-cu-Ix3" firstAttribute="leading" secondItem="ABW-uH-nim" secondAttribute="leading" constant="8" id="blY-rY-ftx"/>
+                            <constraint firstItem="5D5-Uu-ov3" firstAttribute="leading" secondItem="6Sm-V6-OEH" secondAttribute="leading" id="h2J-Yh-FHw"/>
+                            <constraint firstItem="P7g-px-Eff" firstAttribute="centerX" secondItem="HVv-uK-DA5" secondAttribute="centerX" id="hXz-jt-ewB"/>
+                            <constraint firstItem="TGh-cu-Ix3" firstAttribute="top" secondItem="gZW-iD-aAm" secondAttribute="bottom" constant="20" id="lgY-zA-9zX"/>
+                            <constraint firstItem="5D5-Uu-ov3" firstAttribute="top" secondItem="6Sm-V6-OEH" secondAttribute="top" id="qPL-qP-pyz"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="iconImageView" destination="P7g-px-Eff" id="h8d-LX-YLT"/>
@@ -973,7 +993,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="574" y="1136"/>
+            <point key="canvasLocation" x="573.60000000000002" y="1135.6821589205399"/>
         </scene>
         <!--Test View Controller-->
         <scene sceneID="oUQ-zC-LMY">
@@ -1250,7 +1270,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kr0-qH-tbS">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kr0-qH-tbS">
                                                     <rect key="frame" x="158" y="2" width="215" height="161"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="215" id="UPD-Mv-KXb"/>
@@ -1337,7 +1357,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="120reo" width="120" height="120"/>
         <image name="book.fill" catalog="system" width="128" height="102"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="crossGrey" width="64" height="64"/>

@@ -14,5 +14,11 @@ struct ProfileModel {
     let imageString:String
     let learnedNumber:Int
     
+    let likeCount:Int
+    let likeFlagDic:Dictionary<String, Any>
+    
+    //いいねの時に、どのユーザーにいいねするのか判別するため
+    let docID:String
+    
     
 }
