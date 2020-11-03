@@ -53,6 +53,17 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var accountAskLabel: UILabel!
     @IBOutlet weak var registerBtn: UIButton!
     
+    //タップで振動を起こすため
+    private let feedbackGenerator: Any? = {
+          if #available(iOS 10.0, *) {
+            let generator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+              generator.prepare()
+              return generator
+          } else {
+              return nil
+          }
+      }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("didload")
@@ -243,6 +254,11 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         //count情報を送信（増減したいいねの数を送信）
         db.collection("Profile").document(profiles[sender.tag].docID).updateData(["like":count], completion: nil)
         tableView.reloadData()
+        
+        //振動させる
+        if #available(iOS 10.0, *), let generator = feedbackGenerator as? UIImpactFeedbackGenerator {
+                    generator.impactOccurred()
+        }
         
         
     }

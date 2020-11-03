@@ -78,6 +78,7 @@ class ReviewViewController: UIViewController,UITableViewDelegate,UITableViewData
         
  
         let imageView = cell.viewWithTag(1) as! UIImageView
+        imageView.layer.cornerRadius = 10
         let wordLabel = cell.viewWithTag(2) as! UILabel
         wordLabel.text = materialList.TOEIC600NounList[receivedIncorrectNumberArray[indexPath.row]].Words
         let jpnWordLabel = cell.viewWithTag(3) as! UILabel
