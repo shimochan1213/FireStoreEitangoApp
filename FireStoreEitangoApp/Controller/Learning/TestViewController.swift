@@ -15,7 +15,7 @@ import AVFoundation
 import Lottie
 import FirebaseFirestore
 
-class TestViewController: UIViewController {
+class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
 
     // AVSpeechSynthesizerをクラス変数で保持しておく、インスタンス変数だと読み上げるまえに破棄されてしまう
     var speechSynthesizer : AVSpeechSynthesizer!
@@ -28,7 +28,7 @@ class TestViewController: UIViewController {
     @IBOutlet weak var selec2: UIButton!
     @IBOutlet weak var selec3: UIButton!
     @IBOutlet weak var selec4: UIButton!
-    @IBOutlet weak var nextQuesBtn: UIButton!
+//    @IBOutlet weak var nextQuesBtn: UIButton!
     
     @IBOutlet weak var quesNumberLabel: UILabel!
     
@@ -43,11 +43,16 @@ class TestViewController: UIViewController {
     
     var whereIsCorrectSelection = Int()
     var animationView = AnimationView()
+    var animation2View = AnimationView()
     var soundFile = SoundFile()
     
     let db = Firestore.firestore()
     var learnedNumber = Int()
     var refString = String()
+    
+    var tapGesture: UITapGestureRecognizer!
+    var tapOK:Bool = false
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,16 +78,20 @@ class TestViewController: UIViewController {
         selec3.layer.cornerRadius = radiusRate
         selec4.layer.cornerRadius = radiusRate
         
+        // ジェスチャーの生成
+        tapGesture = UITapGestureRecognizer(target:self,action: #selector(TestViewController.tap))
+        view.addGestureRecognizer(tapGesture)
+                
 
         //アニメーション練習
-        var animationView = AnimationView()
-        animationView = .init(name: "success")
-        //         animationView.frame = view.bounds
-        animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
-        animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .loop
-        animationView.animationSpeed = 2
-        view.addSubview(animationView)
+//        var animationView = AnimationView()
+//        animationView = .init(name: "success")
+////                 animationView.frame = view.bounds
+//        animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
+//        animationView.contentMode = .scaleAspectFit
+//        animationView.loopMode = .playOnce
+//        animationView.animationSpeed = 2
+//        view.addSubview(animationView)
 //        animationView.play()
         
         //単語の範囲を指定
@@ -102,22 +111,26 @@ class TestViewController: UIViewController {
         default:
             return
         }
-        
-        
-       
     
         quesNumberLabel.text = "\(wordCount % 20 + 1) /20"
         wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
         soundYomiage()
         showRandomSelection()
         
-        nextQuesBtn.isEnabled = false
+//        nextQuesBtn.isEnabled = false
 
-        
-        
-        
     }
     
+//    // ジェスチャーイベント処理
+    @objc func tap(_ sender: UITapGestureRecognizer) {
+//        print("Tap")
+        //回答されていたら
+        if tapOK == true{
+        nextQuestionMethod()
+        }
+        
+        //未回答なら何もしない
+     }
 
 
     
@@ -138,9 +151,163 @@ class TestViewController: UIViewController {
     }
     
     
-    @IBAction func nextQuestion(_ sender: Any) {
+//    @IBAction func nextQuestion(_ sender: Any) {
+//        nextQuestionMethod()
+//    }
+
+    
+    @IBAction func answer(_ sender: UIButton) {
+        switch sender.tag {
+        case 1:
+            //一番上の選択肢が押された
+            if whereIsCorrectSelection == 0{
+                //正解が一番上の選択肢に表示されているから正解
+                playCorrectAniSound()
+            }else{
+                playIncorrectAniSound()
+                incorrectArray.append(wordCount)
+            }
+        case 2:
+            //2番目の選択肢が押された
+            if whereIsCorrectSelection == 1{
+                //正解が2番目の選択肢に表示されているから正解
+                playCorrectAniSound()
+            }else{
+                playIncorrectAniSound()
+                incorrectArray.append(wordCount)
+            }
+        case 3:
+            if whereIsCorrectSelection == 2{
+                playCorrectAniSound()
+            }else{
+                playIncorrectAniSound()
+                incorrectArray.append(wordCount)
+            }
+        case 4:
+            if whereIsCorrectSelection == 3{
+                playCorrectAniSound()
+            }else{
+                playIncorrectAniSound()
+                incorrectArray.append(wordCount)
+            }
+        default:
+            break
+        }
         
+        //正解表示
+        jpnWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
+        
+//        //解答後、初めてタップを有効にする
+        tapOK = true
+        
+//        nextQuesBtn.isEnabled = true
+        
+        //ボタン何回も押してアニメバグらないように
+        selec1.isEnabled = false
+        selec2.isEnabled = false
+        selec3.isEnabled = false
+        selec4.isEnabled = false
+        
+        if UserDefaults.standard.object(forKey: "visitedTest") == nil{
+        //初回起動のみ、タップで次の問題いけるチュートリアル出す
+        animation2View = .init(name: "tap")
+        animation2View.frame = CGRect(x: view.bounds.width/2, y: view.bounds.height * 2/3, width: view.bounds.width/3, height: view.bounds.height/3)
+        animation2View.contentMode = .scaleAspectFit
+        animation2View.loopMode = .loop
+        animation2View.animationSpeed = 2
+        view.addSubview(animation2View)
+        animation2View.play()
+        }
+        
+       
+        
+
+     
+
+        
+    }
+
+    
+    func showRandomSelection(){
+        
+        //回答する前にタップで次の問題いかないように
+       tapOK = false
+        
+        
+        //正解選択肢を4つのうち何処かに配置し、残りの選択肢をランダムに表示（一つランダム数字を呼んで、そこからプラス1ずつしてけば同じ選択肢でないのでは？
+        
+        
+        //正解選択肢を置く場所を決める
+//        var whereIsCorrectSelection = Int()
+        whereIsCorrectSelection = Int(arc4random_uniform(UInt32(4)))
+//        print(whereIsCorrectSelection)
+        
+        //ダミー選択肢を表示させるために被りのない数字を生成する
+        var damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+        var damiNumber2 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+        var damiNumber3 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+        
+        if damiNumber1 == wordCount || damiNumber1 == damiNumber2 || damiNumber1 == damiNumber3 || damiNumber2 == damiNumber3{
+           damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+           damiNumber2 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+           damiNumber3 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+        }else if damiNumber1 == wordCount || damiNumber1 == damiNumber2 || damiNumber1 == damiNumber3 || damiNumber2 == damiNumber3{
+            //それでもダメならこれらを表示
+            damiNumber1 = 25
+            damiNumber2 = 65
+            damiNumber3 = 90
+        }
+        
+//        print(damiNumber1,damiNumber2,damiNumber3)
+        
+        switch whereIsCorrectSelection {
+        case 0:
+            //正解を一番上に表示
+            selec1.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
+            //その他選択肢を表示（現在のwordCountを基準として、2で割ったり数を足していくことにする）
+            selec2.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
+            selec3.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
+            selec4.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
+           
+        case 1:
+        //正解を2番目に表示
+            selec2.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
+            //その他選択肢を表示
+            selec1.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
+            selec3.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
+            selec4.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
+        case 2:
+            selec3.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
+            //その他選択肢を表示
+            selec2.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
+            selec1.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
+            selec4.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
+        case 3:
+            selec4.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
+            //その他選択肢を表示
+            selec2.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
+            selec3.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
+            selec1.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
+            
+        default:
+            break
+        }
+        
+        
+    }
+    
+    func nextQuestionMethod(){
+        
+        //初回のみタップのチュートリアルでてるので消す
+        if UserDefaults.standard.object(forKey: "visitedTest") == nil{
+        animation2View.removeFromSuperview()
+        UserDefaults.standard.set(true, forKey: "visitedTest")
+        }
+       
+        
+        //アニメ消す
         animationView.removeFromSuperview()
+        
         wordCount += 1
 //        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
         quesNumberLabel.text = "\(wordCount % 20 + 1) / 20"
@@ -151,7 +318,7 @@ class TestViewController: UIViewController {
         selec2.isEnabled = true
         selec3.isEnabled = true
         selec4.isEnabled = true
-        nextQuesBtn.isEnabled = false
+//        nextQuesBtn.isEnabled = false
         
         switch receivedCellNumber {
         case 0:
@@ -200,127 +367,6 @@ class TestViewController: UIViewController {
           break
         }
         
-        
-    }
-
-    
-    @IBAction func answer(_ sender: UIButton) {
-        switch sender.tag {
-        case 1:
-            //一番上の選択肢が押された
-            if whereIsCorrectSelection == 0{
-                //正解が一番上の選択肢に表示されているから正解
-                playCorrectAniSound()
-            }else{
-                playIncorrectAniSound()
-                incorrectArray.append(wordCount)
-            }
-        case 2:
-            //2番目の選択肢が押された
-            if whereIsCorrectSelection == 1{
-                //正解が2番目の選択肢に表示されているから正解
-                playCorrectAniSound()
-            }else{
-                playIncorrectAniSound()
-                incorrectArray.append(wordCount)
-            }
-        case 3:
-            if whereIsCorrectSelection == 2{
-                playCorrectAniSound()
-            }else{
-                playIncorrectAniSound()
-                incorrectArray.append(wordCount)
-            }
-        case 4:
-            if whereIsCorrectSelection == 3{
-                playCorrectAniSound()
-            }else{
-                playIncorrectAniSound()
-                incorrectArray.append(wordCount)
-            }
-        default:
-            break
-        }
-        
-        //正解表示
-        jpnWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
-        
-        nextQuesBtn.isEnabled = true
-        
-        //ボタン何回も押してアニメバグらないように
-        selec1.isEnabled = false
-        selec2.isEnabled = false
-        selec3.isEnabled = false
-        selec4.isEnabled = false
-        
-
-     
-
-        
-    }
-
-    
-    func showRandomSelection(){
-        //正解選択肢を4つのうち何処かに配置し、残りの選択肢をランダムに表示（一つランダム数字を呼んで、そこからプラス1ずつしてけば同じ選択肢でないのでは？
-        
-        
-        //正解選択肢を置く場所を決める
-//        var whereIsCorrectSelection = Int()
-        whereIsCorrectSelection = Int(arc4random_uniform(UInt32(4)))
-        print(whereIsCorrectSelection)
-        
-        //ダミー選択肢を表示させるために被りのない数字を生成する
-        var damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
-        var damiNumber2 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
-        var damiNumber3 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
-        
-        if damiNumber1 == wordCount || damiNumber1 == damiNumber2 || damiNumber1 == damiNumber3 || damiNumber2 == damiNumber3{
-           damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
-           damiNumber2 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
-           damiNumber3 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
-        }else if damiNumber1 == wordCount || damiNumber1 == damiNumber2 || damiNumber1 == damiNumber3 || damiNumber2 == damiNumber3{
-            //それでもダメならこれらを表示
-            damiNumber1 = 25
-            damiNumber2 = 65
-            damiNumber3 = 90
-        }
-        
-        print(damiNumber1,damiNumber2,damiNumber3)
-        
-        switch whereIsCorrectSelection {
-        case 0:
-            //正解を一番上に表示
-            selec1.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
-            //その他選択肢を表示（現在のwordCountを基準として、2で割ったり数を足していくことにする）
-            selec2.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
-            selec3.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
-            selec4.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
-           
-        case 1:
-        //正解を2番目に表示
-            selec2.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
-            //その他選択肢を表示
-            selec1.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
-            selec3.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
-            selec4.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
-        case 2:
-            selec3.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
-            //その他選択肢を表示
-            selec2.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
-            selec1.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
-            selec4.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
-        case 3:
-            selec4.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
-            //その他選択肢を表示
-            selec2.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
-            selec3.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
-            selec1.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
-            
-        default:
-            break
-        }
-        
-        
     }
     
     func endTest(){
@@ -360,6 +406,7 @@ class TestViewController: UIViewController {
         jpnWordLabel.textColor = .black
         
 //        var animationView = AnimationView()
+        
         animationView = .init(name: "success")
         //         animationView.frame = view.bounds
         animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
@@ -368,6 +415,11 @@ class TestViewController: UIViewController {
         animationView.animationSpeed = 2
         view.addSubview(animationView)
         animationView.play()
+        
+//        tapGesture = UITapGestureRecognizer(target:self,action: #selector(TestViewController.tap))
+//        view.addGestureRecognizer(tapGesture)
+        
+        
         
         //音ならす
         soundFile.playSound(fileName: "seikai", extensionName: "mp3")

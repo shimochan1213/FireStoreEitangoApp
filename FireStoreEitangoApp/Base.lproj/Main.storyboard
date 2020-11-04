@@ -1003,11 +1003,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z7X-GT-qse">
-                                <rect key="frame" x="16" y="217" width="343" height="380"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Z7X-GT-qse">
+                                <rect key="frame" x="30" y="217" width="315" height="371"/>
                                 <subviews>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bMx-cy-UlQ" customClass="MDCRaisedButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="82.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="315" height="78"/>
                                         <color key="backgroundColor" red="0.88738499810000004" green="0.89142875389999998" blue="0.90356002140000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <connections>
@@ -1015,7 +1015,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="GBq-uC-0bv" customClass="MDCRaisedButton">
-                                        <rect key="frame" x="0.0" y="99.5" width="343" height="82"/>
+                                        <rect key="frame" x="0.0" y="98" width="315" height="77.5"/>
                                         <color key="backgroundColor" red="0.88738499810000004" green="0.89142875389999998" blue="0.90356002140000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <connections>
@@ -1023,7 +1023,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="udp-Gz-9Z5" customClass="MDCRaisedButton">
-                                        <rect key="frame" x="0.0" y="198.5" width="343" height="82.5"/>
+                                        <rect key="frame" x="0.0" y="195.5" width="315" height="78"/>
                                         <color key="backgroundColor" red="0.88738499810000004" green="0.89142875389999998" blue="0.90356002140000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <connections>
@@ -1031,7 +1031,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="90K-OW-Rc9" customClass="MDCRaisedButton">
-                                        <rect key="frame" x="0.0" y="298" width="343" height="82"/>
+                                        <rect key="frame" x="0.0" y="293.5" width="315" height="77.5"/>
                                         <color key="backgroundColor" red="0.88738499810000004" green="0.89142875389999998" blue="0.90356002140000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <connections>
@@ -1085,42 +1085,28 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bTu-2Q-1eb">
-                                <rect key="frame" x="267" y="617" width="92" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Eko-jS-IVP"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="次の問題へ"/>
-                                <connections>
-                                    <action selector="nextQuestion:" destination="SR8-ij-Bbh" eventType="touchUpInside" id="QFq-L1-fg3"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dji-Xb-9KS"/>
                         <color key="backgroundColor" red="0.95907469868880157" green="1" blue="0.91434571961431221" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Iva-Am-mqh" firstAttribute="leading" secondItem="dji-Xb-9KS" secondAttribute="leading" constant="16" id="52f-1d-EBu"/>
                             <constraint firstItem="mbI-CB-Q6b" firstAttribute="trailing" secondItem="dji-Xb-9KS" secondAttribute="trailing" constant="4" id="EEn-21-8Tb"/>
-                            <constraint firstItem="bTu-2Q-1eb" firstAttribute="top" secondItem="Z7X-GT-qse" secondAttribute="bottom" constant="20" id="Ig5-BG-cNd"/>
                             <constraint firstItem="98y-4G-Qmw" firstAttribute="centerX" secondItem="QEw-v4-6p8" secondAttribute="centerX" id="PuF-h5-7c1"/>
                             <constraint firstItem="IX7-fA-fTi" firstAttribute="leading" secondItem="dji-Xb-9KS" secondAttribute="leading" constant="16" id="SJd-h7-5gh"/>
                             <constraint firstItem="mbI-CB-Q6b" firstAttribute="top" secondItem="dji-Xb-9KS" secondAttribute="top" constant="4" id="T3o-fW-XZS"/>
-                            <constraint firstItem="dji-Xb-9KS" firstAttribute="trailing" secondItem="bTu-2Q-1eb" secondAttribute="trailing" constant="16" id="VpV-3z-CA6"/>
+                            <constraint firstItem="Iva-Am-mqh" firstAttribute="top" secondItem="Z7X-GT-qse" secondAttribute="bottom" constant="38.5" id="WX9-2W-GVO"/>
                             <constraint firstItem="dji-Xb-9KS" firstAttribute="trailing" secondItem="IX7-fA-fTi" secondAttribute="trailing" constant="16" id="WoF-lt-yHx"/>
                             <constraint firstItem="IX7-fA-fTi" firstAttribute="top" secondItem="98y-4G-Qmw" secondAttribute="bottom" constant="1" id="Xk2-lz-342"/>
-                            <constraint firstItem="dji-Xb-9KS" firstAttribute="bottom" secondItem="bTu-2Q-1eb" secondAttribute="bottom" constant="20" id="Zdd-wK-sl3"/>
                             <constraint firstItem="dji-Xb-9KS" firstAttribute="bottom" secondItem="Iva-Am-mqh" secondAttribute="bottom" constant="20" id="lSs-D1-owx"/>
                             <constraint firstItem="98y-4G-Qmw" firstAttribute="top" secondItem="dji-Xb-9KS" secondAttribute="top" constant="42" id="mnc-NM-Iqv"/>
                             <constraint firstItem="Z7X-GT-qse" firstAttribute="top" secondItem="IX7-fA-fTi" secondAttribute="bottom" constant="20" id="uwh-Pe-Vwr"/>
-                            <constraint firstItem="Z7X-GT-qse" firstAttribute="leading" secondItem="dji-Xb-9KS" secondAttribute="leading" constant="16" id="wTH-b6-dj5"/>
-                            <constraint firstItem="dji-Xb-9KS" firstAttribute="trailing" secondItem="Z7X-GT-qse" secondAttribute="trailing" constant="16" id="yRW-3S-CM7"/>
+                            <constraint firstItem="Z7X-GT-qse" firstAttribute="leading" secondItem="dji-Xb-9KS" secondAttribute="leading" constant="30" id="wTH-b6-dj5"/>
+                            <constraint firstItem="dji-Xb-9KS" firstAttribute="trailing" secondItem="Z7X-GT-qse" secondAttribute="trailing" constant="30" id="yRW-3S-CM7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dbg-5G-EHw"/>
                     <connections>
                         <outlet property="jpnWordLabel" destination="4Ye-c4-2F9" id="xBJ-hl-3ta"/>
-                        <outlet property="nextQuesBtn" destination="bTu-2Q-1eb" id="gca-gD-v6p"/>
                         <outlet property="quesNumberLabel" destination="Iva-Am-mqh" id="N0z-uf-XH4"/>
                         <outlet property="selec1" destination="bMx-cy-UlQ" id="IPj-gz-8eC"/>
                         <outlet property="selec2" destination="GBq-uC-0bv" id="t58-Ou-Hpd"/>
