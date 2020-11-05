@@ -34,6 +34,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         textFieldFloatingEmail.delegate = self
         textFieldFloatingPW.delegate = self
         
@@ -101,7 +102,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     if let snapShotDoc = snapShot?.documents{
                         //snapShotDocの中身を一つ一つ見るためにdocへfor文で入れてる。
                         for doc in snapShotDoc{
-                            //uidが一致したときだけ、そのドキュメントの中にあるrefStringを取ってきたい！
+                            //uidが一致したときだけ、そのドキュメントの中にあるrefStringを取ってきたい！(ユーザーとFireStore送信先を紐づけるため）
                             
                             //docの中にあるdataを定数に入れてる。
                             let data = doc.data()

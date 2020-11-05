@@ -333,18 +333,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="auy-Zv-8pU" customClass="MDCTextField">
-                                <rect key="frame" x="40" y="145" width="296" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zVh-kc-exg" customClass="MDCTextField">
-                                <rect key="frame" x="40" y="293" width="296" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                            </textField>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YHO-LU-9v5">
+                                <rect key="frame" x="37" y="145" width="301" height="76"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="auy-Zv-8pU" customClass="MDCTextField">
+                                        <rect key="frame" x="0.0" y="0.0" width="301" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zVh-kc-exg" customClass="MDCTextField">
+                                        <rect key="frame" x="0.0" y="42" width="301" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q8S-FP-AQz">
-                                <rect key="frame" x="0.0" y="0.0" width="376" height="60"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="xCj-pb-epC"/>
                                 </constraints>
@@ -359,11 +364,8 @@
                                 </items>
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKp-g3-fkn" customClass="MDCRaisedButton">
-                                <rect key="frame" x="37" y="404" width="300" height="52"/>
+                                <rect key="frame" x="37" y="286" width="301" height="35"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="Rze-OQ-eyT"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <state key="normal" title="ログイン">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -377,18 +379,15 @@
                         <viewLayoutGuide key="safeArea" id="WOt-PG-laZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="OKp-g3-fkn" firstAttribute="top" secondItem="YHO-LU-9v5" secondAttribute="bottom" constant="65" id="23A-af-1aC"/>
+                            <constraint firstItem="OKp-g3-fkn" firstAttribute="leading" secondItem="WOt-PG-laZ" secondAttribute="leading" constant="37" id="9nJ-S7-zBd"/>
                             <constraint firstItem="Q8S-FP-AQz" firstAttribute="top" secondItem="WOt-PG-laZ" secondAttribute="top" id="GyM-OE-nrj"/>
-                            <constraint firstItem="OKp-g3-fkn" firstAttribute="leading" secondItem="auy-Zv-8pU" secondAttribute="leading" constant="-3" id="HRA-AR-jtO"/>
-                            <constraint firstItem="WOt-PG-laZ" firstAttribute="bottom" secondItem="OKp-g3-fkn" secondAttribute="bottom" constant="191" id="Jce-1Q-QeN"/>
                             <constraint firstItem="Q8S-FP-AQz" firstAttribute="leading" secondItem="WOt-PG-laZ" secondAttribute="leading" id="Mty-MJ-5pG"/>
-                            <constraint firstItem="auy-Zv-8pU" firstAttribute="top" secondItem="Q8S-FP-AQz" secondAttribute="bottom" constant="85" id="UXQ-7e-BOp"/>
-                            <constraint firstItem="WOt-PG-laZ" firstAttribute="trailing" secondItem="OKp-g3-fkn" secondAttribute="trailing" constant="38" id="jJQ-1H-gth"/>
-                            <constraint firstItem="OKp-g3-fkn" firstAttribute="trailing" secondItem="auy-Zv-8pU" secondAttribute="trailing" constant="1" id="kFn-yC-GF6"/>
-                            <constraint firstItem="OKp-g3-fkn" firstAttribute="leading" secondItem="zVh-kc-exg" secondAttribute="leading" constant="-3" id="l27-3W-3VA"/>
-                            <constraint firstItem="OKp-g3-fkn" firstAttribute="trailing" secondItem="zVh-kc-exg" secondAttribute="trailing" constant="1" id="oAQ-hL-05T"/>
-                            <constraint firstItem="OKp-g3-fkn" firstAttribute="centerX" secondItem="Q8S-FP-AQz" secondAttribute="centerX" constant="-1" id="tMU-Sv-4hn"/>
-                            <constraint firstItem="OKp-g3-fkn" firstAttribute="leading" secondItem="WOt-PG-laZ" secondAttribute="leading" constant="37" id="wjq-H3-Gow"/>
-                            <constraint firstItem="OKp-g3-fkn" firstAttribute="top" secondItem="zVh-kc-exg" secondAttribute="bottom" constant="77" id="yVX-rR-c8x"/>
+                            <constraint firstItem="WOt-PG-laZ" firstAttribute="trailing" secondItem="OKp-g3-fkn" secondAttribute="trailing" constant="37" id="ecz-GF-cTP"/>
+                            <constraint firstItem="WOt-PG-laZ" firstAttribute="trailing" secondItem="YHO-LU-9v5" secondAttribute="trailing" constant="37" id="fVS-2a-nyh"/>
+                            <constraint firstItem="YHO-LU-9v5" firstAttribute="centerX" secondItem="Q8S-FP-AQz" secondAttribute="centerX" id="fbV-d4-fJa"/>
+                            <constraint firstItem="YHO-LU-9v5" firstAttribute="leading" secondItem="WOt-PG-laZ" secondAttribute="leading" constant="37" id="lDz-h7-tiY"/>
+                            <constraint firstItem="YHO-LU-9v5" firstAttribute="top" secondItem="Q8S-FP-AQz" secondAttribute="bottom" constant="85" id="sHM-IX-Yok"/>
                         </constraints>
                     </view>
                     <connections>
@@ -903,36 +902,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVv-uK-DA5" customClass="MDCTextField">
-                                <rect key="frame" x="39" y="332" width="296" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                            </textField>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6go-OR-vva">
+                                <rect key="frame" x="45" y="267" width="285" height="112"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gZW-iD-aAm" customClass="MDCTextField">
+                                        <rect key="frame" x="0.0" y="0.0" width="285" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TGh-cu-Ix3" customClass="MDCTextField">
+                                        <rect key="frame" x="0.0" y="39" width="285" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVv-uK-DA5" customClass="MDCTextField">
+                                        <rect key="frame" x="0.0" y="78" width="285" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ABW-uH-nim" customClass="MDCRaisedButton">
+                                <rect key="frame" x="45" y="419" width="285" height="35"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <state key="normal" title="新規登録">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="registerNewUser:" destination="I1k-Ag-Ef0" eventType="touchUpInside" id="tdF-sR-gBG"/>
+                                </connections>
+                            </button>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="P7g-px-Eff">
-                                <rect key="frame" x="127" y="76.5" width="120" height="120"/>
+                                <rect key="frame" x="137.5" y="105.5" width="100" height="99"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="121" id="yEC-H2-bls"/>
+                                    <constraint firstAttribute="width" constant="100" id="L4F-i5-imT"/>
+                                    <constraint firstAttribute="height" constant="100" id="xV9-sP-33w"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="HIk-Yu-o1u" appends="YES" id="g2Y-oC-zc9"/>
                                 </connections>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gZW-iD-aAm" customClass="MDCTextField">
-                                <rect key="frame" x="39" y="222" width="296" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TGh-cu-Ix3" customClass="MDCTextField">
-                                <rect key="frame" x="39" y="276" width="296" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5D5-Uu-ov3">
-                                <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Jjt-Ih-OZP"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <items>
                                     <navigationItem title="新規登録" id="QPI-yb-WtZ">
                                         <barButtonItem key="leftBarButtonItem" image="chevron.left" catalog="system" id="16G-Df-M1D">
@@ -943,39 +956,22 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ABW-uH-nim" customClass="MDCRaisedButton">
-                                <rect key="frame" x="31" y="548" width="312" height="66"/>
-                                <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <state key="normal" title="新規登録">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="registerNewUser:" destination="I1k-Ag-Ef0" eventType="touchUpInside" id="tdF-sR-gBG"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Sm-V6-OEH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="P7g-px-Eff" firstAttribute="centerX" secondItem="gZW-iD-aAm" secondAttribute="centerX" id="3Lz-Yc-1v8"/>
-                            <constraint firstItem="P7g-px-Eff" firstAttribute="centerX" secondItem="TGh-cu-Ix3" secondAttribute="centerX" id="3xf-ut-xvg"/>
-                            <constraint firstItem="5D5-Uu-ov3" firstAttribute="centerX" secondItem="P7g-px-Eff" secondAttribute="centerX" id="7Jh-3s-4ad"/>
-                            <constraint firstItem="P7g-px-Eff" firstAttribute="top" secondItem="5D5-Uu-ov3" secondAttribute="bottom" constant="32" id="Ae1-R3-FC3"/>
-                            <constraint firstItem="P7g-px-Eff" firstAttribute="leading" secondItem="6Sm-V6-OEH" secondAttribute="leading" constant="127" id="G2F-fu-dU5"/>
-                            <constraint firstItem="P7g-px-Eff" firstAttribute="centerX" secondItem="ABW-uH-nim" secondAttribute="centerX" id="GC8-GL-mJG"/>
-                            <constraint firstItem="HVv-uK-DA5" firstAttribute="top" secondItem="TGh-cu-Ix3" secondAttribute="bottom" constant="22" id="GuQ-F0-y2Q"/>
-                            <constraint firstItem="ABW-uH-nim" firstAttribute="leading" secondItem="6Sm-V6-OEH" secondAttribute="leading" constant="31" id="HV7-2E-fwN"/>
-                            <constraint firstItem="6Sm-V6-OEH" firstAttribute="bottom" secondItem="ABW-uH-nim" secondAttribute="bottom" constant="33" id="NRZ-uX-sC2"/>
-                            <constraint firstItem="TGh-cu-Ix3" firstAttribute="leading" secondItem="gZW-iD-aAm" secondAttribute="leading" id="Rai-yX-2Af"/>
-                            <constraint firstItem="gZW-iD-aAm" firstAttribute="top" secondItem="P7g-px-Eff" secondAttribute="bottom" constant="25" id="S1h-Vj-oNg"/>
-                            <constraint firstItem="TGh-cu-Ix3" firstAttribute="leading" secondItem="HVv-uK-DA5" secondAttribute="leading" id="TEU-uf-shQ"/>
-                            <constraint firstItem="6Sm-V6-OEH" firstAttribute="trailing" secondItem="ABW-uH-nim" secondAttribute="trailing" constant="32" id="a81-0q-JGl"/>
-                            <constraint firstItem="TGh-cu-Ix3" firstAttribute="leading" secondItem="ABW-uH-nim" secondAttribute="leading" constant="8" id="blY-rY-ftx"/>
-                            <constraint firstItem="5D5-Uu-ov3" firstAttribute="leading" secondItem="6Sm-V6-OEH" secondAttribute="leading" id="h2J-Yh-FHw"/>
-                            <constraint firstItem="P7g-px-Eff" firstAttribute="centerX" secondItem="HVv-uK-DA5" secondAttribute="centerX" id="hXz-jt-ewB"/>
-                            <constraint firstItem="TGh-cu-Ix3" firstAttribute="top" secondItem="gZW-iD-aAm" secondAttribute="bottom" constant="20" id="lgY-zA-9zX"/>
-                            <constraint firstItem="5D5-Uu-ov3" firstAttribute="top" secondItem="6Sm-V6-OEH" secondAttribute="top" id="qPL-qP-pyz"/>
+                            <constraint firstItem="5D5-Uu-ov3" firstAttribute="centerX" secondItem="P7g-px-Eff" secondAttribute="centerX" id="0mJ-Wa-NUq"/>
+                            <constraint firstItem="ABW-uH-nim" firstAttribute="leading" secondItem="6Sm-V6-OEH" secondAttribute="leading" constant="45" id="2Tw-wP-44p"/>
+                            <constraint firstItem="ABW-uH-nim" firstAttribute="top" secondItem="6go-OR-vva" secondAttribute="bottom" constant="40" id="3Fr-SE-xCa"/>
+                            <constraint firstItem="P7g-px-Eff" firstAttribute="centerX" secondItem="d5T-Y3-BK8" secondAttribute="centerX" id="DVl-HM-tPU"/>
+                            <constraint firstItem="6go-OR-vva" firstAttribute="leading" secondItem="6Sm-V6-OEH" secondAttribute="leading" constant="45" id="EPc-3W-0tA"/>
+                            <constraint firstItem="6go-OR-vva" firstAttribute="top" secondItem="P7g-px-Eff" secondAttribute="bottom" constant="62" id="OcE-Y9-gNe"/>
+                            <constraint firstItem="5D5-Uu-ov3" firstAttribute="top" secondItem="6Sm-V6-OEH" secondAttribute="top" id="SvM-Fj-iMO"/>
+                            <constraint firstItem="P7g-px-Eff" firstAttribute="top" secondItem="5D5-Uu-ov3" secondAttribute="bottom" constant="49" id="ajk-vs-puq"/>
+                            <constraint firstItem="6Sm-V6-OEH" firstAttribute="trailing" secondItem="6go-OR-vva" secondAttribute="trailing" constant="45" id="gCr-AS-S2W"/>
+                            <constraint firstItem="5D5-Uu-ov3" firstAttribute="leading" secondItem="6Sm-V6-OEH" secondAttribute="leading" id="qoE-ke-aBx"/>
+                            <constraint firstItem="6Sm-V6-OEH" firstAttribute="trailing" secondItem="ABW-uH-nim" secondAttribute="trailing" constant="45" id="rmO-66-JRR"/>
+                            <constraint firstItem="6go-OR-vva" firstAttribute="centerX" secondItem="d5T-Y3-BK8" secondAttribute="centerX" id="vND-Cu-L9N"/>
                         </constraints>
                     </view>
                     <connections>

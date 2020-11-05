@@ -995,6 +995,9 @@ PODS:
   - SDWebImage (5.8.4):
     - SDWebImage/Core (= 5.8.4)
   - SDWebImage/Core (5.8.4)
+  - SVProgressHUD (2.2.6):
+    - SVProgressHUD/Core (= 2.2.6)
+  - SVProgressHUD/Core (2.2.6)
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
@@ -1015,6 +1018,7 @@ DEPENDENCIES:
   - MaterialComponents/TextFields
   - RAMAnimatedTabBarController
   - SDWebImage
+  - SVProgressHUD (from `https://github.com/SVProgressHUD/SVProgressHUD.git`)
   - SwiftyJSON
 
 SPEC REPOS:
@@ -1053,6 +1057,15 @@ SPEC REPOS:
     - SDWebImage
     - SwiftyJSON
 
+EXTERNAL SOURCES:
+  SVProgressHUD:
+    :git: https://github.com/SVProgressHUD/SVProgressHUD.git
+
+CHECKOUT OPTIONS:
+  SVProgressHUD:
+    :commit: 3f151fbd5fa4bce056522e314b35630abf339577
+    :git: https://github.com/SVProgressHUD/SVProgressHUD.git
+
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
@@ -1086,8 +1099,9 @@ SPEC CHECKSUMS:
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
+  SVProgressHUD: de812b4f0e1d65358f0064416473174ae619843f
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 4d08ba39d6869752444b5a202fa4cb1ac9f7e9e8
+PODFILE CHECKSUM: 30856f8e908e53fb68033591ee2f30ebaa2e9488
 
 COCOAPODS: 1.9.1
