@@ -25,7 +25,6 @@
 		B1349C9F2542DDE500841AD9 /* MaterialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1349C9E2542DDE500841AD9 /* MaterialModel.swift */; };
 		B1349CA22542DE0100841AD9 /* MaterialList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1349CA12542DE0100841AD9 /* MaterialList.swift */; };
 		B140A8A625396D0000099E0D /* CheckPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B140A8A525396D0000099E0D /* CheckPermission.swift */; };
-		B140A8A92539713300099E0D /* ToDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B140A8A82539713300099E0D /* ToDataBase.swift */; };
 		B140A8AB2539962800099E0D /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B140A8AA2539962800099E0D /* ProfileModel.swift */; };
 		B1482F4B253497AF00CC0C6B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1482F4A253497AF00CC0C6B /* HomeViewController.swift */; };
 		B1482F4D2534984000CC0C6B /* PreManabuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */; };
@@ -71,7 +70,6 @@
 		B1349C9E2542DDE500841AD9 /* MaterialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialModel.swift; sourceTree = "<group>"; };
 		B1349CA12542DE0100841AD9 /* MaterialList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialList.swift; sourceTree = "<group>"; };
 		B140A8A525396D0000099E0D /* CheckPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPermission.swift; sourceTree = "<group>"; };
-		B140A8A82539713300099E0D /* ToDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDataBase.swift; sourceTree = "<group>"; };
 		B140A8AA2539962800099E0D /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		B1482F4A253497AF00CC0C6B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B1482F4C2534984000CC0C6B /* PreManabuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreManabuViewController.swift; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				B140A8A525396D0000099E0D /* CheckPermission.swift */,
-				B140A8A82539713300099E0D /* ToDataBase.swift */,
 				B140A8AA2539962800099E0D /* ProfileModel.swift */,
 				B1349C9E2542DDE500841AD9 /* MaterialModel.swift */,
 				B1349CA12542DE0100841AD9 /* MaterialList.swift */,
@@ -165,27 +162,13 @@
 		B167D0AE252F447300D31AFF /* FireStoreEitangoApp */ = {
 			isa = PBXGroup;
 			children = (
-				B140A8A7253970E800099E0D /* Model */,
-				B171294A25333B92003DCDF7 /* Controller */,
 				B167D0AF252F447300D31AFF /* AppDelegate.swift */,
 				B167D0B1252F447300D31AFF /* SceneDelegate.swift */,
-				B167D0B5252F447300D31AFF /* Main.storyboard */,
-				B160214D255185D60006D00F /* CustomCell.swift */,
-				B160214E255185D60006D00F /* CustomCell.xib */,
+				B18D901C2553FD4D00EDCEED /* Resources */,
+				B140A8A7253970E800099E0D /* Model */,
+				B18D901B2553FD0F00EDCEED /* View */,
+				B171294A25333B92003DCDF7 /* Controller */,
 				B167D0B8252F447400D31AFF /* Assets.xcassets */,
-				B1079F6525492BD800C72B57 /* correct.json */,
-				B1079F6725492BD900C72B57 /* incorrect.json */,
-				B1079F6625492BD900C72B57 /* unlocked.json */,
-				B1079F6C254934E300C72B57 /* failure.json */,
-				B1079F6D254934E300C72B57 /* success.json */,
-				B1079F9A25499B2900C72B57 /* well done.json */,
-				B1079F9D2549A7E200C72B57 /* congrats.json */,
-				B160214A255120910006D00F /* swipe.json */,
-				B15F30E025530E7A007850E4 /* tap.json */,
-				B1079F7425496D4D00C72B57 /* fuseikai.mp3 */,
-				B1079F7725496D5900C72B57 /* seikai.mp3 */,
-				B1079FA02549A87900C72B57 /* kanseiVoice.mp3 */,
-				B167D0BA252F447400D31AFF /* LaunchScreen.storyboard */,
 				B167D0BD252F447400D31AFF /* Info.plist */,
 				B171294B253354B9003DCDF7 /* GoogleService-Info.plist */,
 			);
@@ -202,10 +185,39 @@
 				B171294825333B8E003DCDF7 /* RegisterViewController.swift */,
 				B171294625332D5F003DCDF7 /* LoginViewController.swift */,
 				B167D0C5252F65C000D31AFF /* OthersViewController.swift */,
-				B1079F7E2549929000C72B57 /* ReviewViewController.swift */,
 				B19E0D68254AB9730057B500 /* EditUserNameViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		B18D901B2553FD0F00EDCEED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B167D0BA252F447400D31AFF /* LaunchScreen.storyboard */,
+				B167D0B5252F447300D31AFF /* Main.storyboard */,
+				B160214E255185D60006D00F /* CustomCell.xib */,
+				B160214D255185D60006D00F /* CustomCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B18D901C2553FD4D00EDCEED /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B1079F6525492BD800C72B57 /* correct.json */,
+				B1079F6725492BD900C72B57 /* incorrect.json */,
+				B1079F6625492BD900C72B57 /* unlocked.json */,
+				B1079F6C254934E300C72B57 /* failure.json */,
+				B1079F6D254934E300C72B57 /* success.json */,
+				B1079F9A25499B2900C72B57 /* well done.json */,
+				B1079F9D2549A7E200C72B57 /* congrats.json */,
+				B160214A255120910006D00F /* swipe.json */,
+				B15F30E025530E7A007850E4 /* tap.json */,
+				B1079F7425496D4D00C72B57 /* fuseikai.mp3 */,
+				B1079F7725496D5900C72B57 /* seikai.mp3 */,
+				B1079FA02549A87900C72B57 /* kanseiVoice.mp3 */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		B19E0D66254AA95B0057B500 /* Learning */ = {
@@ -216,6 +228,7 @@
 				B1349C9A2542D9BB00841AD9 /* TestViewController.swift */,
 				B1079F7A254974A000C72B57 /* ResultViewController.swift */,
 				B1692031254ECAA600D9C90D /* ModeSelectViewController.swift */,
+				B1079F7E2549929000C72B57 /* ReviewViewController.swift */,
 			);
 			path = Learning;
 			sourceTree = "<group>";
@@ -357,7 +370,6 @@
 				B1079F7F2549929000C72B57 /* ReviewViewController.swift in Sources */,
 				B1079F7225496C0A00C72B57 /* SoundFile.swift in Sources */,
 				B140A8AB2539962800099E0D /* ProfileModel.swift in Sources */,
-				B140A8A92539713300099E0D /* ToDataBase.swift in Sources */,
 				B171294925333B8E003DCDF7 /* RegisterViewController.swift in Sources */,
 				B171294725332D5F003DCDF7 /* LoginViewController.swift in Sources */,
 				B1349C9B2542D9BB00841AD9 /* TestViewController.swift in Sources */,

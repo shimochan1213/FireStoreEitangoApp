@@ -17,6 +17,10 @@ struct ProfileModel {
     let likeCount:Int
     let likeFlagDic:Dictionary<String, Any>
     
+    //練習
+    let uidString:String
+    let refString:String
+    
     //いいねの時に、どのユーザーにいいねするのか判別するため
     let docID:String
     

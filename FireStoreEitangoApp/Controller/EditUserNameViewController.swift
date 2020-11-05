@@ -53,8 +53,17 @@ class EditUserNameViewController: UIViewController, UITextFieldDelegate {
         //テキストが空でないなら、入れる
         if let newUserName = textFieldFloatingUserName.text,!newUserName.isEmpty{
             db.collection("Profile").document(refString).updateData(["userName" : textFieldFloatingUserName.text!]) { (error) in
+                if error != nil{
                 print(error.debugDescription)
                 return
+                }
+                
+                //非同期処理(通信重たい時などのためにUIの処理だけ並行してやってしまう）
+                DispatchQueue.main.async {
+                        
+                    self.textFieldFloatingUserName.resignFirstResponder()
+                }
+                
             }
             
             
@@ -72,6 +81,7 @@ class EditUserNameViewController: UIViewController, UITextFieldDelegate {
             let action2 = MDCAlertAction(title:"OK"){(alert) in
                 return
             }
+            
             alertController2.addAction(action2)
             self.present(alertController2, animated:true)
             

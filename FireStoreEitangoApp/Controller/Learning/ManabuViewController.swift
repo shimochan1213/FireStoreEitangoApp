@@ -120,11 +120,9 @@ class ManabuViewController: UIViewController {
       //pixabay.com
       func getImages(keyword:String){
           //APIKEY 16306601-72effe1bbc4631fe8092700f6
-          
           let url = "https://pixabay.com/api/?key=16306601-72effe1bbc4631fe8092700f6&q=\(keyword)"
           
           //Alamofireを使ってhttpリクエストを投げる。値が返ってくる。
-          
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON{ [self](response) in
               
               switch response.result{
@@ -181,64 +179,11 @@ class ManabuViewController: UIViewController {
     }
     
     @IBAction func nextWord(_ sender: Any) {
-        
         NEXTWORD()
-//        switch receivedCellNumber {
-//        case 0:
-//            if wordCount == 19{
-//                //終了
-//                //学んだ単語数をfirestoreに送信する練習
-//                //ドキュメントの中身を一部更新する
-////                db.collection("Profile").document(refString).updateData(["learnedNumber" : 400]) { (error) in
-////                    print(error.debugDescription)
-////                    return
-////                }
-////                dismiss(animated: true, completion: nil)
-//                endLearning()
-//            }
-//        case 1:
-//            if wordCount == 39{
-//                endLearning()
-//            }
-//        case 2:
-//            if wordCount == 59{
-//                endLearning()
-//            }
-//        case 3:
-//            if wordCount == 79{
-//                endLearning()
-//            }
-//        case 4:
-//            if wordCount == 99{
-//                endLearning()
-//            }
-//        default:
-//            break
-//        }
-//
-//
-//        //範囲のコード後で追加（落ちないように）
-//        wordCount += 1
-//        getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
-//        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
-//        japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
-//        //単語の番号を表示
-//        numberLabel.text = String("No. \(wordCount + 1)")
+
     }
     
     @IBAction func beforeWord(_ sender: Any) {
-        
-//        //問題のはじめは戻るボタン押せない様にする
-//        if wordCount == 0 || wordCount == 20 || wordCount == 40 || wordCount == 60 || wordCount == 80{
-//            return
-//        }
-//
-//        wordCount -= 1
-//        getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
-//        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
-//        japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
-//        //単語の番号を表示
-//        numberLabel.text = String("No. \(wordCount + 1)")
         BEFOREWORD()
     }
     
@@ -254,12 +199,24 @@ class ManabuViewController: UIViewController {
     }
     
     func endLearning(){
-        //学んだ単語数をfirestoreに送信する
-        //ドキュメントの中身を一部更新する
-        db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
-            print(error.debugDescription)
-            return
-        }
+        
+        
+        //ログイン済みであれば学んだ単語数をfirestoreに送信する
+         if Auth.auth().currentUser?.uid != nil{         
+            //学んだ単語数をfirestoreに送信する
+            //ドキュメントの中身を一部更新する
+            db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
+                print(error.debugDescription)
+                return
+            }
+             
+         }
+//        //学んだ単語数をfirestoreに送信する
+//        //ドキュメントの中身を一部更新する
+//        db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
+//            print(error.debugDescription)
+//            return
+//        }
         
         dismiss(animated: true, completion: nil)
     }
@@ -325,18 +282,6 @@ class ManabuViewController: UIViewController {
     
     @IBAction func swiped(_ sender: Any) {
 //        //右へのスワイプ
-//        print("swiped")
-//        //問題のはじめは戻るボタン押せない様にする
-//        if wordCount == 0 || wordCount == 20 || wordCount == 40 || wordCount == 60 || wordCount == 80{
-//            return
-//        }
-//
-//        wordCount -= 1
-//        getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
-//        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
-//        japanWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
-//        //単語の番号を表示
-//        numberLabel.text = String("No. \(wordCount + 1)")
         BEFOREWORD()
     }
     

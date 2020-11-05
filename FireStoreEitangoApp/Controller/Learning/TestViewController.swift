@@ -13,6 +13,7 @@ import Alamofire
 import Photos
 import AVFoundation
 import Lottie
+import Firebase
 import FirebaseFirestore
 
 class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
@@ -370,14 +371,18 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
     }
     
     func endTest(){
-        //学んだ単語数をfirestoreに送信する
-        //ドキュメントの中身を一部更新する
-        db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
-            print(error.debugDescription)
-            return
+        
+        //ログイン済みであれば学んだ単語数をfirestoreに送信する
+        if Auth.auth().currentUser?.uid != nil{
+            //ドキュメントの中身を一部更新する
+            db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
+                print(error.debugDescription)
+                return
+            }
+            
         }
         
-       //結果画面へ
+        //結果画面へ
         performSegue(withIdentifier: "result", sender: nil)
     }
     

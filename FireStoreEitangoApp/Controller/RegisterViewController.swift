@@ -40,15 +40,13 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     var textControllerEmail: MDCTextInputControllerOutlined!
     var textControllerPW: MDCTextInputControllerOutlined!
     
-    let toDataBase = ToDataBase()
-    
     //fireStoreにアクセスするため(firestoreから色々取ってきたり送ったりするため）
     let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
     
     let db = Firestore.firestore()
     
-    //このユーザー専用のfirestore参照先(ドキュメントID)
-    let profileRef = Firestore.firestore().collection("Profile").document()
+//    //このユーザー専用のfirestore参照先(ドキュメントID)
+//    let profileRef = Firestore.firestore().collection("Profile").document()
     
     let urlString = String()
     var imageString = String()
@@ -58,8 +56,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        SendProfileOKDelegate = self
+
         
         //カメラ、アルバムを使用する旨を表示
          let checkModel = CheckPermission()
@@ -92,6 +89,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        
 
 //        if UserDefaults.standard.object(forKey: "documentID") != nil{
 //
@@ -123,12 +121,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 print("ユーザの作成が成功しただよ！")
                 let alertController = MDCAlertController(title: "ユーザー登録が完了しました", message: "さあ、はじめましょう！")
                 let action = MDCAlertAction(title:"OK"){(alert) in
-//                    self.navigationController?.dismiss(animated: true, completion: nil)
                     self.dismiss(animated: true, completion: nil)
-                    
-                    
-//                    let othersVC = self.storyboard?.instantiateViewController(withIdentifier: "others") as! OthersViewController
-//                    self.present(othersVC, animated: true, completion: nil)
                 }
                 
                 alertController.addAction(action)
@@ -143,42 +136,44 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 //以下データベース関連
                 sendProfileImageData()
                 if let userName = textFieldFloatingUserName.text {
+                          
+                    //新しいfirestoreのdocument送信先を保存するため、古い行き先は削除
+                    if UserDefaults.standard.object(forKey: "refString") != nil{
+                UserDefaults.standard.removeObject(forKey: "refString")
+                    }
                     
-                  
-                    //いけてたやつ
-                    //最初に宣言した、このユーザー専用のfirestore参照先にデータを入れる
-//                    profileRef.setData(["userName":userName,"imageString":imageString, "learnedNumber" : 0]) { (error) in
-//                        if error != nil{
-//                            print(error.debugDescription)
-//                            return
-//                        }
-                        
-                    
-                    
-                    
+                    //このユーザー専用のfirestore参照先(ドキュメントID)
+                    var profileRef = Firestore.firestore().collection("Profile").document()
                     var refString = String()
                     refString = profileRef.documentID
+                    
+                    
+                    
+                    //練習
+                    var uidString = String()
+                    uidString = Auth.auth().currentUser!.uid
+                    
+                    
                         
-                    profileRef.setData(["userName":userName,"imageString":imageString, "learnedNumber": 0, "like":0, "likeFlagDic":[refString:false]] ) { (error) in
+                    profileRef.setData(["userName":userName,"imageString":imageString, "learnedNumber": 0, "like":0, "likeFlagDic":[refString:false], "uid": uidString, "refString":refString] ) { (error) in
                             if error != nil{
                                 print(error.debugDescription)
                                 return
                             }
                         
-                        
-//                        var refString = String()
                         //指定済みのdocumentにおけるIDを保存しておく（othersViewでデータ読み込むため）
-//                        refString = profileRef.documentID
                         UserDefaults.standard.setValue(refString, forKey: "refString")
                         print("ふふ\(refString)")
                         
+                        //非同期処理(通信重たい時などのためにUIの処理だけ並行してやってしまう）
+                        DispatchQueue.main.async {
+                            self.textFieldFloatingUserName.resignFirstResponder()
+                            self.textFieldFloatingEmail.resignFirstResponder()
+                            self.textFieldFloatingPW.resignFirstResponder()
+                        }
                     }
-
-
-                    
-                    
-                    }
-               
+                }
+                
             }
         }
     }
@@ -214,23 +209,6 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     }
     
     
-    
-//    //画像のURLがfirebaseから本当に返ってきているかを確認
-//    func sendProfileOKDelegate(url: String) {
-//        urlString = url
-//        if urlString.isEmpty != true{
-//            //空でないなら登録画面閉じる
-//            self.navigationController?.dismiss(animated: true, completion: true)
-//        }
-//    }
-    
-    
-    
-
-//    @IBAction func back(_ sender: Any) {
-//        self.navigationController?.dismiss(animated: true, completion: nil)
-//    }
-//
     @IBAction func close(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

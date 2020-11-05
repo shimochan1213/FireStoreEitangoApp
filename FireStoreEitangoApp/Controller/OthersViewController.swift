@@ -35,7 +35,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     let profileLabel = UILabel()
     @IBOutlet weak var otherUsersLabel: UILabel!
     //fireStoreにアクセスするため(firestoreから色々取ってきたり送ったりするため）
-    let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
+//    let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
     let db = Firestore.firestore()
     
     var imageString = String()
@@ -43,11 +43,9 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     var profiles:[ProfileModel] = []
     //登録時保存したfirestoreのdocumentIDを入れる
     var refString = String()
-//    var likeCount = 0
-//    var likeFlagDic:Dictionary<String, Any> = [:]
+
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var profileCard: MDCCard!
-    
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIButton!
     @IBOutlet weak var accountAskLabel: UILabel!
@@ -70,9 +68,10 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "Cell")
         
-        
         profileCard.layer.cornerRadius = 20
         tableView.layer.cornerRadius = 20
+        
+        iconImageView.layer.cornerRadius = iconImageView.bounds.width/2
         
         //materia design風の影の付け方の基本
         tableView.layer.shadowColor = UIColor.black.cgColor
@@ -89,39 +88,16 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-        loadFromFireStore()
-        
-
-        
-        //ログイン済みであればログインボタンと登録ボタンなどを非表示
-         if Auth.auth().currentUser?.uid != nil{
-            loginBtn.isHidden = true
-            accountAskLabel.isHidden = true
-            registerBtn.isHidden = true
-            
-             
-         }
-        
-   
-        //        let textFieldFloating = MDCTextField(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: 50))
-        //        textFieldFloating.placeholder = "Usename"
-        //        textFieldFloating.center = self.view.center
-        //
-        //        self.view.addSubview(textFieldFloating)
-        //
-        //
-        //        self.textController = MDCTextInputControllerOutlined(textInput: textFieldFloating)
-        //        self.textController.textInsets(UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
-        //        // MDCTextInputControllerOutlined
-        
-        //materia design風の影の付け方の基本
-//        loginButton.layer.cornerRadius = 10.0
-//        loginButton.layer.shadowColor = UIColor.black.cgColor
-//        loginButton.layer.shadowRadius = 1
-//        loginButton.layer.shadowOpacity = 0.5
-//        loginButton.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        showUserInformationFromFireStore()
+//        loadFromFireStore()
+//        //ログイン済みであればログインボタンと登録ボタンなどを非表示
+//         if Auth.auth().currentUser?.uid != nil{
+//            loginBtn.isHidden = true
+//            accountAskLabel.isHidden = true
+//            registerBtn.isHidden = true
+//         }
+//
+//        showUserInformationFromFireStore()
+  
     }
     
     @objc func fromSub() {
@@ -147,8 +123,8 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                 registerBtn.isHidden = true
              }
             
-            iconImageView.layer.cornerRadius = iconImageView.bounds.width/2
-            print(profiles)
+//            iconImageView.layer.cornerRadius = iconImageView.bounds.width/2
+//            print(profiles)
             showUserInformationFromFireStore()
  
             
@@ -189,7 +165,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         cell.learnedNumberLabel.text = "学んだ単語数は\(String(profiles[indexPath.row].learnedNumber))"
         
         
-        //後で何番目のセルが押されたか判別するため
+        //後で何番目のセルのいいねボタンが押されたか判別するため
         cell.likeBtn.tag = indexPath.row
         
         
@@ -314,12 +290,13 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                     //docの中にあるdataを定数に入れてる。
                     let data = doc.data()
                     //空じゃないなら、定数に入れる。
-                    if let userName = data["userName"] as? String, let imageString = data["imageString"] as? String, let learnedNumber = data["learnedNumber"] as? Int, let likeCount = data["like"] as? Int, let likeFlagDic = data["likeFlagDic"] as? Dictionary<String, Bool>{
+                    if let userName = data["userName"] as? String, let imageString = data["imageString"] as? String, let learnedNumber = data["learnedNumber"] as? Int, let likeCount = data["like"] as? Int, let likeFlagDic = data["likeFlagDic"] as? Dictionary<String, Bool>, let uidString = data["uid"] as? String, let refString = data["refString"] as? String{
 
 //                        //最初の最初は空っぽなのでこの処理してる
 //                        if likeFlagDic["\(doc.documentID)"] != nil{
                         //配列に入れる準備(key-value型)
-                            let profile = ProfileModel(userName: userName, imageString: imageString, learnedNumber: learnedNumber, likeCount: likeCount, likeFlagDic: likeFlagDic, docID: doc.documentID)
+//                        let profile = ProfileModel(userName: userName, imageString: imageString, learnedNumber: learnedNumber, likeCount: likeCount, likeFlagDic: likeFlagDic, docID: doc.documentID)
+                        let profile = ProfileModel(userName: userName, imageString: imageString, learnedNumber: learnedNumber, likeCount: likeCount, likeFlagDic: likeFlagDic, uidString: uidString, refString: refString, docID: doc.documentID)
                     
                             self.profiles.append(profile)
                             
@@ -352,31 +329,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
 //
 //    }
     
-//    func getUserInformaitonFromFS(){
-//        if UserDefaults.standard.object(forKey: "refString") != nil && Auth.auth().currentUser?.uid != nil{
-//            refString = UserDefaults.standard.object(forKey: "refString") as! String
-//            print(refString)
-//
-//            db.collection("Profile").document(refString).getDocument{ (snapShot, error) in
-//                if error != nil{
-//                    print(error.debugDescription)
-//                }
-//                //dataメソッドはドキュメントの中のdata全体を取ってきている。
-//                let data = snapShot?.data()
-//                self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
-//                self.profileUserNameLabel.text = data!["userName"] as! String
-//                self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "loading"), completed: nil)
-//
-//            }
-//
-//            //ログイン中は、これらを非表示
-//            hintLabel.isHidden = true
-//            loginBtn.isHidden = true
-//            accountAskLabel.isHidden = true
-//            registerBtn.isHidden = true
-//        }
-//    }
-    
+
 
     func showUserInformationFromFireStore(){
         
@@ -388,6 +341,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             db.collection("Profile").document(refString).addSnapshotListener { (snapShot, error) in
                 if error != nil{
                     print(error.debugDescription)
+                    return
                 }
                 //dataメソッドはドキュメントの中のdata全体を取ってきている。
                 let data = snapShot?.data()
@@ -420,14 +374,13 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         do {
             try firebaseAuth.signOut()
             print("ログアウトしました")
+            UserDefaults.standard.removeObject(forKey: "refString")
             
             loginBtn.isHidden = false
             accountAskLabel.isHidden = false
             registerBtn.isHidden = false
             hintLabel.isHidden = false
-            
             profileLabel.isHidden = true
-            
             profileLearnedNumberLabel.text = "学んだ単語数"
             profileUserNameLabel.text = "ユーザー名"
             profileImageView.image = UIImage(named: "user128")
@@ -438,15 +391,6 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         //top(スクロールの一番上へ戻る）
         scrollView.setContentOffset(.zero, animated: true)
-        
-//        loginBtn.isHidden = false
-//        accountAskLabel.isHidden = false
-//        registerBtn.isHidden = false
-//
-//        profileLearnedNumberLabel.text = "学んだ単語数"
-//        profileUserNameLabel.text = "ユーザー名"
-//        profileImageView.image = UIImage(named: "120reo")
-        
     }
     
     //以下、アイコン設定関連
