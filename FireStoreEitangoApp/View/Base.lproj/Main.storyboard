@@ -94,7 +94,7 @@
                                                         </connections>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学んだ英単語数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lQB-Tj-RHW">
-                                                        <rect key="frame" x="162" y="113.5" width="178.5" height="26"/>
+                                                        <rect key="frame" x="162" y="98" width="178.5" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="26" id="Va0-c3-8Tj"/>
                                                         </constraints>
@@ -102,18 +102,36 @@
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99j-dD-88C">
+                                                        <rect key="frame" x="205" y="132" width="94" height="32"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="like" translatesAutoresizingMaskIntoConstraints="NO" id="yxO-Z5-fkm">
+                                                        <rect key="frame" x="162" y="132" width="35" height="32"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="35" id="Ter-5T-xPF"/>
+                                                        </constraints>
+                                                    </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.95053230584917814" green="1" blue="0.99195217938897395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="lQB-Tj-RHW" secondAttribute="bottom" constant="55.5" id="Aoa-NG-L5f"/>
+                                                    <constraint firstAttribute="bottom" secondItem="yxO-Z5-fkm" secondAttribute="bottom" constant="31" id="0Lk-jW-VAI"/>
+                                                    <constraint firstItem="yxO-Z5-fkm" firstAttribute="top" secondItem="99j-dD-88C" secondAttribute="top" id="7k9-xh-lME"/>
+                                                    <constraint firstAttribute="bottom" secondItem="lQB-Tj-RHW" secondAttribute="bottom" constant="71" id="Aoa-NG-L5f"/>
                                                     <constraint firstAttribute="trailing" secondItem="lQB-Tj-RHW" secondAttribute="trailing" constant="27.5" id="DOy-tg-67a"/>
                                                     <constraint firstItem="SQN-39-d0d" firstAttribute="top" secondItem="XCR-NB-QRy" secondAttribute="bottom" constant="24" id="Hnn-lu-wHC"/>
+                                                    <constraint firstItem="yxO-Z5-fkm" firstAttribute="bottom" secondItem="99j-dD-88C" secondAttribute="bottom" id="MY0-W9-AU8"/>
+                                                    <constraint firstItem="yxO-Z5-fkm" firstAttribute="leading" secondItem="Zam-Ms-Pro" secondAttribute="trailing" constant="20" id="OTI-Cg-cb0"/>
                                                     <constraint firstAttribute="trailing" secondItem="SQN-39-d0d" secondAttribute="trailing" constant="27.5" id="U03-eL-ekg"/>
+                                                    <constraint firstItem="99j-dD-88C" firstAttribute="leading" secondItem="yxO-Z5-fkm" secondAttribute="trailing" constant="8" symbolic="YES" id="XTp-5v-I43"/>
                                                     <constraint firstItem="Zam-Ms-Pro" firstAttribute="leading" secondItem="sxF-IA-AYU" secondAttribute="leading" constant="8" id="YIG-m1-tRo"/>
                                                     <constraint firstItem="lQB-Tj-RHW" firstAttribute="leading" secondItem="Zam-Ms-Pro" secondAttribute="trailing" constant="20" id="c2z-U5-rtx"/>
                                                     <constraint firstItem="XCR-NB-QRy" firstAttribute="leading" secondItem="sxF-IA-AYU" secondAttribute="leading" constant="33" id="cMY-1x-Izg"/>
                                                     <constraint firstItem="SQN-39-d0d" firstAttribute="leading" secondItem="Zam-Ms-Pro" secondAttribute="trailing" constant="20" id="ePW-2l-piN"/>
-                                                    <constraint firstItem="lQB-Tj-RHW" firstAttribute="top" secondItem="SQN-39-d0d" secondAttribute="bottom" constant="27.5" id="hGX-0C-VJr"/>
+                                                    <constraint firstItem="lQB-Tj-RHW" firstAttribute="top" secondItem="SQN-39-d0d" secondAttribute="bottom" constant="12" id="hGX-0C-VJr"/>
+                                                    <constraint firstItem="yxO-Z5-fkm" firstAttribute="top" secondItem="lQB-Tj-RHW" secondAttribute="bottom" constant="8" symbolic="YES" id="hGs-bj-JrK"/>
                                                     <constraint firstItem="XCR-NB-QRy" firstAttribute="top" secondItem="sxF-IA-AYU" secondAttribute="top" constant="10" id="jZ2-01-OuC"/>
                                                     <constraint firstAttribute="trailing" secondItem="XCR-NB-QRy" secondAttribute="trailing" constant="33" id="jne-j3-CGJ"/>
                                                     <constraint firstAttribute="bottom" secondItem="Zam-Ms-Pro" secondAttribute="bottom" constant="17" id="ld2-Yq-US6"/>
@@ -217,6 +235,7 @@
                         <outlet property="accountAskLabel" destination="IXe-wu-9Md" id="a5C-qX-aRg"/>
                         <outlet property="hintLabel" destination="XCR-NB-QRy" id="Sb4-NK-ISI"/>
                         <outlet property="iconImageView" destination="Zam-Ms-Pro" id="BVk-AO-ffq"/>
+                        <outlet property="likeCountLabel" destination="99j-dD-88C" id="si6-sL-CXZ"/>
                         <outlet property="loginBtn" destination="6Kw-ir-lN3" id="X31-YH-GzC"/>
                         <outlet property="logoutBtn" destination="VEC-Nk-z85" id="j96-Wz-LQP"/>
                         <outlet property="otherUsersLabel" destination="3fF-OI-Wwf" id="UWX-ZT-ivF"/>
@@ -1351,6 +1370,7 @@
         <image name="exam" width="128" height="128"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="learn" width="128" height="128"/>
+        <image name="like" width="64" height="64"/>
         <image name="person.crop.circle.fill" catalog="system" width="128" height="121"/>
         <image name="review" width="128" height="128"/>
         <image name="speaker" width="128" height="128"/>

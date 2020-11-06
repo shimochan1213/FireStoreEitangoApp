@@ -30,6 +30,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     //firestoreから取ってきた画像のurlをもとにアイコンを表示してみる
     @IBOutlet weak var iconImageView: UIImageView!
     
+    @IBOutlet weak var likeCountLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var hintLabel: UILabel!
     let profileLabel = UILabel()
@@ -365,6 +366,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                 self.profileLearnedNumberLabel.text = "学んだ単語数は\(String(data!["learnedNumber"] as! Int))です"
                 self.profileUserNameLabel.text = data!["userName"] as! String
                 self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "120reo"), completed: nil)
+                self.likeCountLabel.text = String(data!["like"] as! Int)
 //                self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.width/2
 
             }
@@ -395,6 +397,8 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             
             //いいねボタン押せなくしたのを反映するため
             tableView.reloadData()
+            
+            likeCountLabel.text = "0"
             
             loginBtn.isHidden = false
             accountAskLabel.isHidden = false
