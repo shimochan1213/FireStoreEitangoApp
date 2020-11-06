@@ -43,6 +43,8 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     var profiles:[ProfileModel] = []
     //登録時保存したfirestoreのdocumentIDを入れる
     var refString = String()
+    
+
 
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var profileCard: MDCCard!
@@ -88,25 +90,25 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-//        loadFromFireStore()
-//        //ログイン済みであればログインボタンと登録ボタンなどを非表示
-//         if Auth.auth().currentUser?.uid != nil{
-//            loginBtn.isHidden = true
-//            accountAskLabel.isHidden = true
-//            registerBtn.isHidden = true
-//         }
-//
-//        showUserInformationFromFireStore()
-  
+        //上部にラベルを置く
+        profileLabel.frame = CGRect(x: view.bounds.width/20, y: view.bounds.height/11, width: otherUsersLabel.bounds.width, height: otherUsersLabel.bounds.height)
+        profileLabel.text = "プロフィール"
+        profileLabel.font =  UIFont.boldSystemFont(ofSize: 26)
+        scrollView.addSubview(profileLabel)
+          
     }
     
     @objc func fromSub() {
         //プロフカード更新
         showUserInformationFromFireStore()
+        profileLabel.isHidden = false
+        //いいねボタンが押せるようになったことを反映するため
+        tableView.reloadData()
     }
     @objc func fromRegister() {
         //プロフカード更新
         showUserInformationFromFireStore()
+        profileLabel.isHidden = false
     }
     
     
@@ -121,7 +123,16 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                 loginBtn.isHidden = true
                 accountAskLabel.isHidden = true
                 registerBtn.isHidden = true
+                
+                profileLabel.isHidden = false
+             }else{
+                profileLabel.isHidden = true
              }
+           
+            
+          
+            
+        
             
 //            iconImageView.layer.cornerRadius = iconImageView.bounds.width/2
 //            print(profiles)
@@ -149,7 +160,13 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
 ////        let likeBtn = cell.viewWithTag(4) as! UIButton
 //        let likeBtn = cell.contentView.viewWithTag(6) as! UIButton
 //        let likeLabel = cell.viewWithTag(5) as! UILabel
-       
+        
+        
+        if Auth.auth().currentUser?.uid == nil{
+            cell.likeBtn.isEnabled = false
+        }else{
+            cell.likeBtn.isEnabled = true
+        }
     
         
            
@@ -358,11 +375,11 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             accountAskLabel.isHidden = true
             registerBtn.isHidden = true
             
-            //代わりに上部にラベルを表示
-            profileLabel.frame = CGRect(x: view.bounds.width/20, y: view.bounds.height/11, width: otherUsersLabel.bounds.width, height: otherUsersLabel.bounds.height)
-            profileLabel.text = "プロフィール"
-            profileLabel.font =  UIFont.boldSystemFont(ofSize: 26)
-            scrollView.addSubview(profileLabel)
+//            //代わりに上部にラベルを表示
+//            profileLabel.frame = CGRect(x: view.bounds.width/20, y: view.bounds.height/11, width: otherUsersLabel.bounds.width, height: otherUsersLabel.bounds.height)
+//            profileLabel.text = "プロフィール"
+//            profileLabel.font =  UIFont.boldSystemFont(ofSize: 26)
+//            scrollView.addSubview(profileLabel)
             
         }
     }
@@ -375,6 +392,9 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             try firebaseAuth.signOut()
             print("ログアウトしました")
             UserDefaults.standard.removeObject(forKey: "refString")
+            
+            //いいねボタン押せなくしたのを反映するため
+            tableView.reloadData()
             
             loginBtn.isHidden = false
             accountAskLabel.isHidden = false
