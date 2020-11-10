@@ -64,6 +64,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
         textFieldFloatingPW.placeholder = "パスワード"
         self.textControllerPW = MDCTextInputControllerOutlined(textInput: textFieldFloatingPW)
         
+        textFieldFloatingEmail.textColor = .systemBlue
+        textFieldFloatingPW.textColor = .systemBlue
+        textFieldFloatingUserName.textColor = .systemBlue
+        
     }
     
     //ログイン画面が閉じるときに、元のviewへ「閉じるよ！」と伝える（プロフィールデータを更新のため）

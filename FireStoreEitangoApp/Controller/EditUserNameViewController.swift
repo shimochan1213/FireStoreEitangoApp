@@ -30,6 +30,8 @@ class EditUserNameViewController: UIViewController, UITextFieldDelegate {
         textFieldFloatingUserName.placeholder = "新しいユーザー名を入れてください"
         self.textControllerUserName = MDCTextInputControllerOutlined(textInput: textFieldFloatingUserName)
         
+        textFieldFloatingUserName.textColor = .systemBlue
+        
         renewBtn.layer.cornerRadius = 10
         
         
