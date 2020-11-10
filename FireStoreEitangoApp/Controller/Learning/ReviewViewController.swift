@@ -30,7 +30,7 @@ class ReviewViewController: UIViewController,UITableViewDelegate,UITableViewData
     var materialList = MaterialList()
     let soundFile = SoundFile()
     
-   
+    
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -76,7 +76,7 @@ class ReviewViewController: UIViewController,UITableViewDelegate,UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
- 
+        
         let imageView = cell.viewWithTag(1) as! UIImageView
         imageView.layer.cornerRadius = 10
         let wordLabel = cell.viewWithTag(2) as! UILabel
@@ -104,7 +104,7 @@ class ReviewViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         
         return cell
- }
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.bounds.height * 2/7
@@ -127,7 +127,7 @@ class ReviewViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.speechSynthesizer.speak(utterance)
     }
     
-
+    
     
     
     @IBAction func closeBtn(_ sender: Any) {
@@ -135,5 +135,5 @@ class ReviewViewController: UIViewController,UITableViewDelegate,UITableViewData
         dismiss(animated: true, completion: nil)
     }
     
-
+    
 }

@@ -13,7 +13,7 @@ import FirebaseFirestore
 import SDWebImage
 
 class OthersViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-
+    
     let registerVC = RegisterViewController()
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var profileLearnedNumberLabel: UILabel!
@@ -24,29 +24,24 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     var email = String()
     var PW = String()
     @IBOutlet weak var tableView: UITableView!
-   
     @IBOutlet weak var scrollView: UIScrollView!
     
     //firestoreから取ってきた画像のurlをもとにアイコンを表示してみる
     @IBOutlet weak var iconImageView: UIImageView!
-    
     @IBOutlet weak var likeCountLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var hintLabel: UILabel!
     let profileLabel = UILabel()
     @IBOutlet weak var otherUsersLabel: UILabel!
     //fireStoreにアクセスするため(firestoreから色々取ってきたり送ったりするため）
-//    let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
     let db = Firestore.firestore()
     
     var imageString = String()
     //firestoreから取ってきたデータを入れておく配列。型はProfileModel型
     var profiles:[ProfileModel] = []
-    //登録時保存したfirestoreのdocumentIDを入れる
+    //ユーザー登録時保存したfirestoreのdocumentIDを入れる
     var refString = String()
     
-
-
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var profileCard: MDCCard!
     @IBOutlet weak var loginBtn: UIButton!
@@ -54,16 +49,16 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var accountAskLabel: UILabel!
     @IBOutlet weak var registerBtn: UIButton!
     
-    //タップで振動を起こすため
+    //タップで振動を起こすため（appleドキュメントより）
     private let feedbackGenerator: Any? = {
-          if #available(iOS 10.0, *) {
+        if #available(iOS 10.0, *) {
             let generator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-              generator.prepare()
-              return generator
-          } else {
-              return nil
-          }
-      }()
+            generator.prepare()
+            return generator
+        } else {
+            return nil
+        }
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +81,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         NotificationCenter.default.addObserver(self, selector: #selector(fromSub), name: .notification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(fromRegister), name: .notificationFromRegister, object: nil)
-    
+        
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -96,7 +91,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         profileLabel.text = "プロフィール"
         profileLabel.font =  UIFont.boldSystemFont(ofSize: 26)
         scrollView.addSubview(profileLabel)
-          
+        
     }
     
     @objc func fromSub() {
@@ -113,36 +108,27 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(true)
-
-            loadFromFireStore()
-            print("willappear")
-            
-            //ログイン済みであればログインボタンと登録ボタンなどを非表示
-             if Auth.auth().currentUser?.uid != nil{
-                loginBtn.isHidden = true
-                accountAskLabel.isHidden = true
-                registerBtn.isHidden = true
-                
-                profileLabel.isHidden = false
-             }else{
-                profileLabel.isHidden = true
-             }
-           
-            
-          
-            
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         
+        loadFromFireStore()
+//        print("willappear")
+        
+        //ログイン済みであればログインボタンと登録ボタンなどを非表示
+        if Auth.auth().currentUser?.uid != nil{
+            loginBtn.isHidden = true
+            accountAskLabel.isHidden = true
+            registerBtn.isHidden = true
             
-//            iconImageView.layer.cornerRadius = iconImageView.bounds.width/2
-//            print(profiles)
-            showUserInformationFromFireStore()
- 
-            
-
-    
+            profileLabel.isHidden = false
+        }else{
+            profileLabel.isHidden = true
         }
+        
+        showUserInformationFromFireStore()
+        
+        
+    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -153,32 +139,21 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomCell
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-//        let iconImageView = cell.contentView.viewWithTag(1) as! UIImageView
-//        let userNameLabel = cell.viewWithTag(2) as! UILabel
-//        let learnedNumberLabel = cell.viewWithTag(3) as! UILabel
-////        let likeBtn = cell.viewWithTag(4) as! UIButton
-//        let likeBtn = cell.contentView.viewWithTag(6) as! UIButton
-//        let likeLabel = cell.viewWithTag(5) as! UILabel
-        
         
         if Auth.auth().currentUser?.uid == nil{
             cell.likeBtn.isEnabled = false
         }else{
             cell.likeBtn.isEnabled = true
         }
-    
         
-           
         //新規登録時に画像を設定した人にはアイコン表示、してない人にはデフォルトアイコンを表示。
-    if profiles[indexPath.row].imageString.isEmpty == false{
-        cell.iconImageView.sd_setImage(with: URL(string: profiles[indexPath.row].imageString), completed: nil)
-    }else{
-        cell.iconImageView.image = UIImage(named: "120reo")
-    }
+        if profiles[indexPath.row].imageString.isEmpty == false{
+            cell.iconImageView.sd_setImage(with: URL(string: profiles[indexPath.row].imageString), completed: nil)
+        }else{
+            cell.iconImageView.image = UIImage(named: "120reo")
+        }
         cell.iconImageView.layer.cornerRadius = cell.iconImageView.bounds.width/2
-    
+        
         cell.userNameLabel.text = profiles[indexPath.row].userName
         cell.learnedNumberLabel.text = "学んだ単語数は\(String(profiles[indexPath.row].learnedNumber))"
         
@@ -197,7 +172,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             let flag = self.profiles[indexPath.row].likeFlagDic[refString]
             
             if flag! as! Bool == true{
-                //「いいね」にステータスを変える
+                //「いいね」画像にする
                 cell.likeBtn.setImage(UIImage(named: "like"), for: .normal)
             }else{
                 //「いいね」したことあるけど今はnotいいねになっている）。つまり、likeFlagDicのidはfirestoreにのこったままである。
@@ -212,8 +187,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     @objc func like(_ sender:UIButton){
         //押されたボタンの情報が入ってくる（引数として）
         
-        //値を送信
-        
+        //値を送信するため
         var count = Int()
         //senderはlikeBtnのこと。どのユーザーにいいねするか判別するための処理。
         let flag = self.profiles[sender.tag].likeFlagDic[refString]
@@ -251,7 +225,7 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         //振動させる
         if #available(iOS 10.0, *), let generator = feedbackGenerator as? UIImpactFeedbackGenerator {
-                    generator.impactOccurred()
+            generator.impactOccurred()
         }
         
         
@@ -275,50 +249,41 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     @IBAction func userNameLabelTapped(_ sender: Any) {
         if Auth.auth().currentUser?.uid != nil{
-        performSegue(withIdentifier: "newUserName", sender: nil)
+            performSegue(withIdentifier: "newUserName", sender: nil)
         }
     }
-    
-    
     
     
 
     //ユーザー名とアイコンの画像URLを取ってくる
     func loadFromFireStore(){
-
+        
         //addSnapshotListenerは「変化があったもの」をとってきてる
-
         db.collection("Profile").addSnapshotListener{ (snapShot, error) in
-
+            
             //毎回同じデータが増え続けるのを防ぐために一度配列を空にする
             self.profiles = []
             
             if error != nil{
-
+                
                 print(error.debugDescription)
                 return
             }
-
+            
             //すべてのdocumentが「snapShot?.documents」で取得できてる。その一つ一つのdocumentをまとめて全部snapShotDocという定数にいれてる。
             if let snapShotDoc = snapShot?.documents{
-
+                
                 //snapShotDocの中身を一つ一つ見るためにdocへfor文で入れてる。
                 for doc in snapShotDoc{
-
+                    
                     //docの中にあるdataを定数に入れてる。
                     let data = doc.data()
                     //空じゃないなら、定数に入れる。
                     if let userName = data["userName"] as? String, let imageString = data["imageString"] as? String, let learnedNumber = data["learnedNumber"] as? Int, let likeCount = data["like"] as? Int, let likeFlagDic = data["likeFlagDic"] as? Dictionary<String, Bool>, let uidString = data["uid"] as? String, let refString = data["refString"] as? String{
-
-//                        //最初の最初は空っぽなのでこの処理してる
-//                        if likeFlagDic["\(doc.documentID)"] != nil{
-                        //配列に入れる準備(key-value型)
-//                        let profile = ProfileModel(userName: userName, imageString: imageString, learnedNumber: learnedNumber, likeCount: likeCount, likeFlagDic: likeFlagDic, docID: doc.documentID)
+                        
                         let profile = ProfileModel(userName: userName, imageString: imageString, learnedNumber: learnedNumber, likeCount: likeCount, likeFlagDic: likeFlagDic, uidString: uidString, refString: refString, docID: doc.documentID)
-                    
-                            self.profiles.append(profile)
-                            
-//                        }
+                        
+                        self.profiles.append(profile)
                         
                         self.tableView.reloadData()
                     }
@@ -326,29 +291,29 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             }
         }
     }
-   
+    
     
     //これはいけるやつ（基本の練習用）
-//    func loadUserName(){
-//
-//        //firestoreからユーザー名とってくる
-//        db1.getDocument { (snapShot, error) in
-//
-//            if error != nil{
-//                print(error.debugDescription)
-//                return
-//            }
-//
-//            //dataメソッドはドキュメントの中のdata全体を取ってきている。
-//            let data = snapShot?.data()
-//            self.userNameLabel.text = data!["userName"] as! String
-//
-//        }
-//
-//    }
+    //    func loadUserName(){
+    //
+    //        //firestoreからユーザー名とってくる
+    //        db1.getDocument { (snapShot, error) in
+    //
+    //            if error != nil{
+    //                print(error.debugDescription)
+    //                return
+    //            }
+    //
+    //            //dataメソッドはドキュメントの中のdata全体を取ってきている。
+    //            let data = snapShot?.data()
+    //            self.userNameLabel.text = data!["userName"] as! String
+    //
+    //        }
+    //
+    //    }
     
-
-
+    
+    
     func showUserInformationFromFireStore(){
         
         //ユーザーカードにfirestoreから取ってきたユーザー情報を表示する(変更をすぐ反映したいからaddSnapshotを使う）
@@ -367,8 +332,8 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                 self.profileUserNameLabel.text = data!["userName"] as! String
                 self.profileImageView.sd_setImage(with: URL(string: data!["imageString"] as! String), placeholderImage: UIImage(named: "120reo"), completed: nil)
                 self.likeCountLabel.text = String(data!["like"] as! Int)
-//                self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.width/2
-
+                //                self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.width/2
+                
             }
             
             //ログイン中は、これらを非表示
@@ -376,12 +341,6 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             loginBtn.isHidden = true
             accountAskLabel.isHidden = true
             registerBtn.isHidden = true
-            
-//            //代わりに上部にラベルを表示
-//            profileLabel.frame = CGRect(x: view.bounds.width/20, y: view.bounds.height/11, width: otherUsersLabel.bounds.width, height: otherUsersLabel.bounds.height)
-//            profileLabel.text = "プロフィール"
-//            profileLabel.font =  UIFont.boldSystemFont(ofSize: 26)
-//            scrollView.addSubview(profileLabel)
             
         }
     }
@@ -399,7 +358,6 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             tableView.reloadData()
             
             likeCountLabel.text = "0"
-            
             loginBtn.isHidden = false
             accountAskLabel.isHidden = false
             registerBtn.isHidden = false
@@ -417,34 +375,36 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         scrollView.setContentOffset(.zero, animated: true)
     }
     
+    
+    
     //以下、アイコン設定関連
     //アラートを出す
-     func showAlert(){
-         
-         let alertController = UIAlertController(title: "選択", message: "どちらの方法で画像を追加しますか", preferredStyle: .actionSheet)
-  
-         let action1 = UIAlertAction(title: "カメラ", style: .default) { (alert) in
-             
-             self.doCamera()
-             
-         }
-         
-         let action2 = UIAlertAction(title: "アルバム", style: .default) { (alert) in
-             
-             self.doAlubm()
-             
-         }
-         
-         let action3 = UIAlertAction(title: "キャンセル", style: .cancel)
-
-         alertController.addAction(action1)
-         alertController.addAction(action2)
-         alertController.addAction(action3)
-         
-         self.present(alertController, animated: true, completion: nil)
-     }
- 
- //カメラ立ち上げメソッド
+    func showAlert(){
+        
+        let alertController = UIAlertController(title: "選択", message: "どちらの方法で画像を追加しますか", preferredStyle: .actionSheet)
+        
+        let action1 = UIAlertAction(title: "カメラ", style: .default) { (alert) in
+            
+            self.doCamera()
+            
+        }
+        
+        let action2 = UIAlertAction(title: "アルバム", style: .default) { (alert) in
+            
+            self.doAlubm()
+            
+        }
+        
+        let action3 = UIAlertAction(title: "キャンセル", style: .cancel)
+        
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        alertController.addAction(action3)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    //カメラ立ち上げメソッド
     func doCamera(){
         
         let sourceType:UIImagePickerController.SourceType = .camera
@@ -475,39 +435,30 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             self.present(cameraPicker, animated: true, completion: nil)
         }
     }
- 
- //カメラやアルバムで選択された画像のデータを受けとる
- func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-     
-     if info[.originalImage] as? UIImage != nil{
-         
-//         let selectedImage = info[.originalImage] as! UIImage
-        let selectedImage = info[.editedImage] as! UIImage
-         
-//         //画像を圧縮
-//         UserDefaults.standard.set(selectedImage.jpegData(compressionQuality: 0.1), forKey: "profileIconImage")
-         
-         profileImageView.image = selectedImage
+    
+    //カメラやアルバムで選択された画像のデータを受けとる
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        //dataBaseに画像データを送り、返ってきたURLをfireStoreへ送信する
-        sendProfileImageDataAndToFireStore()
+        if info[.originalImage] as? UIImage != nil{
+            
+            //         let selectedImage = info[.originalImage] as! UIImage
+            let selectedImage = info[.editedImage] as! UIImage
+                  
+            profileImageView.image = selectedImage
+            
+            //dataBaseに画像データを送り、返ってきたURLをfireStoreへ送信する
+            sendProfileImageDataAndToFireStore()
+            
+            //ピッカーを閉じる
+            picker.dismiss(animated: true, completion: nil)
+        }
         
-//        //ドキュメントの中身を一部更新する
-//        db.collection("Profile").document(refString).updateData(["imageString" : imageString]) { (error) in
-//            print(error.debugDescription)
-//            return
-//        }
-        
-         //ピッカーを閉じる
-         picker.dismiss(animated: true, completion: nil)
-     }
-     
- }
- 
- //キャンセルが押された時の処理
- func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-     picker.dismiss(animated: true, completion: nil)
- }
+    }
+    
+    //キャンセルが押された時の処理
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
     
     //firebaseStorageへ画像データを送信。そして画像が保存されているURLをもらう。このURLは他のとこでfirestoreに送信する。このURLをもとに後で画像を表示する。（SDsetImage)
     func sendProfileImageDataAndToFireStore(){
@@ -521,11 +472,11 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         imageRef.putData(profileImageData!, metadata:nil) { (metaData, error) in
             
             if error != nil{
-            
+                
                 print(error.debugDescription)
                 return
             }
-        //firebaseStorageから、画像が保存されているURLを取ってきてる。（そのURLを後でfirestoreに送信する。）
+            //firebaseStorageから、画像が保存されているURLを取ってきてる。（そのURLを後でfirestoreに送信する。）
             imageRef.downloadURL { [self] (url, error) in
                 if error != nil{
                     print(error.debugDescription)
@@ -539,13 +490,13 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                     print(error.debugDescription)
                     return
                 }
-               
+                
             }
         }
     }
     
     
- 
+    
     
     
     

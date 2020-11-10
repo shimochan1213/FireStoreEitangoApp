@@ -24,7 +24,6 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
     var correctCount = 0
     var incorrectCount = 0
     
-    
     var noun0:[Int] = []
     var noun1:[Int] = []
     var noun2:[Int] = []
@@ -34,7 +33,7 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
     var materialList = MaterialList()
     let soundFile = SoundFile()
     let backToHomeBtn = UIButton()
-   
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var correctRateLabel: UILabel!
     @IBOutlet weak var ichiranLabel: UILabel!
@@ -49,7 +48,6 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
         if receivedIncorrectNumberArray.isEmpty == true{
             var animationView = AnimationView()
             animationView = .init(name: "congrats")
-//            animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
             animationView.frame = view.bounds
             animationView.contentMode = .scaleAspectFit
             animationView.loopMode = .loop
@@ -62,17 +60,16 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
             ichiranLabel.isHidden = true
             tableView.removeFromSuperview()
             
-//            let backToHomeBtn = UIButton()
             //画面中央におきたいのであれば「(画面幅 - オブジェクトの幅)/2」の値を、オブジェクトの表示位置(X軸、左上)として設定すればよい、
             backToHomeBtn.frame = CGRect(x: (view.bounds.width - view.bounds.width * 3/4)/2, y: view.bounds.height * 3/4, width: view.bounds.width * 3/4, height: view.bounds.height/7)
             backToHomeBtn.setTitle("素晴らしい！引き続き頑張りましょう！", for: UIControl.State.normal)
             backToHomeBtn.backgroundColor = .orange
-            //文字を可変に
+            //文字（ラベル）を可変に
             backToHomeBtn.titleLabel?.adjustsFontSizeToFitWidth = true
             backToHomeBtn.titleLabel?.font =  UIFont.boldSystemFont(ofSize: 22)
             backToHomeBtn.layer.cornerRadius = 10
             
-            //materia design風の影の付け方の基本
+            //material design風の影の付け方の基本
             backToHomeBtn.layer.cornerRadius = 10.0
             backToHomeBtn.layer.shadowColor = UIColor.black.cgColor
             backToHomeBtn.layer.shadowRadius = 1
@@ -83,6 +80,7 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
             self.backToHomeBtn.addTarget(self,action: #selector(self.buttonTapped(_ :)),for: .touchUpInside)
             
             view.addSubview(backToHomeBtn)
+            
         }else{
             
             correctRateLabel.text = "正解数:\(correctCount)　不正解数:\(incorrectCount)　正解率は\(Int(correctCount * 100 / (correctCount + incorrectCount) ) )％です"
@@ -125,7 +123,7 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
- 
+        
         let imageView = cell.viewWithTag(1) as! UIImageView
         imageView.layer.cornerRadius = 10
         let wordLabel = cell.viewWithTag(2) as! UILabel
@@ -153,7 +151,7 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         
         return cell
- }
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.bounds.height * 2/7
@@ -176,7 +174,7 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.speechSynthesizer.speak(utterance)
     }
     
-
+    
     
     
     @IBAction func closeBtn(_ sender: Any) {
@@ -184,5 +182,5 @@ class ResultViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-
+    
 }

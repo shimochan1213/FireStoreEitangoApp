@@ -178,14 +178,14 @@
 		B171294A25333B92003DCDF7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B19E0D66254AA95B0057B500 /* Learning */,
-				B167D0B3252F447300D31AFF /* ViewController.swift */,
 				B1482F4A253497AF00CC0C6B /* HomeViewController.swift */,
 				B1F726A42547FE4300A6EFDE /* WebViewController.swift */,
+				B19E0D66254AA95B0057B500 /* Learning */,
+				B167D0C5252F65C000D31AFF /* OthersViewController.swift */,
 				B171294825333B8E003DCDF7 /* RegisterViewController.swift */,
 				B171294625332D5F003DCDF7 /* LoginViewController.swift */,
-				B167D0C5252F65C000D31AFF /* OthersViewController.swift */,
 				B19E0D68254AB9730057B500 /* EditUserNameViewController.swift */,
+				B167D0B3252F447300D31AFF /* ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

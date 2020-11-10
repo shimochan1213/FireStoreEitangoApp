@@ -17,7 +17,7 @@ import FirebaseFirestore
 import Lottie
 
 class ManabuViewController: UIViewController {
-
+    
     @IBOutlet weak var numberLabel: UILabel!
     // AVSpeechSynthesizerをクラス変数で保持しておく、インスタンス変数だと読み上げるまえに破棄されてしまう
     var speechSynthesizer : AVSpeechSynthesizer!
@@ -46,7 +46,13 @@ class ManabuViewController: UIViewController {
         
         //初回のみ表示
         if UserDefaults.standard.object(forKey: "visited") == nil{
-        showHowToSwipe()
+            showHowToSwipe()
+        }
+        
+        //firestoreの、自分のドキュメントIDをロード
+        if UserDefaults.standard.object(forKey: "refString") != nil{
+            refString = UserDefaults.standard.object(forKey: "refString") as! String
+            
         }
         
         //これまで学んだ単語数をfirestoreから引っ張ってくる
@@ -80,8 +86,8 @@ class ManabuViewController: UIViewController {
             wordCount = 60
         case 4:
             wordCount = 80
-//        case 5:
-//            wordCount = 100
+        //        case 5:
+        //            wordCount = 100
         default:
             return
         }
@@ -105,7 +111,7 @@ class ManabuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        //firestoreの、自分のドキュメントIDをロード
+        //firestoreの、自分のドキュメントIDをロード（didloadに書いたから消して良いと思う）。
         if UserDefaults.standard.object(forKey: "refString") != nil{
             refString = UserDefaults.standard.object(forKey: "refString") as! String
             
@@ -115,48 +121,42 @@ class ManabuViewController: UIViewController {
         
     }
     
-
-   //検索ワードの値を元に画像を引っ張ってくる
-      //pixabay.com
-      func getImages(keyword:String){
-          //APIKEY 16306601-72effe1bbc4631fe8092700f6
-          let url = "https://pixabay.com/api/?key=16306601-72effe1bbc4631fe8092700f6&q=\(keyword)"
-          
-          //Alamofireを使ってhttpリクエストを投げる。値が返ってくる。
+    
+    //検索ワードの値を元に画像を引っ張ってくる
+    //pixabay.com
+    func getImages(keyword:String){
+        //APIKEY 16306601-72effe1bbc4631fe8092700f6
+        let url = "https://pixabay.com/api/?key=16306601-72effe1bbc4631fe8092700f6&q=\(keyword)"
+        
+        //Alamofireを使ってhttpリクエストを投げる。値が返ってくる。
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON{ [self](response) in
-              
-              switch response.result{
-                  
-              case .success:
-                  //データを取得
-                  let json:JSON = JSON(response.data as Any)
-                  //外部サイトの、Lists配列の中にある画像が存在するURLをとってきて定数に入れる
-                  var imageString = json["hits"][0]["webformatURL"].string
-                  
-                  //用意されている画像数を越えないように画像がなくなったらカウントをリセット
-                  if imageString == nil {
-                      
-//                      imageString = json["hits"][0]["webformatURL"].string
-//
-//                      self.manabuImageView.sd_setImage(with: URL(string:imageString!), completed: nil)
-                    
+            
+            switch response.result{
+            
+            case .success:
+                //データを取得
+                let json:JSON = JSON(response.data as Any)
+                //外部サイトの、Lists配列の中にある画像が存在するURLをとってきて定数に入れる
+                var imageString = json["hits"][0]["webformatURL"].string
+                
+                if imageString == nil {
                     //画像がないなら「画像ない」画像を表示
                     manabuImageView.image = UIImage(named: "120reo")
                     
                     return
-                      
-                  }else{
-                      //maanbuImageViewに反映してる
-//                      self.manabuImageView.sd_setImage(with: URL(string:imageString!), completed: nil)
+                    
+                }else{
+                    //maanbuImageViewに反映してる
+                    //                      self.manabuImageView.sd_setImage(with: URL(string:imageString!), completed: nil)
                     self.manabuImageView.sd_setImage(with: URL(string:imageString!), placeholderImage: UIImage(named: "loading"), completed: nil)
-                  }
-                  
-              case .failure(let error):
-                  print(error)
-                  
-              }
-          }
-      }
+                }
+                
+            case .failure(let error):
+                print(error)
+                
+            }
+        }
+    }
     
     
     @IBAction func playSound(_ sender: Any) {
@@ -180,7 +180,7 @@ class ManabuViewController: UIViewController {
     
     @IBAction func nextWord(_ sender: Any) {
         NEXTWORD()
-
+        
     }
     
     @IBAction func beforeWord(_ sender: Any) {
@@ -188,35 +188,26 @@ class ManabuViewController: UIViewController {
     }
     
     
-    @IBAction func karinoButton(_ sender: Any) {
-        //学んだ単語数をfirestoreに送信する練習
-        
-        //ドキュメントの中身を一部更新する
-        db.collection("Profile").document(refString).updateData(["learnedNumber" : 400]) { (error) in
-            print(error.debugDescription)
-            return
-        }
-    }
+//    @IBAction func karinoButton(_ sender: Any) {
+//        //学んだ単語数をfirestoreに送信する練習
+//        //ドキュメントの中身を一部更新する
+//        db.collection("Profile").document(refString).updateData(["learnedNumber" : 400]) { (error) in
+//            print(error.debugDescription)
+//            return
+//        }
+//    }
     
     func endLearning(){
-        
-        
         //ログイン済みであれば学んだ単語数をfirestoreに送信する
-         if Auth.auth().currentUser?.uid != nil{         
+        if Auth.auth().currentUser?.uid != nil{
             //学んだ単語数をfirestoreに送信する
             //ドキュメントの中身を一部更新する
             db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
                 print(error.debugDescription)
                 return
             }
-             
-         }
-//        //学んだ単語数をfirestoreに送信する
-//        //ドキュメントの中身を一部更新する
-//        db.collection("Profile").document(refString).updateData(["learnedNumber" : learnedNumber + 20]) { (error) in
-//            print(error.debugDescription)
-//            return
-//        }
+            
+        }
         
         dismiss(animated: true, completion: nil)
     }
@@ -226,13 +217,6 @@ class ManabuViewController: UIViewController {
         case 0:
             if wordCount == 19{
                 //終了
-                //学んだ単語数をfirestoreに送信する練習
-                //ドキュメントの中身を一部更新する
-//                db.collection("Profile").document(refString).updateData(["learnedNumber" : 400]) { (error) in
-//                    print(error.debugDescription)
-//                    return
-//                }
-//                dismiss(animated: true, completion: nil)
                 endLearning()
             }
         case 1:
@@ -254,9 +238,7 @@ class ManabuViewController: UIViewController {
         default:
             break
         }
-        
-        
-        //範囲のコード後で追加（落ちないように）
+
         wordCount += 1
         getImages(keyword: materialList.TOEIC600NounList[wordCount].Words)
         wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
@@ -281,7 +263,7 @@ class ManabuViewController: UIViewController {
     
     
     @IBAction func swiped(_ sender: Any) {
-//        //右へのスワイプ
+        //        //右へのスワイプ
         BEFOREWORD()
     }
     
@@ -292,22 +274,22 @@ class ManabuViewController: UIViewController {
     }
     
     func showHowToSwipe(){
-       //スワイプで単語をめくれることを伝える
+        //スワイプで単語をめくれることを伝える
         
-//        var animationView = AnimationView()
+        //        var animationView = AnimationView()
         animationView = .init(name: "swipe")
-            animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
-//        animationView.frame = view.bounds
+        animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
+        //        animationView.frame = view.bounds
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop
         animationView.animationSpeed = 1
         view.addSubview(animationView)
         animationView.play()
-      
+        
         
         UserDefaults.standard.set(true, forKey: "visited")
     }
     
     
-
+    
 }

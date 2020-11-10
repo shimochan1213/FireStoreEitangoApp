@@ -15,27 +15,26 @@ class WebViewController:UINavigationController,WKUIDelegate,UINavigationControll
     var urlString = String()
     
     var closeBtn: UIBarButtonItem!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         webView.frame = CGRect(x: 0, y: navigationBar.bounds.height + 5, width: view.frame.size.width, height: view.frame.size.height - 50)
         view.addSubview(webView)
         
         self.setNavigationBar()
-      
         
-//        if UserDefaults.standard.object(forKey: "url") != nil{
-//            urlString = UserDefaults.standard.object(forKey: "url") as! String
-//            print("ここに\(urlString)")
-//        }
         
-//        let url = URL(string: urlString)
+        //        if UserDefaults.standard.object(forKey: "url") != nil{
+        //            urlString = UserDefaults.standard.object(forKey: "url") as! String
+        //            print("ここに\(urlString)")
+        //        }
+        
+        //        let url = URL(string: urlString)
         
         let urlString = UserDefaults.standard.object(forKey: "url")
         
         let url = URL(string: urlString! as! String)
-//        let url = URL(string: "https://www.yahoo.co.jp/")
         let request = URLRequest(url: url!)
         webView.load(request)
         
@@ -51,10 +50,10 @@ class WebViewController:UINavigationController,WKUIDelegate,UINavigationControll
         navBar.setItems([navItem], animated: false)
         self.view.addSubview(navBar)
     }
-
+    
     @objc func close() {
-      dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-
+    
 }

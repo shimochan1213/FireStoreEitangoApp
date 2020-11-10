@@ -17,20 +17,15 @@ import Firebase
 import FirebaseFirestore
 
 class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
-
+    
     // AVSpeechSynthesizerをクラス変数で保持しておく、インスタンス変数だと読み上げるまえに破棄されてしまう
     var speechSynthesizer : AVSpeechSynthesizer!
-
     @IBOutlet weak var wordLabel: UILabel!
-  
     @IBOutlet weak var jpnWordLabel: UILabel!
-    
     @IBOutlet weak var selec1: UIButton!
     @IBOutlet weak var selec2: UIButton!
     @IBOutlet weak var selec3: UIButton!
     @IBOutlet weak var selec4: UIButton!
-//    @IBOutlet weak var nextQuesBtn: UIButton!
-    
     @IBOutlet weak var quesNumberLabel: UILabel!
     
     var correctCount = 0
@@ -53,7 +48,7 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
     
     var tapGesture: UITapGestureRecognizer!
     var tapOK:Bool = false
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,18 +77,6 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         // ジェスチャーの生成
         tapGesture = UITapGestureRecognizer(target:self,action: #selector(TestViewController.tap))
         view.addGestureRecognizer(tapGesture)
-                
-
-        //アニメーション練習
-//        var animationView = AnimationView()
-//        animationView = .init(name: "success")
-////                 animationView.frame = view.bounds
-//        animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
-//        animationView.contentMode = .scaleAspectFit
-//        animationView.loopMode = .playOnce
-//        animationView.animationSpeed = 2
-//        view.addSubview(animationView)
-//        animationView.play()
         
         //単語の範囲を指定
         switch receivedCellNumber {
@@ -107,33 +90,33 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
             wordCount = 60
         case 4:
             wordCount = 80
-//        case 5:
-//            wordCount = 100
+        //        case 5:
+        //            wordCount = 100
         default:
             return
         }
-    
+        
         quesNumberLabel.text = "\(wordCount % 20 + 1) /20"
         wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
         soundYomiage()
         showRandomSelection()
         
-//        nextQuesBtn.isEnabled = false
-
+        //        nextQuesBtn.isEnabled = false
+        
     }
     
-//    // ジェスチャーイベント処理
+    // ジェスチャーイベント処理
     @objc func tap(_ sender: UITapGestureRecognizer) {
-//        print("Tap")
+        //        print("Tap")
         //回答されていたら
         if tapOK == true{
-        nextQuestionMethod()
+            nextQuestionMethod()
         }
         
         //未回答なら何もしない
-     }
-
-
+    }
+    
+    
     
     @IBAction func yomiageBtn(_ sender: Any) {
         soundYomiage()
@@ -151,11 +134,6 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         self.speechSynthesizer.speak(utterance)
     }
     
-    
-//    @IBAction func nextQuestion(_ sender: Any) {
-//        nextQuestionMethod()
-//    }
-
     
     @IBAction func answer(_ sender: UIButton) {
         switch sender.tag {
@@ -198,10 +176,10 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         //正解表示
         jpnWordLabel.text = materialList.TOEIC600NounList[wordCount].japanWords
         
-//        //解答後、初めてタップを有効にする
+        //解答後、初めてタップを有効にする
         tapOK = true
         
-//        nextQuesBtn.isEnabled = true
+        //        nextQuesBtn.isEnabled = true
         
         //ボタン何回も押してアニメバグらないように
         selec1.isEnabled = false
@@ -210,38 +188,26 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         selec4.isEnabled = false
         
         if UserDefaults.standard.object(forKey: "visitedTest") == nil{
-        //初回起動のみ、タップで次の問題いけるチュートリアル出す
-        animation2View = .init(name: "tap")
-        animation2View.frame = CGRect(x: view.bounds.width/2, y: view.bounds.height * 2/3, width: view.bounds.width/3, height: view.bounds.height/3)
-        animation2View.contentMode = .scaleAspectFit
-        animation2View.loopMode = .loop
-        animation2View.animationSpeed = 2
-        view.addSubview(animation2View)
-        animation2View.play()
+            //初回起動のみ、タップで次の問題いけるチュートリアル出す
+            animation2View = .init(name: "tap")
+            animation2View.frame = CGRect(x: view.bounds.width/2, y: view.bounds.height * 2/3, width: view.bounds.width/3, height: view.bounds.height/3)
+            animation2View.contentMode = .scaleAspectFit
+            animation2View.loopMode = .loop
+            animation2View.animationSpeed = 2
+            view.addSubview(animation2View)
+            animation2View.play()
         }
         
-       
-        
-
-     
-
-        
     }
-
+    
     
     func showRandomSelection(){
         
         //回答する前にタップで次の問題いかないように
-       tapOK = false
-        
-        
-        //正解選択肢を4つのうち何処かに配置し、残りの選択肢をランダムに表示（一つランダム数字を呼んで、そこからプラス1ずつしてけば同じ選択肢でないのでは？
-        
+        tapOK = false
         
         //正解選択肢を置く場所を決める
-//        var whereIsCorrectSelection = Int()
         whereIsCorrectSelection = Int(arc4random_uniform(UInt32(4)))
-//        print(whereIsCorrectSelection)
         
         //ダミー選択肢を表示させるために被りのない数字を生成する
         var damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
@@ -249,9 +215,9 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         var damiNumber3 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
         
         if damiNumber1 == wordCount || damiNumber1 == damiNumber2 || damiNumber1 == damiNumber3 || damiNumber2 == damiNumber3{
-           damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
-           damiNumber2 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
-           damiNumber3 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+            damiNumber1 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+            damiNumber2 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
+            damiNumber3 = Int(arc4random_uniform(UInt32(materialList.TOEIC600NounList.count)))
         }else if damiNumber1 == wordCount || damiNumber1 == damiNumber2 || damiNumber1 == damiNumber3 || damiNumber2 == damiNumber3{
             //それでもダメならこれらを表示
             damiNumber1 = 25
@@ -259,19 +225,19 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
             damiNumber3 = 90
         }
         
-//        print(damiNumber1,damiNumber2,damiNumber3)
+        //        print(damiNumber1,damiNumber2,damiNumber3)
         
         switch whereIsCorrectSelection {
         case 0:
             //正解を一番上に表示
             selec1.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
-            //その他選択肢を表示（現在のwordCountを基準として、2で割ったり数を足していくことにする）
+            //その他選択肢を表示
             selec2.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
             selec3.setTitle(materialList.TOEIC600NounList[damiNumber2].japanWords, for: UIControl.State.normal)
             selec4.setTitle(materialList.TOEIC600NounList[damiNumber3].japanWords, for: UIControl.State.normal)
-           
+            
         case 1:
-        //正解を2番目に表示
+            //正解を2番目に表示
             selec2.setTitle(materialList.TOEIC600NounList[wordCount].japanWords, for: UIControl.State.normal)
             //その他選択肢を表示
             selec1.setTitle(materialList.TOEIC600NounList[damiNumber1].japanWords, for: UIControl.State.normal)
@@ -301,25 +267,22 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         
         //初回のみタップのチュートリアルでてるので消す
         if UserDefaults.standard.object(forKey: "visitedTest") == nil{
-        animation2View.removeFromSuperview()
-        UserDefaults.standard.set(true, forKey: "visitedTest")
+            animation2View.removeFromSuperview()
+            UserDefaults.standard.set(true, forKey: "visitedTest")
         }
-       
         
-        //アニメ消す
+        
+        //正解不正解のアニメ消す
         animationView.removeFromSuperview()
         
         wordCount += 1
-//        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
+        //        wordLabel.text = materialList.TOEIC600NounList[wordCount].Words
         quesNumberLabel.text = "\(wordCount % 20 + 1) / 20"
-//        soundYomiage()
         jpnWordLabel.text = ""
-//        showRandomSelection()
         selec1.isEnabled = true
         selec2.isEnabled = true
         selec3.isEnabled = true
         selec4.isEnabled = true
-//        nextQuesBtn.isEnabled = false
         
         switch receivedCellNumber {
         case 0:
@@ -365,7 +328,7 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
                 showRandomSelection()
             }
         default:
-          break
+            break
         }
         
     }
@@ -393,7 +356,6 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         resultVC.receivedIncorrectNumberArray = incorrectArray
         //単語の範囲を渡す（復習用保存のため）
         resultVC.receivedCellNumber = receivedCellNumber
-        
         //正解数不正解数を渡す
         resultVC.correctCount = correctCount
         resultVC.incorrectCount = incorrectCount
@@ -410,8 +372,6 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         //日本語を黒色に
         jpnWordLabel.textColor = .black
         
-//        var animationView = AnimationView()
-        
         animationView = .init(name: "success")
         //         animationView.frame = view.bounds
         animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
@@ -421,14 +381,8 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         view.addSubview(animationView)
         animationView.play()
         
-//        tapGesture = UITapGestureRecognizer(target:self,action: #selector(TestViewController.tap))
-//        view.addGestureRecognizer(tapGesture)
-        
-        
-        
         //音ならす
         soundFile.playSound(fileName: "seikai", extensionName: "mp3")
-        
         correctCount += 1
     }
     
@@ -437,9 +391,7 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         //日本語を赤色に
         jpnWordLabel.textColor = .red
         
-//        var animationView = AnimationView()
         animationView = .init(name: "failure")
-        //         animationView.frame = view.bounds
         animationView.frame = CGRect(x: view.bounds.width/4, y: view.bounds.height/4, width: view.bounds.width/2, height: view.bounds.height/2)
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .playOnce
@@ -449,7 +401,6 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
         
         //音ならす
         soundFile.playSound(fileName: "fuseikai", extensionName: "mp3")
-        
         incorrectCount += 1
     }
     
@@ -459,5 +410,5 @@ class TestViewController: UIViewController,UIGestureRecognizerDelegate  {
     }
     
     
-
+    
 }

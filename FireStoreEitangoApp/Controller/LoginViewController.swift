@@ -18,7 +18,7 @@ extension Notification.Name {
 
 class LoginViewController: UIViewController,UITextFieldDelegate {
     
-
+    
     @IBOutlet weak var textFieldFloatingEmail: MDCTextField!
     @IBOutlet weak var textFieldFloatingPW: MDCTextField!
     
@@ -28,12 +28,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     let db = Firestore.firestore()
     var refString = String()
-//    //このユーザー専用のfirestore参照先(ドキュメントID)
-//    let profileRef = Firestore.firestore().collection("Profile").document()
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         textFieldFloatingEmail.delegate = self
         textFieldFloatingPW.delegate = self
@@ -54,19 +51,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         NotificationCenter.default.post(name: .notification, object: nil)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        if UserDefaults.standard.object(forKey: "refString") != nil{
-//
-//            refString = UserDefaults.standard.object(forKey: "refString") as! String
-//
-//        }else{
-//
-//            refString = db.collection("Answers").document().path
-//            print(refString)
-//            UserDefaults.standard.setValue(refString, forKey: "refString")
-//
-//        }
-//    }
     
     
     @IBAction func login(_ sender: Any) {
@@ -84,13 +68,13 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             }else{
                 
                 
-//                //練習
-//                //このユーザー専用のfirestore参照先(ドキュメントID)
-//                let profileRef = Firestore.firestore().collection("Profile").document()
-//                var refString = String()
-//                refString = profileRef.documentID
-//                UserDefaults.standard.setValue(refString, forKey: "refString")
-//                print("ログイン成功しただよ")
+                //                //練習
+                //                //このユーザー専用のfirestore参照先(ドキュメントID)
+                //                let profileRef = Firestore.firestore().collection("Profile").document()
+                //                var refString = String()
+                //                refString = profileRef.documentID
+                //                UserDefaults.standard.setValue(refString, forKey: "refString")
+                //                print("ログイン成功しただよ")
                 
                 //FSからドキュメント全部とる。そのドキュメントの中で、現在のuidと一致するものを取ってくる。そしてそのdocの中のrefStringを取ってきてuserDefaultに保存。otherViewControllerに戻った時にきちんとプロフィールのデータがロードされる。
                 self.db.collection("Profile").getDocuments { (snapShot, error) in
@@ -113,31 +97,22 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                 if uid == Auth.auth().currentUser!.uid{
                                     //ドキュメントの中のデータ中のrefStringを取ってきて、変数に入れてる
                                     self.refString = ref
-                                    
-//                                    self.refString = ref
                                     print(self.refString)
                                     //このユーザーのFireStore送信先を取ってこれたので保存する
                                     UserDefaults.standard.setValue(self.refString, forKey: "refString")
+                                }
                             }
-                          }
                             
                         }
                         
-                        
-                        
                     }
                 }
-                
-                
-                
-                
-                
                 
                 //アラート
                 let alertController = MDCAlertController(title: "ログイン成功", message: "さあ、はじめましょう！")
                 let action = MDCAlertAction(title:"OK"){(alert) in
                     self.dismiss(animated: true, completion: nil)
-
+                    
                 }
                 
                 alertController.addAction(action)
@@ -147,10 +122,10 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             
             //非同期処理(通信重たい時などのためにUIの処理だけ並行してやってしまう）
             DispatchQueue.main.async {
-    
+                
                 self.textFieldFloatingEmail.resignFirstResponder()
                 self.textFieldFloatingPW.resignFirstResponder()
-
+                
             }
             
             
@@ -159,10 +134,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     }
     
     
-    
-//    @IBAction func back(_ sender: Any) {
-//        self.navigationController?.dismiss(animated: true, completion: nil)
-//    }
     
     @IBAction func close(_ sender: Any) {
         dismiss(animated: true, completion: nil)

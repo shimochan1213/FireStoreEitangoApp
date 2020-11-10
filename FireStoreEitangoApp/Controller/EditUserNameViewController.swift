@@ -21,12 +21,12 @@ class EditUserNameViewController: UIViewController, UITextFieldDelegate {
     
     
     let db = Firestore.firestore()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         textFieldFloatingUserName.delegate = self
-
+        
         textFieldFloatingUserName.placeholder = "新しいユーザー名を入れてください"
         self.textControllerUserName = MDCTextInputControllerOutlined(textInput: textFieldFloatingUserName)
         
@@ -41,7 +41,7 @@ class EditUserNameViewController: UIViewController, UITextFieldDelegate {
         
     }
     
- 
+    
     
     @IBAction func dismiss(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -54,13 +54,13 @@ class EditUserNameViewController: UIViewController, UITextFieldDelegate {
         if let newUserName = textFieldFloatingUserName.text,!newUserName.isEmpty{
             db.collection("Profile").document(refString).updateData(["userName" : textFieldFloatingUserName.text!]) { (error) in
                 if error != nil{
-                print(error.debugDescription)
-                return
+                    print(error.debugDescription)
+                    return
                 }
                 
                 //非同期処理(通信重たい時などのためにUIの処理だけ並行してやってしまう）
                 DispatchQueue.main.async {
-                        
+                    
                     self.textFieldFloatingUserName.resignFirstResponder()
                 }
                 

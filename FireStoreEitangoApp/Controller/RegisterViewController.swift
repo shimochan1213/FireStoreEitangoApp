@@ -13,15 +13,6 @@ import FirebaseStorage
 import MaterialComponents.MaterialTextFields
 import SDWebImage
 
-//extension UIImage {
-//    //画像のデータサイズを変更するextension
-//    func resized(withPercentage percentage: CGFloat) -> UIImage? {
-//        let canvas = CGSize(width: size.width * percentage, height: size.height * percentage)
-//        return UIGraphicsImageRenderer(size: canvas, format: imageRendererFormat).image {
-//            _ in draw(in: CGRect(origin: .zero, size: canvas))
-//        }
-//    }
-//}
 extension Notification.Name {
     static let notificationFromRegister = Notification.Name("SettingsDone")
 }
@@ -30,7 +21,7 @@ extension Notification.Name {
 class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     
-   
+    
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var textFieldFloatingUserName: MDCTextField!
     @IBOutlet weak var textFieldFloatingEmail: MDCTextField!
@@ -41,38 +32,30 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     var textControllerPW: MDCTextInputControllerOutlined!
     
     //fireStoreにアクセスするため(firestoreから色々取ってきたり送ったりするため）
-    let db1 = Firestore.firestore().collection("Profile").document("KuzjYdPXAbyvlKMq1g1s")
-    
     let db = Firestore.firestore()
-    
-//    //このユーザー専用のfirestore参照先(ドキュメントID)
-//    let profileRef = Firestore.firestore().collection("Profile").document()
     
     let urlString = String()
     var imageString = String()
     //各ユーザのドキュメントidを保持するため
     var idString = String()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         //カメラ、アルバムを使用する旨を表示
-         let checkModel = CheckPermission()
+        let checkModel = CheckPermission()
         checkModel.showCheckPermission()
         
         textFieldFloatingUserName.delegate = self
         textFieldFloatingEmail.delegate = self
         textFieldFloatingPW.delegate = self
         
-        
-        
         registerBtn.layer.cornerRadius = 5
         
         textFieldFloatingUserName.placeholder = "ユーザー名"
         self.textControllerUserName = MDCTextInputControllerOutlined(textInput: textFieldFloatingUserName)
-    
+        
         textFieldFloatingEmail.placeholder = "メールアドレス"
         self.textControllerEmail = MDCTextInputControllerOutlined(textInput: textFieldFloatingEmail)
         
@@ -89,20 +72,6 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        
-
-//        if UserDefaults.standard.object(forKey: "documentID") != nil{
-//
-//            idString = UserDefaults.standard.object(forKey: "documentID") as! String
-//            print("ここ\(idString)")
-//
-//        }else{
-//
-//            idString = db.collection("Answers").document().path
-//            print("ここ\(idString)")
-//            UserDefaults.standard.setValue(idString, forKey: "documentID")
-//
-//        }
     }
     
     
@@ -127,43 +96,42 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                 alertController.addAction(action)
                 self.present(alertController, animated:true)
                 
-                //自分のプロフィール作成用にユーザー名とアイコンを保存
-                UserDefaults.standard.setValue(textFieldFloatingUserName.text, forKey: "profileUserName")
-                //userDefaultsはUIImage型は保存できないためdata型で保存
-                let data = iconImageView.image?.jpegData(compressionQuality: 0.1)
-                UserDefaults.standard.setValue(data, forKey: "profileIconImage")
+//                //自分のプロフィール作成用にユーザー名とアイコンを保存
+//                UserDefaults.standard.setValue(textFieldFloatingUserName.text, forKey: "profileUserName")
+//                //userDefaultsはUIImage型は保存できないためdata型で保存
+//                let data = iconImageView.image?.jpegData(compressionQuality: 0.1)
+//                UserDefaults.standard.setValue(data, forKey: "profileIconImage")
                 
                 //以下データベース関連
                 sendProfileImageData()
                 if let userName = textFieldFloatingUserName.text {
-                          
+                    
                     //新しいfirestoreのdocument送信先を保存するため、古い行き先は削除
                     if UserDefaults.standard.object(forKey: "refString") != nil{
-                UserDefaults.standard.removeObject(forKey: "refString")
+                        UserDefaults.standard.removeObject(forKey: "refString")
                     }
                     
                     //このユーザー専用のfirestore参照先(ドキュメントID)
                     var profileRef = Firestore.firestore().collection("Profile").document()
                     var refString = String()
+                    
+//                    refString = Firestore.firestore().collection("Profile").document().documentID
+                    
                     refString = profileRef.documentID
                     
                     
-                    
-                    //練習
                     var uidString = String()
                     uidString = Auth.auth().currentUser!.uid
                     
-                    
-                        
                     profileRef.setData(["userName":userName,"imageString":imageString, "learnedNumber": 0, "like":0, "likeFlagDic":[refString:false], "uid": uidString, "refString":refString] ) { (error) in
-                            if error != nil{
-                                print(error.debugDescription)
-                                return
-                            }
+                        if error != nil{
+                            print(error.debugDescription)
+                            return
+                        }
                         
                         //指定済みのdocumentにおけるIDを保存しておく（othersViewでデータ読み込むため）
                         UserDefaults.standard.setValue(refString, forKey: "refString")
-                        print("ふふ\(refString)")
+                        print("\(refString)")
                         
                         //非同期処理(通信重たい時などのためにUIの処理だけ並行してやってしまう）
                         DispatchQueue.main.async {
@@ -191,19 +159,19 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
         imageRef.putData(profileImageData!, metadata:nil) { (metaData, error) in
             
             if error != nil{
-            
+                
                 print(error.debugDescription)
                 return
             }
-        //firebaseStorageから、画像が保存されているURLを取ってきてる。（そのURLを後でfirestoreに送信する。）
+            //firebaseStorageから、画像が保存されているURLを取ってきてる。（そのURLを後でfirestoreに送信する。）
             imageRef.downloadURL { (url, error) in
                 if error != nil{
                     print(error.debugDescription)
                     return
                 }
-                print("ここにURL：\(url)")
+//                print("ここにURL：\(url)")
                 self.imageString = url!.absoluteString
-               
+                
             }
         }
     }
@@ -215,9 +183,9 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     
     
     override func didReceiveMemoryWarning() {
-           super.didReceiveMemoryWarning()
-       }
-       
+        super.didReceiveMemoryWarning()
+    }
+    
     //タッチでキーボ閉じる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         textFieldFloatingEmail.resignFirstResponder()
@@ -232,78 +200,69 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
         textFieldFloatingUserName.resignFirstResponder()
         return true
     }
-
     
-       //アラートを出す
-        func showAlert(){
-            
-            let alertController = UIAlertController(title: "選択", message: "どちらの方法で画像を追加しますか", preferredStyle: .actionSheet)
-            
-//            let alertController = MDCAlertController(title: "選択", message: "どの方法で画像を追加しますか？")
-            
-            let action1 = UIAlertAction(title: "カメラ", style: .default) { (alert) in
-                
-                self.doCamera()
-                
-            }
-            
-            let action2 = UIAlertAction(title: "アルバム", style: .default) { (alert) in
-                
-                self.doAlubm()
-                
-            }
-            
-            let action3 = UIAlertAction(title: "キャンセル", style: .cancel)
-
-            
-            alertController.addAction(action1)
-            alertController.addAction(action2)
-            alertController.addAction(action3)
-   
-            
-            self.present(alertController, animated: true, completion: nil)
+    
+    //アラートを出す
+    func showAlert(){
+        
+        let alertController = UIAlertController(title: "選択", message: "どちらの方法で画像を追加しますか", preferredStyle: .actionSheet)
+        let action1 = UIAlertAction(title: "カメラ", style: .default) { (alert) in
+            self.doCamera()
         }
+        
+        let action2 = UIAlertAction(title: "アルバム", style: .default) { (alert) in
+            self.doAlubm()
+        }
+        
+        let action3 = UIAlertAction(title: "キャンセル", style: .cancel)
+        
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        alertController.addAction(action3)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
     
     //カメラ立ち上げメソッド
-       func doCamera(){
-           
-           let sourceType:UIImagePickerController.SourceType = .camera
-           
-           //カメラ利用かチェック
-           if UIImagePickerController.isSourceTypeAvailable(.camera){
-               
-               let cameraPicker = UIImagePickerController()
-               cameraPicker.allowsEditing = true
-               cameraPicker.sourceType = sourceType
-               cameraPicker.delegate = self
-               self.present(cameraPicker, animated: true, completion: nil)
-           }
-       }
-       
-       //アルバム立ち上げメソッド
-       func doAlubm(){
-           
-           let sourceType:UIImagePickerController.SourceType = .photoLibrary
-           
-           //カメラ利用かチェック
-           if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-               
-               let cameraPicker = UIImagePickerController()
-               cameraPicker.allowsEditing = true
-               cameraPicker.sourceType = sourceType
-               cameraPicker.delegate = self
-               self.present(cameraPicker, animated: true, completion: nil)
-           }
-       }
+    func doCamera(){
+        
+        let sourceType:UIImagePickerController.SourceType = .camera
+        
+        //カメラ利用かチェック
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            
+            let cameraPicker = UIImagePickerController()
+            cameraPicker.allowsEditing = true
+            cameraPicker.sourceType = sourceType
+            cameraPicker.delegate = self
+            self.present(cameraPicker, animated: true, completion: nil)
+        }
+    }
+    
+    //アルバム立ち上げメソッド
+    func doAlubm(){
+        
+        let sourceType:UIImagePickerController.SourceType = .photoLibrary
+        
+        //カメラ利用かチェック
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            
+            let cameraPicker = UIImagePickerController()
+            cameraPicker.allowsEditing = true
+            cameraPicker.sourceType = sourceType
+            cameraPicker.delegate = self
+            self.present(cameraPicker, animated: true, completion: nil)
+        }
+    }
     
     //カメラやアルバムで選択された画像のデータを受けとる
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if info[.originalImage] as? UIImage != nil{
             
-//            let selectedImage = info[.originalImage] as! UIImage
+            //            let selectedImage = info[.originalImage] as! UIImage
             let selectedImage = info[.editedImage] as! UIImage
-            //画像を圧縮
+            //画像を圧縮（おそらくもういらない処理）
             UserDefaults.standard.set(selectedImage.jpegData(compressionQuality: 0.1), forKey: "userImage")
             
             iconImageView.image = selectedImage
@@ -330,5 +289,5 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     
     
     
-
+    
 }

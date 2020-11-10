@@ -12,8 +12,8 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
     
     
     @IBOutlet weak var collectionView: UICollectionView!
- 
-//    @IBOutlet weak var reviewCollectinView: UICollectionView!
+    
+    //    @IBOutlet weak var reviewCollectinView: UICollectionView!
     @IBOutlet weak var testCollectionView: UICollectionView!
     
     @IBOutlet weak var ReviewCollectionView: UICollectionView!
@@ -29,12 +29,10 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         super.viewDidLoad()
         
         //collectionViewプロトコルのメソッドを使えるようにする
-//        collectionView.dataSource = self
-//        collectionView.delegate = self
         
         learnCollectionView.dataSource = self
         learnCollectionView.delegate = self
-//
+    
         testCollectionView.dataSource = self
         testCollectionView.delegate = self
         
@@ -43,11 +41,11 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         
         
         
-//         //セル同士の間隔調整
-//        let layout = UICollectionViewFlowLayout()
-////        layout.minimumLineSpacing = 30
-//        layout.minimumInteritemSpacing = 30
-//        collectionView.collectionViewLayout = layout
+        //         //セル同士の間隔調整
+        //        let layout = UICollectionViewFlowLayout()
+        ////        layout.minimumLineSpacing = 30
+        //        layout.minimumInteritemSpacing = 30
+        //        collectionView.collectionViewLayout = layout
         
     }
     
@@ -67,30 +65,29 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
         var cellRadius:CGFloat = 30
         
         if collectionView.tag == 1{
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-//                cell.backgroundColor = .blue
-        
-        cell.layer.masksToBounds = false
-        // 影の方向（width=右方向、height=下方向、CGSize.zero=方向指定なし）
-        cell.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        // 影の色
-        cell.layer.shadowColor = UIColor.black.cgColor
-        // 影の濃さ
-        cell.layer.shadowOpacity = 0.05
-        // 影をぼかし
-        cell.layer.shadowRadius = 4
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+            //                cell.backgroundColor = .blue
             
+            cell.layer.masksToBounds = false
+            // 影の方向（width=右方向、height=下方向、CGSize.zero=方向指定なし）
+            cell.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+            // 影の色
+            cell.layer.shadowColor = UIColor.black.cgColor
+            // 影の濃さ
+            cell.layer.shadowOpacity = 0.05
+            // 影をぼかし
+            cell.layer.shadowRadius = 4
             cell.layer.cornerRadius = cellRadius
-        
-        let rangeLabel = cell.contentView.viewWithTag(1) as! UILabel
-        rangeLabel.text = ranges[indexPath.row]
             
-//            let rangeImage = cell.viewWithTag(2) as! UIImageView
-//            rangeImage.image = UIImage(named: "120reo")
-       
-    
-        return cell
-        
+            let rangeLabel = cell.contentView.viewWithTag(1) as! UILabel
+            rangeLabel.text = ranges[indexPath.row]
+            
+            //            let rangeImage = cell.viewWithTag(2) as! UIImageView
+            //            rangeImage.image = UIImage(named: "120reo")
+            
+            
+            return cell
+            
         }else if collectionView.tag == 2{
             //確認テスト用のcollectionView
             let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell2", for: indexPath)
@@ -100,7 +97,6 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
             cell2.layer.shadowColor = UIColor.black.cgColor
             cell2.layer.shadowOpacity = 0.05
             cell2.layer.shadowRadius = 4
-            
             cell2.layer.cornerRadius = cellRadius
             
             let reviewRangeLabel = cell2.contentView.viewWithTag(1) as! UILabel
@@ -117,7 +113,6 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
             cell3.layer.shadowColor = UIColor.black.cgColor
             cell3.layer.shadowOpacity = 0.05
             cell3.layer.shadowRadius = 4
-            
             cell3.layer.cornerRadius = cellRadius
             
             let reviewRangeLabel = cell3.contentView.viewWithTag(1) as! UILabel
@@ -127,14 +122,14 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
             
         }
         return UICollectionViewCell()
-        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-       
+        
         
         if collectionView.tag == 1{
-        let cellSize : CGFloat = self.view.bounds.width * 6/7
-        return CGSize(width: cellSize, height: self.view.bounds.height/5)
+            let cellSize : CGFloat = self.view.bounds.width * 6/7
+            return CGSize(width: cellSize, height: self.view.bounds.height/5)
         }else if collectionView.tag == 2{
             let cellSize : CGFloat = self.view.bounds.width * 6/7
             return CGSize(width: cellSize, height: self.view.bounds.height/5)
@@ -143,7 +138,7 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
             return CGSize(width: cellSize, height: self.view.bounds.height/5)
         }
         return CGSize(width: 100, height: 100)
-        }
+    }
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -173,7 +168,7 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         //単語の範囲を次の画面へ伝える（押されたセルを教えることで伝えてる
-    
+        
         if segue.identifier == "manabu"{
             let ManabuVC = segue.destination as! ManabuViewController
             ManabuVC.receivedCellNumber  = cellNumber
@@ -185,11 +180,11 @@ class PreManabuViewController: UIViewController,UICollectionViewDelegate,UIColle
             ReviewVC.receivedCellNumber = cellNumber
         }
     }
-
     
-
     
-   
+    
+    
+    
     
     
     
