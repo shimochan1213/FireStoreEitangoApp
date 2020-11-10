@@ -13,7 +13,7 @@ import Firebase
 import FirebaseFirestore
 
 extension Notification.Name {
-    static let notification = Notification.Name("SettingsDone")
+    static let notification = Notification.Name("SettingsDoneLogin")
 }
 
 class LoginViewController: UIViewController,UITextFieldDelegate {

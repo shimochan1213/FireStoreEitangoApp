@@ -92,19 +92,33 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         profileLabel.font =  UIFont.boldSystemFont(ofSize: 26)
         scrollView.addSubview(profileLabel)
         
+        
     }
     
     @objc func fromSub() {
+//        print("fromLoginView")
+//        profileLabel.isHidden = true
+        if Auth.auth().currentUser?.uid == nil{
+        profileLabel.isHidden = true
+        }else{
+            profileLabel.isHidden = false
+        }
         //プロフカード更新
         showUserInformationFromFireStore()
-        profileLabel.isHidden = false
         //いいねボタンが押せるようになったことを反映するため
         tableView.reloadData()
     }
+    
     @objc func fromRegister() {
+//        print("fromRegister")
+        if Auth.auth().currentUser?.uid == nil{
+        profileLabel.isHidden = true
+        }else{
+            profileLabel.isHidden = false
+        }
+        
         //プロフカード更新
         showUserInformationFromFireStore()
-        profileLabel.isHidden = false
     }
     
     
@@ -341,6 +355,8 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
             loginBtn.isHidden = true
             accountAskLabel.isHidden = true
             registerBtn.isHidden = true
+            
+           
             
         }
     }
