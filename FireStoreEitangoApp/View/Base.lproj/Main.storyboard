@@ -25,7 +25,7 @@
                                         <rect key="frame" x="-2" y="0.0" width="418" height="1165"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEC-Nk-z85">
-                                                <rect key="frame" x="37" y="1059" width="344" height="36"/>
+                                                <rect key="frame" x="80" y="1059" width="269" height="24"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                 <state key="normal" title="ログアウト"/>
                                                 <connections>
@@ -183,13 +183,13 @@
                                         <constraints>
                                             <constraint firstItem="6Kw-ir-lN3" firstAttribute="top" secondItem="Tx1-13-VKr" secondAttribute="top" constant="40" id="2t6-8W-rvJ"/>
                                             <constraint firstAttribute="trailing" secondItem="6Kw-ir-lN3" secondAttribute="trailing" constant="37" id="40T-dy-c3X"/>
-                                            <constraint firstAttribute="trailing" secondItem="VEC-Nk-z85" secondAttribute="trailing" constant="37" id="4P9-SA-ClP"/>
+                                            <constraint firstAttribute="trailing" secondItem="VEC-Nk-z85" secondAttribute="trailing" constant="69" id="4P9-SA-ClP"/>
                                             <constraint firstAttribute="trailing" secondItem="sxF-IA-AYU" secondAttribute="trailing" constant="25" id="84d-qY-LJL"/>
                                             <constraint firstItem="xrc-yq-L2A" firstAttribute="top" secondItem="6Kw-ir-lN3" secondAttribute="bottom" constant="8" id="8lb-oc-MGB"/>
                                             <constraint firstItem="VEC-Nk-z85" firstAttribute="top" secondItem="8tv-id-c7T" secondAttribute="bottom" constant="22" id="Gij-na-23n"/>
                                             <constraint firstItem="8tv-id-c7T" firstAttribute="top" secondItem="3fF-OI-Wwf" secondAttribute="bottom" constant="8" id="Jpv-sx-KaP"/>
                                             <constraint firstItem="xrc-yq-L2A" firstAttribute="leading" secondItem="Tx1-13-VKr" secondAttribute="leading" constant="43" id="ONu-88-mfE"/>
-                                            <constraint firstAttribute="bottom" secondItem="VEC-Nk-z85" secondAttribute="bottom" constant="70" id="Pmn-bJ-XOc"/>
+                                            <constraint firstAttribute="bottom" secondItem="VEC-Nk-z85" secondAttribute="bottom" constant="82" id="Pmn-bJ-XOc"/>
                                             <constraint firstAttribute="trailing" secondItem="8tv-id-c7T" secondAttribute="trailing" constant="25" id="aEZ-9k-MKb"/>
                                             <constraint firstAttribute="bottom" secondItem="sxF-IA-AYU" secondAttribute="bottom" constant="853" id="brR-Yg-WbI"/>
                                             <constraint firstAttribute="height" constant="1165" id="edI-YG-YxJ"/>
@@ -197,7 +197,7 @@
                                             <constraint firstItem="8tv-id-c7T" firstAttribute="leading" secondItem="Tx1-13-VKr" secondAttribute="leading" constant="25" id="i0r-Ht-L3f"/>
                                             <constraint firstAttribute="trailing" secondItem="3fF-OI-Wwf" secondAttribute="trailing" constant="82" id="nIG-oV-AJa"/>
                                             <constraint firstAttribute="trailing" secondItem="xrc-yq-L2A" secondAttribute="trailing" constant="31" id="qfG-6O-gJC"/>
-                                            <constraint firstItem="VEC-Nk-z85" firstAttribute="leading" secondItem="Tx1-13-VKr" secondAttribute="leading" constant="37" id="soH-ip-n6m"/>
+                                            <constraint firstItem="VEC-Nk-z85" firstAttribute="leading" secondItem="Tx1-13-VKr" secondAttribute="leading" constant="80" id="soH-ip-n6m"/>
                                             <constraint firstItem="sxF-IA-AYU" firstAttribute="top" secondItem="xrc-yq-L2A" secondAttribute="bottom" constant="1.5" id="srd-x3-jC1"/>
                                             <constraint firstItem="3fF-OI-Wwf" firstAttribute="top" secondItem="sxF-IA-AYU" secondAttribute="bottom" constant="27" id="uVJ-9h-cbQ"/>
                                             <constraint firstItem="sxF-IA-AYU" firstAttribute="top" secondItem="Tx1-13-VKr" secondAttribute="top" constant="117" id="uvm-lk-l5L"/>
