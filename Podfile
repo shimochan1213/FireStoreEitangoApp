@@ -25,6 +25,7 @@ target 'FireStoreEitangoApp' do
 	pod 'lottie-ios'
 	pod 'ChameleonFramework'
 
+
 	pod 'IQKeyboardManagerSwift'
 	pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git'
 
