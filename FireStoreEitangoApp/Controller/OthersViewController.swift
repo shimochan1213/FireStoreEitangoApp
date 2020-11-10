@@ -154,11 +154,12 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomCell
         
-        if Auth.auth().currentUser?.uid == nil{
-            cell.likeBtn.isEnabled = false
-        }else{
-            cell.likeBtn.isEnabled = true
-        }
+//        if Auth.auth().currentUser?.uid == nil{
+//            cell.likeBtn.setImage(UIImage(named: "noLike"), for: .normal)
+//            cell.likeBtn.isEnabled = false
+//        }else{
+//            cell.likeBtn.isEnabled = true
+//        }
         
         //新規登録時に画像を設定した人にはアイコン表示、してない人にはデフォルトアイコンを表示。
         if profiles[indexPath.row].imageString.isEmpty == false{
@@ -193,6 +194,15 @@ class OthersViewController: UIViewController,UITableViewDelegate,UITableViewData
                 cell.likeBtn.setImage(UIImage(named: "noLike"), for: .normal)
             }
         }
+        
+        
+        if Auth.auth().currentUser?.uid == nil{
+            cell.likeBtn.setImage(UIImage(named: "noLike"), for: .normal)
+            cell.likeBtn.isEnabled = false
+        }else{
+            cell.likeBtn.isEnabled = true
+        }
+
         
         
         return cell

@@ -39,6 +39,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
     //各ユーザのドキュメントidを保持するため
     var idString = String()
     
+//    var refString = String()
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,8 +104,11 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
 //                let data = iconImageView.image?.jpegData(compressionQuality: 0.1)
 //                UserDefaults.standard.setValue(data, forKey: "profileIconImage")
                 
-                //以下データベース関連
-                sendProfileImageData()
+//                //以下データベース関連
+//                sendProfileImageData()
+                
+                
+                
                 if let userName = textFieldFloatingUserName.text {
                     
                     //新しいfirestoreのdocument送信先を保存するため、古い行き先は削除
@@ -119,6 +124,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                     
                     refString = profileRef.documentID
                     
+                  
+                    
                     
                     var uidString = String()
                     uidString = Auth.auth().currentUser!.uid
@@ -132,6 +139,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                         //指定済みのdocumentにおけるIDを保存しておく（othersViewでデータ読み込むため）
                         UserDefaults.standard.setValue(refString, forKey: "refString")
                         print("\(refString)")
+                        
+                        sendProfileImageData()
                         
                         //非同期処理(通信重たい時などのためにUIの処理だけ並行してやってしまう）
                         DispatchQueue.main.async {
@@ -169,8 +178,22 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
                     print(error.debugDescription)
                     return
                 }
-//                print("ここにURL：\(url)")
+                print("ここにURL：\(url)")
                 self.imageString = url!.absoluteString
+                print("imageStringは\(self.imageString)")
+             
+                
+               
+                //以下、画像URLをFSへ送信する処理（ユーザー名などと比べ画像URLはURLの取得に時間がかかるからここで処理している）
+                var refStringForDatabase = String()
+                if UserDefaults.standard.object(forKey: "refString") != nil{
+                    refStringForDatabase = UserDefaults.standard.object(forKey: "refString") as! String
+                }
+                
+                self.db.collection("Profile").document(refStringForDatabase).updateData(["imageString" : self.imageString]) { (error) in
+                    print(error.debugDescription)
+                    return
+                }
                 
             }
         }
@@ -268,7 +291,9 @@ class RegisterViewController: UIViewController,UITextFieldDelegate,UIImagePicker
             iconImageView.image = selectedImage
             
             //storageに画像データを送信してURLを受け取っておく
-            sendProfileImageData()
+//            sendProfileImageData()
+            
+     
             
             //ピッカーを閉じる
             picker.dismiss(animated: true, completion: nil)
